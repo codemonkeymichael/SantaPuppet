@@ -121,30 +121,31 @@ namespace SantaPuppet
 
             for (int n = 0; n < r; n++)
             {
-                for (int i = 0; i < backLights.Count(); i++)
+                for (int i = 0; i < backLights.Count() - 1; i++)
                 {
                     controller.Write(backLights[i], PinValue.High);
-                    Console.WriteLine("Count" + (i + 4).ToString());
+                    Console.WriteLine("Count Left=" + i.ToString() + "  Count Right=" + (i + 4).ToString());
                     if (h) controller.Write(backLights[i + 4], PinValue.High); 
                     Thread.Sleep(s);
                     controller.Write(backLights[i], PinValue.Low);
                     if (h) controller.Write(backLights[i + 4], PinValue.Low);
-                    if (h && i + 4 > backLights.Count()) { break; Console.WriteLine("Break"); }
+                    if (h && i == 3) {  Console.WriteLine("Break"); break; }
                 }
-                //if (b)
-                //{
-                //    Array.Reverse(backLights);
-                //    for (int i = 0; i < backLights.Count(); i++)
-                //    {
-                //        controller.Write(backLights[i], PinValue.High);
-                //        if (h) controller.Write(backLights[i + 4], PinValue.High);
-                //        Thread.Sleep(s);
-                //        controller.Write(backLights[i], PinValue.Low);
-                //        if (h) controller.Write(backLights[i + 4], PinValue.Low);
-                //        if (h && i == 4) { break; Console.WriteLine("Break"); }
-                //    }
-                //    Array.Reverse(backLights);
-                //}
+                if (b)
+                {
+                    Array.Reverse(backLights);
+                    for (int i = 0; i < backLights.Count() - 1; i++)
+                    {
+                        controller.Write(backLights[i], PinValue.High);
+                        Console.WriteLine("Count Left=" + i.ToString() + "  Count Right=" + (i + 4).ToString());
+                        if (h) controller.Write(backLights[i + 4], PinValue.High);
+                        Thread.Sleep(s);
+                        controller.Write(backLights[i], PinValue.Low);
+                        if (h) controller.Write(backLights[i + 4], PinValue.Low);
+                        if (h && i == 3) { Console.WriteLine("Break"); break; }
+                    }
+                    Array.Reverse(backLights);
+                }
             }
         }
 

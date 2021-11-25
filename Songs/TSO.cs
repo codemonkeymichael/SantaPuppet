@@ -28,15 +28,15 @@ namespace SantaPuppet.Songs
 
             SceneModel sceneTest = new SceneModel();
             sceneTest.CueTime = 1000;
-            sceneTest.LightScene = () => lites.BackChaseOneOn(250, 2, true, true);
+            sceneTest.LightScene = () => lites.BackChaseOneOn(2000, 10, true, true);
             sceneTest.SceneName = "BackChaseOneOn";
             song.Scenes.Add(sceneTest);
 
-            SceneModel sceneTest2 = new SceneModel();
-            sceneTest2.CueTime = 5000;
-            sceneTest2.LightScene = () => lites.BackChaseOnChaseOff(250, 2, true);
-            sceneTest2.SceneName = "BackChaseOnChaseOff";
-            song.Scenes.Add(sceneTest2);
+            //SceneModel sceneTest2 = new SceneModel();
+            //sceneTest2.CueTime = 5000;
+            //sceneTest2.LightScene = () => lites.BackChaseOnChaseOff(250, 2, true);
+            //sceneTest2.SceneName = "BackChaseOnChaseOff";
+            //song.Scenes.Add(sceneTest2);
 
             //SceneModel scene0 = new SceneModel();
             //scene0.CueTime = 6172;
