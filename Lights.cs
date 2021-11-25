@@ -10,8 +10,7 @@ namespace SantaPuppet
 {
     public class Lights
     {
-        private static GpioController controller = new GpioController();
-        private static int[] allLights = new int[] { 5, 6, 7, 12, 13, 16, 20, 21 };
+        private static GpioController controller = new GpioController();      
         private static int keyLights = 18;
         private static int footLights = 19;
         private static int[] backLights = new int[] { 5, 6, 7, 12, 13, 16, 20, 21 };
@@ -33,7 +32,7 @@ namespace SantaPuppet
         public Lights()
         {
             Console.WriteLine("Lights Controller");
-            foreach (int light in allLights)
+            foreach (int light in backLights)
             {
                 controller.OpenPin(light, PinMode.Output);
             }
@@ -58,7 +57,7 @@ namespace SantaPuppet
 
         public void BLackOut()
         {
-            foreach (int light in allLights)
+            foreach (int light in backLights)
             {
                 controller.Write(light, PinValue.Low);
             }
@@ -68,23 +67,7 @@ namespace SantaPuppet
 
             var pwm1 = PwmChannel.Create(0, 1, 400, 0.0);
             pwm1.Start();
-        }
-
-        public void StrobeAll(object duration)
-        {
-            int d = Convert.ToInt32(duration);
-            foreach (int light in allLights)
-            {
-                controller.Write(light, PinValue.High);
-            }
-
-            Thread.Sleep(d);
-
-            foreach (int light in allLights)
-            {
-                controller.Write(light, PinValue.Low);
-            }
-        }
+        }   
 
         public void BackChaseOneOff(object speed, object repeat, object bounce, object split)
         {
@@ -170,6 +153,13 @@ namespace SantaPuppet
             }
         }
 
+        /// <summary>
+        /// Backligts all turn on one by one then turn off one by one
+        /// </summary>
+        /// <param name="speed">int The time in millaseconds between each light coming one and going off 20 is kinda fast</param>
+        /// <param name="repeat">int How many times should it run</param>
+        /// <param name="bounce">bool true = is left then right, false = just left</param>
+        /// <param name="split">bool true = left 4 and the right 4 chase seprately, false = all 8 light chace together</param>
         public void BackChaseOnChaseOff(object speed, object repeat, object bounce, object split)
         {
             int s = Convert.ToInt32(speed);
@@ -237,39 +227,38 @@ namespace SantaPuppet
 
             int keyLites = 1;
             if (k) keyLites = 0;
-            Console.WriteLine("DownStageLights speed=" + s.ToString() + 
-                " up=" + u.ToString() + 
-                " key=" + keyLites.ToString() +
-                " mx=" + mx +
-                " mn=" + mn + 
-                " st=" + st);
+            //Console.WriteLine("DownStageLights speed=" + s.ToString() + 
+            //    " up=" + u.ToString() + 
+            //    " key=" + keyLites.ToString() +
+            //    " mx=" + mx +
+            //    " mn=" + mn + 
+            //    " st=" + st);
 
             var pwm = PwmChannel.Create(0, keyLites, 400, st);
-            pwm.Start();
+            pwm.Start();                        
 
-            double fadeStatus = 0.0;
-
-            while (true)
+            if (s > 0)
             {
-                if (u)
+                double fadeStatus = st;
+                while (true)
                 {
-                    fadeStatus = fadeStatus + 0.001;
-                }
-                else
-                {
-                    fadeStatus = fadeStatus - 0.001;
-                }
+                    if (u)
+                    {
+                        fadeStatus = fadeStatus + 0.001;
+                        //Console.WriteLine("Up fadeStatus=" + fadeStatus);
+                    }
+                    else
+                    {
+                        fadeStatus = fadeStatus - 0.001;
+                        //Console.WriteLine("Down fadeStatus=" + fadeStatus);
+                    }
+                    int sleepTime0 = s; 
+                    if (fadeStatus > mx && u) break;                   
+                    if (fadeStatus < mn && !u) break;
 
-                int sleepTime0 = s; //How fast to fade 10 is slow 1 is fast
-
-                if (fadeStatus > mx)
-                {
-                    Console.WriteLine("fadeStatus = " + fadeStatus + " mx=" + mx);
-                    break;
+                    pwm.DutyCycle = fadeStatus;
+                    Thread.Sleep(s);
                 }
-
-                pwm.DutyCycle = fadeStatus;
-                Thread.Sleep(s);
             }
         }
 
