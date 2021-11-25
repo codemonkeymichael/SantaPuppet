@@ -28,7 +28,7 @@ namespace SantaPuppet.Songs
 
             SceneModel sceneTest = new SceneModel();
             sceneTest.CueTime = 1000;
-            sceneTest.LightScene = () => lites.BackChaseOneOn(2000, 10, true, true);
+            sceneTest.LightScene = () => lites.DownStageLights(40,true,true,0.05,0.0,0.02);
             sceneTest.SceneName = "BackChaseOneOn";
             song.Scenes.Add(sceneTest);
 

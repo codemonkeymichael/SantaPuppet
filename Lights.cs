@@ -86,29 +86,50 @@ namespace SantaPuppet
             }
         }
 
-        public void BackChaseOneOffLights(object speed)
+        public void BackChaseOneOff(object speed, object repeat, object bounce, object split)
         {
             int s = Convert.ToInt32(speed);
-            int status = 0;
+            int r = Convert.ToInt32(repeat);
+            bool b = Convert.ToBoolean(bounce);
+            bool h = Convert.ToBoolean(split);
 
-            while (true)
+            //Turn them all On
+            foreach (int la in backLights)
             {
-                for (int i = 0; i < backLights.Length; i++)
+                controller.Write(la, PinValue.High);
+            }
+
+            for (int n = 0; n < r; n++)
+            {
+                for (int i = 0; i < backLights.Count() - 1; i++)
                 {
-                    //Turn them all On
-                    foreach (int la in backLights)
-                    {
-                        controller.Write(la, PinValue.High);
-                    }
-                    //Turn One Off
-                    if (i == status)
+                    controller.Write(backLights[i], PinValue.Low);
+                    if (h) controller.Write(backLights[i + 4], PinValue.Low);
+                    Thread.Sleep(s);
+                    controller.Write(backLights[i], PinValue.High);
+                    if (h) controller.Write(backLights[i + 4], PinValue.High);
+                    if (h && i == 3) break;
+                }
+                if (b)
+                {
+                    Array.Reverse(backLights);
+                    for (int i = 0; i < backLights.Count() - 1; i++)
                     {
                         controller.Write(backLights[i], PinValue.Low);
+                        if (h) controller.Write(backLights[i + 4], PinValue.Low);
+                        Thread.Sleep(s);
+                        controller.Write(backLights[i], PinValue.High);
+                        if (h) controller.Write(backLights[i + 4], PinValue.High);
+                        if (h && i == 3) break;
                     }
-                    status++;
-                    if (status > backLights.Length) status = 0;
-                    Thread.Sleep(s);
+                    Array.Reverse(backLights);
                 }
+            }
+
+            //Turn them all Off
+            foreach (int la in backLights)
+            {
+                controller.Write(la, PinValue.Low);
             }
         }
 
@@ -124,12 +145,12 @@ namespace SantaPuppet
                 for (int i = 0; i < backLights.Count() - 1; i++)
                 {
                     controller.Write(backLights[i], PinValue.High);
-                    Console.WriteLine("Count Left=" + i.ToString() + "  Count Right=" + (i + 4).ToString());
+                    //Console.WriteLine("Count Left=" + i.ToString() + "  Count Right=" + (i + 4).ToString());
                     if (h) controller.Write(backLights[i + 4], PinValue.High); 
                     Thread.Sleep(s);
                     controller.Write(backLights[i], PinValue.Low);
                     if (h) controller.Write(backLights[i + 4], PinValue.Low);
-                    if (h && i == 3) {  Console.WriteLine("Break"); break; }
+                    if (h && i == 3) break; 
                 }
                 if (b)
                 {
@@ -137,65 +158,93 @@ namespace SantaPuppet
                     for (int i = 0; i < backLights.Count() - 1; i++)
                     {
                         controller.Write(backLights[i], PinValue.High);
-                        Console.WriteLine("Count Left=" + i.ToString() + "  Count Right=" + (i + 4).ToString());
+                        //Console.WriteLine("Count Left=" + i.ToString() + "  Count Right=" + (i + 4).ToString());
                         if (h) controller.Write(backLights[i + 4], PinValue.High);
                         Thread.Sleep(s);
                         controller.Write(backLights[i], PinValue.Low);
                         if (h) controller.Write(backLights[i + 4], PinValue.Low);
-                        if (h && i == 3) { Console.WriteLine("Break"); break; }
+                        if (h && i == 3)  break;
                     }
                     Array.Reverse(backLights);
                 }
             }
         }
 
-        public void BackChaseOnChaseOff(object speed, object repeat, object bounce)
+        public void BackChaseOnChaseOff(object speed, object repeat, object bounce, object split)
         {
             int s = Convert.ToInt32(speed);
             int r = Convert.ToInt32(repeat);
             bool b = Convert.ToBoolean(bounce);
+            bool h = Convert.ToBoolean(split);
 
             for (int n = 0; n < r; n++)
             {
-                foreach (int bl in backLights)
+                for (int i = 0; i < backLights.Count() - 1; i++)
                 {
-                    controller.Write(bl, PinValue.High);
-                    Thread.Sleep(s);
+                    controller.Write(backLights[i], PinValue.High);
+                    if (h) controller.Write(backLights[i + 4], PinValue.High);
+                    Thread.Sleep(s);                
+                    if (h && i == 3) break;
                 }
-                foreach (int bl in backLights)
+                for (int i = 0; i < backLights.Count() - 1; i++)
                 {
-                    controller.Write(bl, PinValue.Low);
+                    controller.Write(backLights[i], PinValue.Low);
+                    if (h) controller.Write(backLights[i + 4], PinValue.Low);
                     Thread.Sleep(s);
+                    if (h && i == 3) break;
                 }
                 if (b)
                 {
                     Array.Reverse(backLights);
-                    foreach (int bl in backLights)
+                    for (int i = 0; i < backLights.Count() - 1; i++)
                     {
-                        controller.Write(bl, PinValue.High);
+                        controller.Write(backLights[i], PinValue.High);
+                        if (h) controller.Write(backLights[i + 4], PinValue.High);
                         Thread.Sleep(s);
+                        if (h && i == 3) break;
                     }
-                    foreach (int bl in backLights)
+                    for (int i = 0; i < backLights.Count() - 1; i++)
                     {
-                        controller.Write(bl, PinValue.Low);
+                        controller.Write(backLights[i], PinValue.Low);
+                        if (h) controller.Write(backLights[i + 4], PinValue.Low);
                         Thread.Sleep(s);
+                        if (h && i == 3) break;
                     }
                     Array.Reverse(backLights);
 
                 }
             }
+       
         }
 
-        public void DownStageLights(object speed, object up, object keyLights)
+        /// <summary>
+        /// Down stage lights are controlled by PWM and as such can be dimmed.
+        /// </summary>
+        /// <param name="speed">int 1 is fast, 15 is slow</param>
+        /// <param name="up">bool true = fade up brighter, false = fade down dimmer</param>
+        /// <param name="keyLights">bool true = lights at the top, false = foot lamps</param>
+        /// <param name="max">double 1.0 = full on when fading up, 0.5 is half </param>
+        /// <param name="min">double 0.0 = is off, 0.5 is half </param>
+        /// <param name="start">double 0.0 = is off, 0.5 is half </param>
+        public void DownStageLights(object speed, object up, object keyLights, object max, object min, object start)
         {
             int s = Convert.ToInt32(speed);
             bool u = Convert.ToBoolean(up);
             bool k = Convert.ToBoolean(keyLights);
+            double mx = Convert.ToDouble(max);
+            double mn = Convert.ToDouble(min);
+            double st = Convert.ToDouble(start);
+
             int keyLites = 1;
             if (k) keyLites = 0;
-            //Console.WriteLine("DownStageLights speed=" + s.ToString() + " up=" + u.ToString() + " key=" + k.ToString() );
+            Console.WriteLine("DownStageLights speed=" + s.ToString() + 
+                " up=" + u.ToString() + 
+                " key=" + keyLites.ToString() +
+                " mx=" + mx +
+                " mn=" + mn + 
+                " st=" + st);
 
-            var pwm = PwmChannel.Create(0, keyLites, 400, 0.0);
+            var pwm = PwmChannel.Create(0, keyLites, 400, st);
             pwm.Start();
 
             double fadeStatus = 0.0;
@@ -212,8 +261,10 @@ namespace SantaPuppet
                 }
 
                 int sleepTime0 = s; //How fast to fade 10 is slow 1 is fast
-                if (fadeStatus > 0.999 || fadeStatus < 0.001)
+
+                if (fadeStatus > mx)
                 {
+                    Console.WriteLine("fadeStatus = " + fadeStatus + " mx=" + mx);
                     break;
                 }
 
