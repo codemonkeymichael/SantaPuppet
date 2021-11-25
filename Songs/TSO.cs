@@ -26,11 +26,11 @@ namespace SantaPuppet.Songs
             scene.SceneName = "Black Out";
             song.Scenes.Add(scene);
 
-            SceneModel sceneTest = new SceneModel();
-            sceneTest.CueTime = 10;
-            sceneTest.LightScene = () => lites.Back_StrobeRandom_Fast_Split(40);
-            sceneTest.SceneName = "Test";
-            song.Scenes.Add(sceneTest);
+            //SceneModel sceneTest = new SceneModel();
+            //sceneTest.CueTime = 10;
+            //sceneTest.LightScene = () => lites.Back_StrobeRandom_Fast_Split(40);
+            //sceneTest.SceneName = "Test";
+            //song.Scenes.Add(sceneTest);
 
 
 
