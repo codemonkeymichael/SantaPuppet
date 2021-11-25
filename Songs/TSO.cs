@@ -26,17 +26,12 @@ namespace SantaPuppet.Songs
             scene.SceneName = "Black Out";
             song.Scenes.Add(scene);
 
-            //SceneModel sceneTest = new SceneModel();
-            //sceneTest.CueTime = 1000;
-            //sceneTest.LightScene = () => lites.DownStageLights(40,true,true,0.05,0.0,0.02);
-            //sceneTest.SceneName = "BackChaseOneOn";
-            //song.Scenes.Add(sceneTest);
+            SceneModel sceneTest = new SceneModel();
+            sceneTest.CueTime = 10;
+            sceneTest.LightScene = () => lites.Back_StrobeRandom_Fast_Split(40);
+            sceneTest.SceneName = "Test";
+            song.Scenes.Add(sceneTest);
 
-            //SceneModel sceneTest2 = new SceneModel();
-            //sceneTest2.CueTime = 5000;
-            //sceneTest2.LightScene = () => lites.BackChaseOnChaseOff(250, 2, true);
-            //sceneTest2.SceneName = "BackChaseOnChaseOff";
-            //song.Scenes.Add(sceneTest2);
 
 
             SceneModel scene0 = new SceneModel();
@@ -53,7 +48,7 @@ namespace SantaPuppet.Songs
 
             SceneModel scene2 = new SceneModel();
             scene2.CueTime = 32720;
-            scene2.LightScene = () => lites.BackStrobeAll(500);
+            scene2.LightScene = () => lites.Back_StrobeAll_Fast();
             scene2.SceneName = "Strobe All the backlights";
             song.Scenes.Add(scene2);
 
@@ -84,86 +79,86 @@ namespace SantaPuppet.Songs
 
             SceneModel scene15 = new SceneModel();
             scene15.CueTime = 33717;
-            scene15.LightScene = () => lites.BackStrobeAll(500);
+            scene15.LightScene = () => lites.Back_StrobeAll_Fast();
             scene15.SceneName = "Strobe";
             song.Scenes.Add(scene15);
             SceneModel scene16 = new SceneModel();
             scene16.CueTime = 34696;
-            scene16.LightScene = () => lites.BackStrobeAll(500);
+            scene16.LightScene = () => lites.Back_StrobeAll_Fast();
             scene16.SceneName = "Strobe";
             song.Scenes.Add(scene16);
             SceneModel scene17 = new SceneModel();
             scene17.CueTime = 35730;
-            scene17.LightScene = () => lites.BackStrobeAll(500);
+            scene17.LightScene = () => lites.Back_StrobeAll_Fast();
             scene17.SceneName = "Strobe";
             song.Scenes.Add(scene17);
             SceneModel scene18 = new SceneModel();
             scene18.CueTime = 36653;
-            scene18.LightScene = () => lites.BackStrobeAll(500);
+            scene18.LightScene = () => lites.Back_StrobeAll_Fast();
             scene18.SceneName = "Strobe";
             song.Scenes.Add(scene18);
             SceneModel scene19 = new SceneModel();
             scene19.CueTime = 37604;
-            scene19.LightScene = () => lites.BackStrobeAll(500);
+            scene19.LightScene = () => lites.Back_StrobeAll_Fast();
             scene19.SceneName = "Strobe";
             song.Scenes.Add(scene19);
             SceneModel scenea = new SceneModel();
             scenea.CueTime = 38527;
-            scenea.LightScene = () => lites.BackStrobeAll(500);
+            scenea.LightScene = () => lites.Back_StrobeAll_Fast();
             scenea.SceneName = "Strobe";
             song.Scenes.Add(scenea);
             SceneModel sceneb = new SceneModel();
             sceneb.CueTime = 39534;
-            sceneb.LightScene = () => lites.BackStrobeAll(500);
+            sceneb.LightScene = () => lites.Back_StrobeAll_Fast();
             sceneb.SceneName = "Strobe";
             song.Scenes.Add(sceneb);
 
             SceneModel scene20 = new SceneModel();
             scene20.CueTime = 40205;
-            scene20.LightScene = () => lites.BackChaseOnChaseOff(75, 3, true, true);
+            scene20.LightScene = () => lites.Back_OnOf_Fast_Bounce_Split(3);
             scene20.SceneName = "Chase 1";
             song.Scenes.Add(scene20);
 
             SceneModel scene30 = new SceneModel();
             scene30.CueTime = 44372;
-            scene30.LightScene = () => lites.BackStrobeAll(500);
+            scene30.LightScene = () => lites.Back_StrobeAll_Fast();
             scene30.SceneName = "Strobe";
             song.Scenes.Add(scene30);
             SceneModel scene31 = new SceneModel();
             scene31.CueTime = 45353;
-            scene31.LightScene = () => lites.BackStrobeAll(500);
+            scene31.LightScene = () => lites.Back_StrobeAll_Fast();
             scene31.SceneName = "Strobe";
             song.Scenes.Add(scene31);
             SceneModel scene32 = new SceneModel();
             scene32.CueTime = 46274;
-            scene32.LightScene = () => lites.BackStrobeAll(500);
+            scene32.LightScene = () => lites.Back_StrobeAll_Fast();
             scene32.SceneName = "Strobe";
             song.Scenes.Add(scene32);
             SceneModel scene33 = new SceneModel();
             scene33.CueTime = 47224;
-            scene33.LightScene = () => lites.BackStrobeAll(500);
+            scene33.LightScene = () => lites.Back_StrobeAll_Fast();
             scene33.SceneName = "Strobe";
             song.Scenes.Add(scene33);
 
             SceneModel scene50 = new SceneModel();
             scene50.CueTime = 47896;
-            scene50.LightScene = () => lites.BackChaseOneOff(80, 5, true, true);
+            scene50.LightScene = () => lites.Back_1Off_Fast_Boun_Split(3);
             scene50.SceneName = "Chase 2";
             song.Scenes.Add(scene50);
 
             SceneModel scene34 = new SceneModel();
             scene34.CueTime = 52090;
-            scene34.LightScene = () => lites.BackStrobeAll(500);
+            scene34.LightScene = () => lites.Back_StrobeAll_Fast();
             scene34.SceneName = "Strobe";
             song.Scenes.Add(scene34);
             SceneModel scene35 = new SceneModel();
             scene35.CueTime = 53069;
-            scene35.LightScene = () => lites.BackStrobeAll(500);
+            scene35.LightScene = () => lites.Back_StrobeAll_Fast();
             scene35.SceneName = "Strobe";
             song.Scenes.Add(scene35);
             SceneModel scene36 = new SceneModel();
             scene36.CueTime = 53992;
-            scene36.LightScene = () => lites.BackStrobeAll(500);
+            scene36.LightScene = () => lites.Back_StrobeAll_Fast();
             scene36.SceneName = "Strobe";
             song.Scenes.Add(scene36);
 
@@ -190,9 +185,9 @@ namespace SantaPuppet.Songs
 
 //lightingCuesScenes.Add(() => lites.DownStageLights(15, true, true)); //1
 //lightingCuesScenes.Add(() => lites.DownStageLights(15, true, false));
-//lightingCuesScenes.Add(() => lites.BackStrobeAll(500));
+//lightingCuesScenes.Add(() => lites.Back_StrobeAll_Fast());
 ////lightingCuesScenes.Add(() => lites.StrobeAll(500));
-//lightingCuesScenes.Add(() => lites.BackStrobeAll(500));
+//lightingCuesScenes.Add(() => lites.Back_StrobeAll_Fast());
 //lightingCuesScenes.Add(() => lites.BLackOut());
 //lightingCuesScenes.Add(() => Lights.DownStageLights(12, false, true));
 //lightingCuesScenes.Add(() => Lights.DownStageLights(12, false, false));

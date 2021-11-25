@@ -10,7 +10,7 @@ namespace SantaPuppet
 {
     public class Lights
     {
-        private static GpioController controller = new GpioController();      
+        private static GpioController controller = new GpioController();
         private static int keyLights = 18;
         private static int footLights = 19;
         private static int[] backLights = new int[] { 5, 6, 7, 12, 13, 16, 20, 21 };
@@ -39,7 +39,29 @@ namespace SantaPuppet
         }
 
 
-        public void BackStrobeAll(object duration)
+        public void BLackOut()
+        {
+            foreach (int light in backLights)
+            {
+                controller.Write(light, PinValue.Low);
+            }
+
+            var pwm0 = PwmChannel.Create(0, 0, 400, 0.0);
+            pwm0.Start();
+
+            var pwm1 = PwmChannel.Create(0, 1, 400, 0.0);
+            pwm1.Start();
+        }
+
+        public void Back_StrobeAll_Fast()
+        {
+            Back_StrobeAll(300);
+        }
+        public void Back_StrobeAll_Slow()
+        {
+            Back_StrobeAll(600);
+        }
+        public void Back_StrobeAll(object duration)
         {
             int d = Convert.ToInt32(duration);
             foreach (int light in backLights)
@@ -55,21 +77,116 @@ namespace SantaPuppet
             }
         }
 
-        public void BLackOut()
+        public void Back_StrobeRandom_Fast_NoSplit(object repeat)
         {
-            foreach (int light in backLights)
+            Back_StrobeRandom(125, repeat, false);
+        }
+        public void Back_StrobeRandom_Slow_NoSplit(object repeat)
+        {
+            Back_StrobeRandom(350, repeat, false);
+        }
+        public void Back_StrobeRandom_Fast_Split(object repeat)
+        {
+            Back_StrobeRandom(150, repeat, true);
+        }
+        public void Back_StrobeRandom_Slow_Split(object repeat)
+        {
+            Back_StrobeRandom(400, repeat, true);
+        }
+
+        public void Back_StrobeRandom(object duration, object repeat, object split)
+        {
+            var rand = new Random();
+
+            int d = Convert.ToInt32(duration);
+            int r = Convert.ToInt32(repeat);
+            bool h = Convert.ToBoolean(split);
+
+            for (int n = 0; n < r; n++)
             {
-                controller.Write(light, PinValue.Low);
+                if (h) {
+                    //Left Half
+                    var left = rand.Next(0,4);            
+                    var right = rand.Next(5,8);
+                    controller.Write(backLights[left], PinValue.High);
+                    Thread.Sleep(d / 2);
+                    controller.Write(backLights[right], PinValue.High);
+                    Thread.Sleep(d / 2);
+                    controller.Write(backLights[left], PinValue.Low);
+                    Thread.Sleep(d / 2);
+                    controller.Write(backLights[right], PinValue.Low);
+                }
+                else
+                {
+                    var light = rand.Next(0,8);
+                    controller.Write(backLights[light], PinValue.High);
+                    Thread.Sleep(d);
+                    controller.Write(backLights[light], PinValue.Low);
+                }
             }
+        }
 
-            var pwm0 = PwmChannel.Create(0, 0, 400, 0.0);
-            pwm0.Start();
 
-            var pwm1 = PwmChannel.Create(0, 1, 400, 0.0);
-            pwm1.Start();
-        }   
-
-        public void BackChaseOneOff(object speed, object repeat, object bounce, object split)
+        /// <summary>
+        /// One Off
+        /// </summary>
+        public void Back_1Off_Fast_NoBoun_NoSplit(object repeat)
+        {
+            Back_1Off(85, repeat, false, false);
+        }
+        /// <summary>
+        /// One Off
+        /// </summary>
+        public void Back_1Off_Slow_NoBoun_NoSplit(object repeat)
+        {
+            Back_1Off(110, repeat, false, false);
+        }
+        /// <summary>
+        /// One Off
+        /// </summary>
+        public void Back_1Off_Fast_Bounce_NoSplit(object repeat)
+        {
+            Back_1Off(85, repeat, true, false);
+        }
+        /// <summary>
+        /// One Off
+        /// </summary>
+        public void Back_1Off_Slow_Bounce_NoSplit(object repeat)
+        {
+            Back_1Off(110, repeat, true, false);
+        }
+        /// <summary>
+        /// One Off
+        /// </summary>
+        public void Back_1Off_Fast_NoBounce_Split(object repeat)
+        {
+            Back_1Off(85, repeat, false, true);
+        }
+        /// <summary>
+        /// One Off
+        /// </summary>
+        public void Back_1Off__Slow_NoBoun_Split(object repeat)
+        {
+            Back_1Off(110, repeat, false, true);
+        }
+        /// <summary>
+        /// One Off
+        /// </summary>
+        public void Back_1Off_Fast_Boun_Split(object repeat)
+        {
+            Back_1Off(85, repeat, true, true);
+        }
+        /// <summary>
+        /// One Off
+        /// </summary>
+        public void Back_1Off_Slow_Bounce_Split(object repeat)
+        {
+            Back_1Off(110, repeat, true, true);
+        }
+        /// <summary>
+        /// One Off
+        /// </summary>
+        public void Back_1Off(object speed, object repeat, object bounce, object split)
         {
             int s = Convert.ToInt32(speed);
             int r = Convert.ToInt32(repeat);
@@ -116,7 +233,67 @@ namespace SantaPuppet
             }
         }
 
-        public void BackChaseOneOn(object speed, object repeat, object bounce, object split)
+
+        /// <summary>
+        /// One On
+        /// </summary>
+        public void Back_1LOn_Fast_NoBoun_NoSplit(object repeat)
+        {
+            Back_1LOn(75, repeat, false, false);
+        }
+        /// <summary>
+        /// One On
+        /// </summary>
+        public void Back_1LOn_Slow_NoBoun_NoSplit(object repeat)
+        {
+            Back_1LOn(110, repeat, false, false);
+        }
+        /// <summary>
+        /// One On
+        /// </summary>
+        public void Back_1LOn_Fast_Bounce_NoSplit(object repeat)
+        {
+            Back_1LOn(75, repeat, true, false);
+        }
+        /// <summary>
+        /// One On
+        /// </summary>
+        public void Back_1LOn_Slow_Bounce_NoSplit(object repeat)
+        {
+            Back_1LOn(110, repeat, true, false);
+        }
+        /// <summary>
+        /// One On
+        /// </summary>
+        public void Back_1LOn_Fast_NoBoun_Split(object repeat)
+        {
+            Back_1LOn(75, repeat, false, true);
+        }
+        /// <summary>
+        /// One On
+        /// </summary>
+        public void Back_1LOn_Slow_NoBoun_Split(object repeat)
+        {
+            Back_1LOn(110, repeat, false, true);
+        }
+        /// <summary>
+        /// One On
+        /// </summary>
+        public void Back_1LOn_Fast_Bounce_Split(object repeat)
+        {
+            Back_1LOn(75, repeat, true, true);
+        }
+        /// <summary>
+        /// One On
+        /// </summary>
+        public void Back_1LOn_Slow_Bounce_Split(object repeat)
+        {
+            Back_1LOn(110, repeat, true, true);
+        }
+        /// <summary>
+        /// One On
+        /// </summary>
+        public void Back_1LOn(object speed, object repeat, object bounce, object split)
         {
             int s = Convert.ToInt32(speed);
             int r = Convert.ToInt32(repeat);
@@ -129,11 +306,11 @@ namespace SantaPuppet
                 {
                     controller.Write(backLights[i], PinValue.High);
                     //Console.WriteLine("Count Left=" + i.ToString() + "  Count Right=" + (i + 4).ToString());
-                    if (h) controller.Write(backLights[i + 4], PinValue.High); 
+                    if (h) controller.Write(backLights[i + 4], PinValue.High);
                     Thread.Sleep(s);
                     controller.Write(backLights[i], PinValue.Low);
                     if (h) controller.Write(backLights[i + 4], PinValue.Low);
-                    if (h && i == 3) break; 
+                    if (h && i == 3) break;
                 }
                 if (b)
                 {
@@ -146,11 +323,69 @@ namespace SantaPuppet
                         Thread.Sleep(s);
                         controller.Write(backLights[i], PinValue.Low);
                         if (h) controller.Write(backLights[i + 4], PinValue.Low);
-                        if (h && i == 3)  break;
+                        if (h && i == 3) break;
                     }
                     Array.Reverse(backLights);
                 }
             }
+        }
+
+
+        /// <summary>
+        /// On Off
+        /// </summary>
+        public void Back_OnOf_Fast_NoBoun_NoSplit(object repeat)
+        {
+            Back_OnOf(70, repeat, false, false);
+        }
+        /// <summary>
+        /// On Off
+        /// </summary>
+        public void Back_OnOf_Slow_NoBoun_NoSplit(object repeat)
+        {
+            Back_OnOf(105, repeat, false, false);
+        }
+        /// <summary>
+        /// On Off
+        /// </summary>
+        public void Back_OnOf_Fast_Bounce_NoSplit(object repeat)
+        {
+            Back_OnOf(70, repeat, true, false);
+        }
+        /// <summary>
+        /// On Off
+        /// </summary>
+        public void Back_OnOf_Slow_Bounce_NoSplit(object repeat)
+        {
+            Back_OnOf(70, repeat, true, false);
+        }
+        /// <summary>
+        /// On Off
+        /// </summary>
+        public void Back_OnOf_Fast_NoBoun_Split(object repeat)
+        {
+            Back_OnOf(70, repeat, false, true);
+        }
+        /// <summary>
+        /// On Off
+        /// </summary>
+        public void Back_OnOf_Slow_NoBoun_Split(object repeat)
+        {
+            Back_OnOf(70, repeat, false, true);
+        }
+        /// <summary>
+        /// On Off
+        /// </summary>
+        public void Back_OnOf_Fast_Bounce_Split(object repeat)
+        {
+            Back_OnOf(70, repeat, true, true);
+        }
+        /// <summary>
+        /// On Off
+        /// </summary>
+        public void Back_OnOf_Slow_Bounce_Split(object repeat)
+        {
+            Back_OnOf(70, repeat, true, true);
         }
 
         /// <summary>
@@ -160,7 +395,7 @@ namespace SantaPuppet
         /// <param name="repeat">int How many times should it run</param>
         /// <param name="bounce">bool true = is left then right, false = just left</param>
         /// <param name="split">bool true = left 4 and the right 4 chase seprately, false = all 8 light chace together</param>
-        public void BackChaseOnChaseOff(object speed, object repeat, object bounce, object split)
+        public void Back_OnOf(object speed, object repeat, object bounce, object split)
         {
             int s = Convert.ToInt32(speed);
             int r = Convert.ToInt32(repeat);
@@ -173,7 +408,7 @@ namespace SantaPuppet
                 {
                     controller.Write(backLights[i], PinValue.High);
                     if (h) controller.Write(backLights[i + 4], PinValue.High);
-                    Thread.Sleep(s);                
+                    Thread.Sleep(s);
                     if (h && i == 3) break;
                 }
                 for (int i = 0; i < backLights.Count() - 1; i++)
@@ -204,7 +439,7 @@ namespace SantaPuppet
 
                 }
             }
-       
+
         }
 
         /// <summary>
@@ -235,7 +470,7 @@ namespace SantaPuppet
             //    " st=" + st);
 
             var pwm = PwmChannel.Create(0, keyLites, 400, st);
-            pwm.Start();                        
+            pwm.Start();
 
             if (s > 0)
             {
@@ -252,8 +487,8 @@ namespace SantaPuppet
                         fadeStatus = fadeStatus - 0.001;
                         //Console.WriteLine("Down fadeStatus=" + fadeStatus);
                     }
-                    int sleepTime0 = s; 
-                    if (fadeStatus > mx && u) break;                   
+                    int sleepTime0 = s;
+                    if (fadeStatus > mx && u) break;
                     if (fadeStatus < mn && !u) break;
 
                     pwm.DutyCycle = fadeStatus;
