@@ -8,7 +8,7 @@ Username: pi
 Password: Sydney9-25
 Port: 22
 
-TODO: Put this in a post publish script
+TODO: Put the FTP in a post publish script
 
 To remote into the pi go to a cmd prompt:
 ssh pi@192.168.1.15

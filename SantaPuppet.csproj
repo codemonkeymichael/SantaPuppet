@@ -5,11 +5,13 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <StartupObject>SantaPuppet.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="NetCoreAudio" Version="1.6.3" />
     <PackageReference Include="System.Device.Gpio" Version="1.5.0" />
+    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
   </ItemGroup>
 
 </Project>

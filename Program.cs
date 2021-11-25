@@ -5,12 +5,6 @@ using System.Device.Pwm;
 using System.Threading;
 using SantaPuppet;
 
-//Dimming an LED
-//https://toscode.gitee.com/inlazy/iot/blob/master/Documentation/raspi-pwm.md
-//nano /boot/config.txt Add this dtoverlay=pwm-2chan
-//GPIO 18 defaults to PWM chan0
-//GPIO 19 defaults to PWM chan1
-
 namespace SantaPuppet
 {
     class Program
@@ -20,46 +14,39 @@ namespace SantaPuppet
         static void Main(string[] args)
         {
             Console.WriteLine("Santa Puppet is Running");
-            Thread threadKeyLights =  new(Lights.FadeKeyLights);
-            threadKeyLights.Start();
-            Thread threadFootLights = new(Lights.FadeFootLights);
-            threadFootLights.Start();
 
-            var lightsThread5 = new Thread(() => Lights.BackChaseOnChaseOffLights(250));
-            lightsThread5.Start();
-
-            //Thread talk = new(Talk);
-            //talk.Start();
+            Songs.TSO tso = new Songs.TSO();
+            Thread t = new(() => Audio.PlaySong(tso.songData()));
+            t.Name = "Song";
+            t.Start();
 
 
+            //Thread threadKeyLights =  new(Lights.FadeKeyLights);
+            //threadKeyLights.Start();
+            //Thread threadFootLights = new(Lights.FadeFootLights);
+            //threadFootLights.Start();
+
+            //var lightsThread5 = new Thread(() => Lights.BackChaseOnChaseOffLights(250));
+            //lightsThread5.Start();      
+            //Lights thing = new Lights();
+            //thing.DownStageLights(9,true,true);
+
+            //var pwm0 = PwmChannel.Create(0, 1, 10, 0.01); //Channel 1 = GPIO 19
+            //pwm0.Start();
+
+            //var pwm1 = PwmChannel.Create(0, 0, 10, 0.5); //Channel 0 = GPIO 18
+            //pwm1.Start();
+
+            ////GpioController controller = new GpioController();
+            ////controller.ClosePin(18);
+            ////controller.Write(18, PinValue.High);
+
+
+            Console.ReadKey();
         }
 
 
 
-        static void Talk()
-        {
-            int pin = 21;
-
-            var controller = new GpioController();
-            controller.OpenPin(pin, PinMode.Output);
-            bool status = true;
-
-            while (true)
-            {
-                if (status)
-                {
-                    controller.Write(pin, PinValue.High);
-                    status = false;
-                    Thread.Sleep(100);
-                }
-                else
-                {
-                    controller.Write(pin, PinValue.Low);
-                    status = true;
-                    Thread.Sleep(1000);
-                }
-        
-            }
-        }
+       
     }
 }
