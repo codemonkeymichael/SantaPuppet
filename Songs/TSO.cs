@@ -115,7 +115,7 @@ namespace SantaPuppet.Songs
 
             SceneModel scene20 = new SceneModel();
             scene20.CueTime = 40205;
-            scene20.LightScene = () => lites.Back_OnOf_Fast_Bounce_Split(3);
+            scene20.LightScene = () => lites.Back_OnOf_Fast_Bounce_Split(4);
             scene20.SceneName = "Chase 1";
             song.Scenes.Add(scene20);
 
@@ -142,7 +142,7 @@ namespace SantaPuppet.Songs
 
             SceneModel scene50 = new SceneModel();
             scene50.CueTime = 47896;
-            scene50.LightScene = () => lites.Back_1Off_Fast_Boun_Split(3);
+            scene50.LightScene = () => lites.Back_1Off_Fast_Boun_Split(5);
             scene50.SceneName = "Chase 2";
             song.Scenes.Add(scene50);
 
