@@ -35,14 +35,14 @@ namespace SantaPuppet.Songs
 
 
             SceneModel scene0 = new SceneModel();
-            scene0.CueTime = 6172;
-            scene0.LightScene = () => lites.DownStageLights(20, true, true, 0.05, 0.0, 0.00);
+            scene0.CueTime = 6107;
+            scene0.LightScene = () => lites.DownStage(20, true, true, 0.25, 0.0, 0.00);
             scene0.SceneName = "Fade up Key Lights";
             song.Scenes.Add(scene0);
 
             SceneModel scene1 = new SceneModel();
-            scene1.CueTime = 6174;
-            scene1.LightScene = () => lites.DownStageLights(20, true, false, 0.15, 0.0, 0.0);
+            scene1.CueTime = 6210;
+            scene1.LightScene = () => lites.DownStage(20, true, false, 0.15, 0.0, 0.0);
             scene1.SceneName = "Fade up foot lights";
             song.Scenes.Add(scene1);
 
@@ -54,25 +54,25 @@ namespace SantaPuppet.Songs
 
             SceneModel scene5 = new SceneModel();
             scene5.CueTime = 32730;
-            scene5.LightScene = () => lites.DownStageLights(0, true, true, 0.999, 0.0, 0.999);
+            scene5.LightScene = () => lites.DownStage(0, true, true, 0.999, 0.0, 0.999);
             scene5.SceneName = "Strobe Up Down Stage";
             song.Scenes.Add(scene5);
 
             SceneModel scene10 = new SceneModel();
             scene10.CueTime = 32740;
-            scene10.LightScene = () => lites.DownStageLights(0, true, false, 0.999, 0.0, 0.999);
+            scene10.LightScene = () => lites.DownStage(0, true, false, 0.999, 0.0, 0.999);
             scene10.SceneName = "Strobe Up Down Stage";
             song.Scenes.Add(scene10);
 
             SceneModel scene12 = new SceneModel();
             scene12.CueTime = 32780;
-            scene12.LightScene = () => lites.DownStageLights(4, false, true, 0.9, 0.18, 0.999);
+            scene12.LightScene = () => lites.DownStage(4, false, true, 0.9, 0.18, 0.999);
             scene12.SceneName = "Strobe Down Down Stage";
             song.Scenes.Add(scene12);
 
             SceneModel scene14 = new SceneModel();
             scene14.CueTime = 32790;
-            scene14.LightScene = () => lites.DownStageLights(4, false, false, 0.9, 0.10, 0.999);
+            scene14.LightScene = () => lites.DownStage(4, false, false, 0.9, 0.10, 0.999);
             scene14.SceneName = "Strobe Down Down Stage";
             song.Scenes.Add(scene14);
 
@@ -183,11 +183,11 @@ namespace SantaPuppet.Songs
 //lightingCuesTimes.Add(192146); //4 End
 //lightingCuesTimes.Add(192148); //5 End
 
-//lightingCuesScenes.Add(() => lites.DownStageLights(15, true, true)); //1
-//lightingCuesScenes.Add(() => lites.DownStageLights(15, true, false));
+//lightingCuesScenes.Add(() => lites.DownStage(15, true, true)); //1
+//lightingCuesScenes.Add(() => lites.DownStage(15, true, false));
 //lightingCuesScenes.Add(() => lites.Back_StrobeAll_Fast());
 ////lightingCuesScenes.Add(() => lites.StrobeAll(500));
 //lightingCuesScenes.Add(() => lites.Back_StrobeAll_Fast());
 //lightingCuesScenes.Add(() => lites.BLackOut());
-//lightingCuesScenes.Add(() => Lights.DownStageLights(12, false, true));
-//lightingCuesScenes.Add(() => Lights.DownStageLights(12, false, false));
+//lightingCuesScenes.Add(() => Lights.DownStage(12, false, true));
+//lightingCuesScenes.Add(() => Lights.DownStage(12, false, false));

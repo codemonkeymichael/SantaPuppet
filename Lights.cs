@@ -443,6 +443,50 @@ namespace SantaPuppet
         }
 
         /// <summary>
+        /// Backligts turn on one color.
+        /// </summary>
+        /// <param name="color">Red, Green, Blue, Yellow, Random</param>
+        /// <param name="clear">true = Turn off all backligts before turning on the color. </param>
+        public void Back_Color(object color, object clear)
+        {
+            string c = Convert.ToString(color);
+            bool clr = Convert.ToBoolean(clear);
+            if (clr)
+            {
+                foreach (var light in backLights)
+                {
+                    controller.Write(light, PinValue.Low);
+                }
+            }
+            if(c == "Random")
+            {
+                var random = new Random();
+                var list = new List<string> { "Red", "Green", "Blue", "Yellow" };
+                int index = random.Next(list.Count);
+                c = list[index];
+            }
+            switch (c)
+            {
+                case "Red":
+                    controller.Write(backLights[0], PinValue.High);
+                    controller.Write(backLights[4], PinValue.High);
+                    break;
+                case "Green":
+                    controller.Write(backLights[1], PinValue.High);
+                    controller.Write(backLights[5], PinValue.High);
+                    break;
+                case "Blue":
+                    controller.Write(backLights[2], PinValue.High);
+                    controller.Write(backLights[6], PinValue.High);
+                    break;
+                case "Yellow":
+                    controller.Write(backLights[3], PinValue.High);
+                    controller.Write(backLights[7], PinValue.High);
+                    break;
+            }
+        }
+
+        /// <summary>
         /// Down stage lights are controlled by PWM and as such can be dimmed.
         /// </summary>
         /// <param name="speed">int 1 is fast, 15 is slow</param>
@@ -451,7 +495,7 @@ namespace SantaPuppet
         /// <param name="max">double 1.0 = full on when fading up, 0.5 is half </param>
         /// <param name="min">double 0.0 = is off, 0.5 is half </param>
         /// <param name="start">double 0.0 = is off, 0.5 is half </param>
-        public void DownStageLights(object speed, object up, object keyLights, object max, object min, object start)
+        public void DownStage(object speed, object up, object keyLights, object max, object min, object start)
         {
             int s = Convert.ToInt32(speed);
             bool u = Convert.ToBoolean(up);
