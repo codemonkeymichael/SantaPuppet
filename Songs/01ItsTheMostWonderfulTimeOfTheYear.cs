@@ -13,7 +13,7 @@ namespace SantaPuppet.Songs
             //Build the Song
             SongModel song = new SongModel();
             song.Title = "TSO";
-            song.SongPath = "/home/pi/SantaPuppet/audio/01ItsTheMostWonderfulTimeOfTheYear.mp3";
+            song.SongPath = "/home/pi/SantaPuppet/audio/01ItsTheMostWonderfulTimeOfTheYear.wav";
             song.Scenes = new List<SceneModel>();
 
             Lights lites = new Lights();

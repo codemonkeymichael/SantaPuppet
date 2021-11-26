@@ -15,8 +15,8 @@ namespace SantaPuppet
         {
             Console.WriteLine("Santa Puppet is Running");
 
-            Songs.TSO tso = new Songs.TSO();
-            Thread t = new(() => Audio.PlaySong(tso.songData()));
+            Songs.ItsTheMostWonderfulTimeOfTheYear song = new Songs.ItsTheMostWonderfulTimeOfTheYear();
+            Thread t = new(() => Audio.PlaySong(song.songData()));
             t.Name = "Song";
             t.Start();
 
