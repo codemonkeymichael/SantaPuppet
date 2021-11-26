@@ -352,14 +352,14 @@ namespace SantaPuppet.Songs
             SceneModel scene54 = new SceneModel();
             scene54.CueTime = 20065;
             scene54.CueTimeMin = 2;
-            scene54.LightScene = () => lites.Back_StrobeRandom_Fast_NoSplit(24); //125 x 24 = 3000
+            scene54.LightScene = () => lites.Back_StrobeRandom_Fast_NoSplit(22); //125 x 22 = 
             scene54.SceneName = "Sparkle Fast";
             song.Scenes.Add(scene54);
 
             SceneModel scene55 = new SceneModel();
             scene55.CueTime = 23070;
             scene55.CueTimeMin = 2;
-            scene55.LightScene = () => lites.Back_StrobeRandom_Fast_Split(23); //150 x 22 = 3300 
+            scene55.LightScene = () => lites.Back_StrobeRandom_Fast_Split(20); //150
             scene55.SceneName = "Sparkle Fast";
             song.Scenes.Add(scene55);
 
@@ -399,16 +399,16 @@ namespace SantaPuppet.Songs
             song.Scenes.Add(scene60);
 
             SceneModel scene61 = new SceneModel();
-            scene61.CueTime = 27500;
+            scene61.CueTime = 27425;
             scene61.CueTimeMin = 2;
-            scene61.LightScene = () => lites.DownStage(2, false, true, 0.999, 0.0, 1.0);
+            scene61.LightScene = () => lites.DownStage(2, false, true, 0.0, 0.0, 1.0);
             scene61.SceneName = "Strobe 3 Down Stage Key Out";
             song.Scenes.Add(scene61);
 
             SceneModel scene62 = new SceneModel();
-            scene62.CueTime = 27505;
+            scene62.CueTime = 27430;
             scene62.CueTimeMin = 2;
-            scene62.LightScene = () => lites.DownStage(2, false, false, 0.999, 0.0, 1.0);
+            scene62.LightScene = () => lites.DownStage(2, false, false, 0.0, 0.0, 1.0);
             scene62.SceneName = "Strobe 3 Down Stage Key Out";
             song.Scenes.Add(scene62);
 
