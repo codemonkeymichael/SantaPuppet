@@ -9,6 +9,7 @@ namespace SantaPuppet
     public class SceneModel
     {
         public int CueTime { get; set; }
+        public int CueTimeMin { get; set; }
         public Action LightScene { get; set; }
         public string SceneName { get; set; }    
     }

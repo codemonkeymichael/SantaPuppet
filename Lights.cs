@@ -93,7 +93,6 @@ namespace SantaPuppet
         {
             Back_StrobeRandom(400, repeat, true);
         }
-
         public void Back_StrobeRandom(object duration, object repeat, object split)
         {
             var rand = new Random();
@@ -102,27 +101,35 @@ namespace SantaPuppet
             int r = Convert.ToInt32(repeat);
             bool h = Convert.ToBoolean(split);
 
+            int addUpSleepTime = 0;
+
             for (int n = 0; n < r; n++)
             {
-                if (h) {
+                if (h)
+                {
                     //Left Half
-                    var left = rand.Next(0,4);            
-                    var right = rand.Next(5,8);
+                    var left = rand.Next(0, 4);
+                    var right = rand.Next(5, 8);
                     controller.Write(backLights[left], PinValue.High);
+                    addUpSleepTime += d / 2;
                     Thread.Sleep(d / 2);
                     controller.Write(backLights[right], PinValue.High);
+                    addUpSleepTime += d / 2;
                     Thread.Sleep(d / 2);
                     controller.Write(backLights[left], PinValue.Low);
+                    addUpSleepTime += d / 2;
                     Thread.Sleep(d / 2);
                     controller.Write(backLights[right], PinValue.Low);
                 }
                 else
                 {
-                    var light = rand.Next(0,8);
+                    var light = rand.Next(0, 8);
                     controller.Write(backLights[light], PinValue.High);
+                    addUpSleepTime += d;
                     Thread.Sleep(d);
                     controller.Write(backLights[light], PinValue.Low);
                 }
+                Console.WriteLine("Total Loop Duration = " + addUpSleepTime);
             }
         }
 
@@ -402,12 +409,15 @@ namespace SantaPuppet
             bool b = Convert.ToBoolean(bounce);
             bool h = Convert.ToBoolean(split);
 
+            var addUpSleepTime = 0;
+
             for (int n = 0; n < r; n++)
             {
                 for (int i = 0; i < backLights.Count() - 1; i++)
                 {
                     controller.Write(backLights[i], PinValue.High);
                     if (h) controller.Write(backLights[i + 4], PinValue.High);
+                    addUpSleepTime += s;
                     Thread.Sleep(s);
                     if (h && i == 3) break;
                 }
@@ -415,6 +425,7 @@ namespace SantaPuppet
                 {
                     controller.Write(backLights[i], PinValue.Low);
                     if (h) controller.Write(backLights[i + 4], PinValue.Low);
+                    addUpSleepTime += s;
                     Thread.Sleep(s);
                     if (h && i == 3) break;
                 }
@@ -425,6 +436,7 @@ namespace SantaPuppet
                     {
                         controller.Write(backLights[i], PinValue.High);
                         if (h) controller.Write(backLights[i + 4], PinValue.High);
+                        addUpSleepTime += s;
                         Thread.Sleep(s);
                         if (h && i == 3) break;
                     }
@@ -432,33 +444,84 @@ namespace SantaPuppet
                     {
                         controller.Write(backLights[i], PinValue.Low);
                         if (h) controller.Write(backLights[i + 4], PinValue.Low);
+                        addUpSleepTime += s;
                         Thread.Sleep(s);
                         if (h && i == 3) break;
                     }
                     Array.Reverse(backLights);
 
                 }
+                Console.WriteLine("Total Sleep Per Repeat = " + addUpSleepTime);
             }
+            
+        }
 
+
+        public void Back_Color_Red()
+        {
+            Back_Color("Red", false, 0);
+        }
+        public void Back_Color_Green()
+        {
+            Back_Color("Green", false, 0);
+        }
+        public void Back_Color_Blue()
+        {
+            Back_Color("Blue", false, 0);
+        }
+        public void Back_Color_Yellow()
+        {
+            Back_Color("Yellow", false, 0);
+        }
+        public void Back_Color_Randon()
+        {
+            Back_Color("Random", false, 0);
+        }
+        public void Back_Color_Black()
+        {
+            Back_Color("Black", false, 0);
+        }
+        public void Back_Color_Red_Dur(object duration)
+        {
+            Back_Color("Red", false, duration);
+        }
+        public void Back_Color_Green_Dur(object duration)
+        {
+            Back_Color("Green", false, duration);
+        }
+        public void Back_Color_Blue_Dur(object duration)
+        {
+            Back_Color("Blue", false, duration);
+        }
+        public void Back_Color_Yellow_Dur(object duration)
+        {
+            Back_Color("Yellow", false, duration);
         }
 
         /// <summary>
         /// Backligts turn on one color.
         /// </summary>
-        /// <param name="color">Red, Green, Blue, Yellow, Random</param>
+        /// <param name="color">Red, Green, Blue, Yellow, Black, Random</param>
         /// <param name="clear">true = Turn off all backligts before turning on the color. </param>
-        public void Back_Color(object color, object clear)
+        /// <param name="duration">0 = leave them on </param>
+        public void Back_Color(object color, object clear, object duration)
         {
             string c = Convert.ToString(color);
             bool clr = Convert.ToBoolean(clear);
-            if (clr)
+            int d = Convert.ToInt32(duration);
+
+            //Console.WriteLine("Back_Color - Color = " + c);
+            //Console.WriteLine("Back_Color - Clear = " + clr);
+
+            if (c == "Black" || clr)
             {
                 foreach (var light in backLights)
                 {
                     controller.Write(light, PinValue.Low);
                 }
             }
-            if(c == "Random")
+
+            if (c == "Random")
             {
                 var random = new Random();
                 var list = new List<string> { "Red", "Green", "Blue", "Yellow" };
@@ -484,7 +547,32 @@ namespace SantaPuppet
                     controller.Write(backLights[7], PinValue.High);
                     break;
             }
+            if(d > 0)
+            {
+                Thread.Sleep(d);
+                switch (c)
+                {
+                    case "Red":
+                        controller.Write(backLights[0], PinValue.Low);
+                        controller.Write(backLights[4], PinValue.Low);
+                        break;
+                    case "Green":
+                        controller.Write(backLights[1], PinValue.Low);
+                        controller.Write(backLights[5], PinValue.Low);
+                        break;
+                    case "Blue":
+                        controller.Write(backLights[2], PinValue.Low);
+                        controller.Write(backLights[6], PinValue.Low);
+                        break;
+                    case "Yellow":
+                        controller.Write(backLights[3], PinValue.Low);
+                        controller.Write(backLights[7], PinValue.Low);
+                        break;
+                }
+            }
         }
+
+
 
         /// <summary>
         /// Down stage lights are controlled by PWM and as such can be dimmed.
@@ -540,43 +628,6 @@ namespace SantaPuppet
                 }
             }
         }
-
-        //public static void FadeKeyLights()
-        //{
-
-        //    var pwm0 = PwmChannel.Create(0, 1, 1000, 0.0);
-        //    pwm0.Start();
-
-        //    bool statusUp0 = true;
-        //    double fadeStatus0 = 0.0;
-        //    while (true)
-        //    {
-        //        if (statusUp0)
-        //        {
-        //            fadeStatus0 = fadeStatus0 + 0.001;
-        //        }
-        //        else
-        //        {
-        //            fadeStatus0 = fadeStatus0 - 0.001;
-        //        }
-        //        int sleepTime0 = 1; //How fast to fade 10 is slow 1 is fast
-        //        if (fadeStatus0 > 0.99)
-        //        {
-        //            statusUp0 = false;
-        //            sleepTime0 = 800;
-        //        }
-        //        if (fadeStatus0 < 0.001)
-        //        {
-        //            fadeStatus0 = 0.0;
-        //            statusUp0 = true;
-        //            sleepTime0 = 800;
-        //        }
-
-        //        pwm0.DutyCycle = fadeStatus0;
-
-        //        Thread.Sleep(sleepTime0);
-        //    }
-        //}
 
     }
 }

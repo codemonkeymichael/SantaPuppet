@@ -40,6 +40,7 @@ namespace SantaPuppet
                     break;
                 }
             }
+            Console.WriteLine(s.Title);
         }
 
         private static void OnPlaybackStart()
@@ -62,8 +63,9 @@ namespace SantaPuppet
             {
                 currentCue++;
             }
+            int cueTime = song.Scenes[currentCue].CueTime + (song.Scenes[currentCue].CueTimeMin * 60000);           
             Console.WriteLine("Fire currentCue=" + currentCue.ToString() +
-                " time=" + song.Scenes[currentCue].CueTime +
+                " time=" + cueTime +
                 " scenes.Count=" + song.Scenes.Count.ToString() +
                 " sceneName=" + song.Scenes[currentCue].SceneName);
  
@@ -73,8 +75,11 @@ namespace SantaPuppet
 
             if (currentCue < song.Scenes.Count)
             {
-                int newInterval = song.Scenes[currentCue + 1].CueTime - song.Scenes[currentCue].CueTime;
-                //Console.WriteLine("newInterval=" + newInterval.ToString());
+                int nextCueTime = song.Scenes[currentCue + 1].CueTime + (song.Scenes[currentCue + 1].CueTimeMin * 60000);
+                //Console.WriteLine("nextCueTime=" + nextCueTime);
+                //Console.WriteLine("cueTime=" + cueTime);
+                int newInterval = nextCueTime - cueTime;
+                Console.WriteLine("newInterval=" + newInterval);
                 aTimer.Interval = newInterval;
                 aTimer.Start();
             }
