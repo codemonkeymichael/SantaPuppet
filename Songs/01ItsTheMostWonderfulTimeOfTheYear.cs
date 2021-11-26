@@ -18,11 +18,11 @@ namespace SantaPuppet.Songs
 
             Lights lites = new Lights();
 
-            SceneModel sceneTest = new SceneModel();
-            sceneTest.CueTime = 1;
-            sceneTest.LightScene = () => lites.Back_StrobeRandom_Fast_NoSplit(1);
-            sceneTest.SceneName = "Test";
-            song.Scenes.Add(sceneTest);
+            //SceneModel sceneTest = new SceneModel();
+            //sceneTest.CueTime = 1;
+            //sceneTest.LightScene = () => lites.Back_StrobeRandom_Fast_NoSplit(1);
+            //sceneTest.SceneName = "Test";
+            //song.Scenes.Add(sceneTest);
 
 
             SceneModel scene0 = new SceneModel();

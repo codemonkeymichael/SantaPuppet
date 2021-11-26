@@ -129,7 +129,7 @@ namespace SantaPuppet
                     Thread.Sleep(d);
                     controller.Write(backLights[light], PinValue.Low);
                 }
-                Console.WriteLine("Total Loop Duration = " + addUpSleepTime);
+                //Console.WriteLine("Total Loop Duration = " + addUpSleepTime);
             }
         }
 
@@ -451,7 +451,7 @@ namespace SantaPuppet
                     Array.Reverse(backLights);
 
                 }
-                Console.WriteLine("Total Sleep Per Repeat = " + addUpSleepTime);
+                //Console.WriteLine("Total Sleep Per Repeat = " + addUpSleepTime);
             }
             
         }
