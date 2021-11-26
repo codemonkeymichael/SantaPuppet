@@ -273,7 +273,7 @@ namespace SantaPuppet.Songs
             song.Scenes.Add(scene42);
 
             SceneModel scene43 = new SceneModel();
-            scene43.CueTime = 37426;
+            scene43.CueTime = 37428;
             scene43.CueTimeMin = 1;
             scene43.LightScene = () => lites.Back_Color_Blue();
             scene43.SceneName = "Both";
@@ -282,15 +282,15 @@ namespace SantaPuppet.Songs
             SceneModel scene44 = new SceneModel();
             scene44.CueTime = 40700;
             scene44.CueTimeMin = 1;
-            scene44.LightScene = () => lites.DownStage(20, true, true, 0.0, 0.0, 0.25);
-            scene44.SceneName = "Horns";
+            scene44.LightScene = () => lites.DownStage(10, true, true, 0.25, 0.0, 0.0);
+            scene44.SceneName = "All";
             song.Scenes.Add(scene44);
 
             SceneModel scene45 = new SceneModel();
             scene45.CueTime = 40750;
             scene45.CueTimeMin = 1;
-            scene45.LightScene = () => lites.DownStage(20, true, false, 0.0, 0.0, 0.20);
-            scene45.SceneName = "Horns";
+            scene45.LightScene = () => lites.DownStage(10, true, false, 0.20, 0.0, 0.0);
+            scene45.SceneName = "All";
             song.Scenes.Add(scene45);
 
             SceneModel scene46 = new SceneModel();
@@ -419,11 +419,12 @@ namespace SantaPuppet.Songs
 
 
 
-            //SceneModel scene999 = new SceneModel();
-            //scene999.CueTime = 147410;
-            //scene999.LightScene = () => lites.BLackOut();
-            //scene999.SceneName = "Black Out";
-            //song.Scenes.Add(scene999);
+            SceneModel scene999 = new SceneModel();
+            scene999.CueTime = 28921;
+            scene999.CueTimeMin = 2;
+            scene999.LightScene = () => lites.BLackOut();
+            scene999.SceneName = "Black Out";
+            song.Scenes.Add(scene999);
 
             return song;
         }

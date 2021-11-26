@@ -45,12 +45,8 @@ namespace SantaPuppet
             {
                 controller.Write(light, PinValue.Low);
             }
-
-            var pwm0 = PwmChannel.Create(0, 0, 400, 0.0);
-            pwm0.Start();
-
-            var pwm1 = PwmChannel.Create(0, 1, 400, 0.0);
-            pwm1.Start();
+            DownStage(0, false, true, 0.0, 0.0, 0.0);
+            DownStage(0, false, false, 0.0, 0.0, 0.0);
         }
 
         public void Back_StrobeAll_Fast()
@@ -453,7 +449,7 @@ namespace SantaPuppet
                 }
                 //Console.WriteLine("Total Sleep Per Repeat = " + addUpSleepTime);
             }
-            
+
         }
 
 
@@ -547,7 +543,7 @@ namespace SantaPuppet
                     controller.Write(backLights[7], PinValue.High);
                     break;
             }
-            if(d > 0)
+            if (d > 0)
             {
                 Thread.Sleep(d);
                 switch (c)
