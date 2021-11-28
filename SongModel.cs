@@ -10,7 +10,7 @@ namespace SantaPuppet
     {
         public string Title { get; set; }
         public string SongPath { get; set; }
-        public List<SceneModel> Scenes { get; set; }
+        public List<CueModel> Scenes { get; set; }
 
     }
 }

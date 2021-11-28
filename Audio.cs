@@ -67,10 +67,10 @@ namespace SantaPuppet
             Console.WriteLine("Fire currentCue=" + currentCue.ToString() +
                 " time=" + cueTime +
                 " scenes.Count=" + song.Scenes.Count.ToString() +
-                " sceneName=" + song.Scenes[currentCue].SceneName);
+                " CueName=" + song.Scenes[currentCue].CueName);
  
-            Thread t = new Thread(() => song.Scenes[currentCue].LightScene.Invoke());
-            t.Name = song.Scenes[currentCue].SceneName;
+            Thread t = new Thread(() => song.Scenes[currentCue].CueAction.Invoke());
+            t.Name = song.Scenes[currentCue].CueName;
             t.Start(); 
 
             if (currentCue < song.Scenes.Count)

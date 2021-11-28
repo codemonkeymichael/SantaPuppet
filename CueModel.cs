@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SantaPuppet
 {
-    public class SceneModel
+    public class CueModel
     {
         public int CueTime { get; set; }
         public int CueTimeMin { get; set; }
-        public Action LightScene { get; set; }
-        public string SceneName { get; set; }    
+        public Action CueAction { get; set; }
+        public string CueName { get; set; }    
     }
 }
