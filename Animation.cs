@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SantaPuppet
 {
-    public class Motors
+    public class Animation
     {
         public static void Dance(int[] motor)
         {
