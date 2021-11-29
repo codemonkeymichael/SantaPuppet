@@ -1,4 +1,7 @@
-﻿After you publish run this to push it to the raspberry pi
+﻿Merry Christmas Tim
+I wrote some code for you for Christmas.
+
+After you publish run this to push it to the raspberry pi
 
 Use publish to build project for the pi
 
@@ -25,10 +28,6 @@ kill -9 <PID>
 
 
 GPIOs
-2. Motor1 Feet
-3. Motor1 Feet
-4. Motor1 Feet
-
 
 8. Play Btn Light
 9. Curtin Stop
@@ -44,12 +43,9 @@ GPIOs
 24. Motor Curtin
 25. Motor Curtin
 
+18. LED1 Key Lights (PWM Dimmable Channel 0)
 
-
-
-18. LED1 Key Lights (PWM Dimmable)
-
-19. LED2 Foot Lights (PWM Dimmable)
+19. LED2 Foot Lights (PWM Dimmable Channel 1)
 
 5. LED6 Back Left Red
 6. LED7 Back Left Green

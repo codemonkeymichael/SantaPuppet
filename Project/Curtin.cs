@@ -33,15 +33,14 @@ namespace SantaPuppet
             if (o) Array.Reverse(curtinMotor);
 
             maxStepCounter = 0;
-            Console.WriteLine("maxStepCounter1 " + maxStepCounter);
-
             int step = 0; //Four steps 0 1 2 3
+            Console.WriteLine("1 Curtin maxStepCounter=" + maxStepCounter + " maxSteps=" + maxSteps + " speed=" + s);
             while (true)
             {               
                 var positionStatus = controller.Read(9);                
                 if (positionStatus == PinValue.Low || maxStepCounter > maxSteps)
                 {
-                    Console.WriteLine("Curtin Break " + maxStepCounter + " positionStatus" + positionStatus + " speed" + s);
+                    Console.WriteLine("2 Curtin Break maxStepCounter=" + maxStepCounter + " positionStatus=" + positionStatus + " speed=" + s);
                     break;
                 }
                 else
@@ -60,6 +59,7 @@ namespace SantaPuppet
                     controller.Write(curtinMotor[motorSteps], PinValue.Low);
                     step++;
                     if (step > 3) step = 0;
+                    //Console.WriteLine("3 Curtin Now Sleep " + s);
                     Thread.Sleep(s);
                 }
                 maxStepCounter++;
