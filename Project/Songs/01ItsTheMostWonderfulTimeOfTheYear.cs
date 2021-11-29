@@ -25,19 +25,19 @@ namespace SantaPuppet.Songs
             //sceneTest.CueName = "Test";
             //song.Cues.Add(sceneTest);
 
-            CueModel curtinTest = new CueModel();
-            curtinTest.CueTime = 1;
-            curtinTest.CueTimeMin = 0;
-            curtinTest.CueName = "Curtin Test Open";
-            curtinTest.CueAction = () => cur.OpenClose(true,2);
-            song.Cues.Add(curtinTest);
-
             CueModel scene0 = new CueModel();
-            scene0.CueTime = 4;
+            scene0.CueTime = 1;
             scene0.CueTimeMin = 0;
             scene0.CueAction = () => lites.BLackOut();
             scene0.CueName = "Black Out - Its The Most Wonderful Time Of The Year";
             song.Cues.Add(scene0);
+
+            CueModel curtin10 = new CueModel();
+            curtin10.CueTime = 3;
+            curtin10.CueTimeMin = 0;
+            curtin10.CueName = "Curtin Open";
+            curtin10.CueAction = () => cur.OpenClose(true,2);
+            song.Cues.Add(curtin10);      
 
             CueModel scene1 = new CueModel();
             scene1.CueTime = 5;
@@ -52,7 +52,6 @@ namespace SantaPuppet.Songs
             scene2.CueAction = () => lites.Back_Color_Blue();
             scene2.CueName = "Backlights Blue Color";
             song.Cues.Add(scene2);
-
 
             CueModel scene10 = new CueModel();
             scene10.CueTime = 15;
@@ -75,25 +74,6 @@ namespace SantaPuppet.Songs
             scene15.CueAction = () => lites.Back_Color_Red_Dur(350);
             scene15.CueName = "Ding";
             song.Cues.Add(scene15);
-
-
-
-
-
-
-
-            CueModel curtinTest2 = new CueModel();
-            curtinTest2.CueTime = 11000;
-            curtinTest2.CueTimeMin = 0;
-            curtinTest2.CueName = "Curtin Close";
-            curtinTest2.CueAction = () => cur.OpenClose(false, 2);
-            song.Cues.Add(curtinTest2);
-
-
-
-
-
-
 
             CueModel scene16 = new CueModel();
             scene16.CueTime = 11646;
@@ -441,6 +421,12 @@ namespace SantaPuppet.Songs
 
 
 
+            CueModel curtin20 = new CueModel();
+            curtin20.CueTime = 3;
+            curtin20.CueTimeMin = 0;
+            curtin20.CueName = "Curtin Open";
+            curtin20.CueAction = () => cur.OpenClose(true, 2);
+            song.Cues.Add(curtin10);
 
 
 

@@ -26,27 +26,22 @@ namespace SantaPuppet
 
 
         public void OpenClose(bool open = true, int speed = 2)
-        {
-            int s = Convert.ToInt32(speed);
-            bool o = Convert.ToBoolean(open);
-
-            if (o) Array.Reverse(curtinMotor);
-
+        { 
+            if (open) Array.Reverse(curtinMotor);
             maxStepCounter = 0;
             int step = 0; //Four steps 0 1 2 3
-            Console.WriteLine("1 Curtin maxStepCounter=" + maxStepCounter + " maxSteps=" + maxSteps + " speed=" + s);
+            Console.WriteLine("1 Curtin maxStepCounter=" + maxStepCounter + " maxSteps=" + maxSteps + " speed=" + speed);
             while (true)
             {               
                 var positionStatus = controller.Read(9);                
                 if (positionStatus == PinValue.Low || maxStepCounter > maxSteps)
                 {
-                    Console.WriteLine("2 Curtin Break maxStepCounter=" + maxStepCounter + " positionStatus=" + positionStatus + " speed=" + s);
+                    Console.WriteLine("2 Curtin Break maxStepCounter=" + maxStepCounter + " positionStatus=" + positionStatus + " speed=" + speed);
                     break;
                 }
                 else
                 {
                     int motorSteps = step;
-                   // Console.WriteLine("motorSteps" + motorSteps);
                     controller.Write(curtinMotor[motorSteps], PinValue.High);
                     motorSteps++;
                     if (motorSteps > 3) motorSteps = 0;
@@ -59,12 +54,11 @@ namespace SantaPuppet
                     controller.Write(curtinMotor[motorSteps], PinValue.Low);
                     step++;
                     if (step > 3) step = 0;
-                    //Console.WriteLine("3 Curtin Now Sleep " + s);
-                    Thread.Sleep(s);
+                    Thread.Sleep(speed);
                 }
                 maxStepCounter++;
             }
-            if (o) Array.Reverse(curtinMotor);
+            if (open) Array.Reverse(curtinMotor);
             foreach (int motor in curtinMotor)
             {
                 controller.Write(motor, PinValue.Low);

@@ -57,15 +57,14 @@ namespace SantaPuppet
         {
             Back_StrobeAll(600);
         }
-        public void Back_StrobeAll(object duration)
-        {
-            int d = Convert.ToInt32(duration);
+        public void Back_StrobeAll(int duration)
+        {         
             foreach (int light in backLights)
             {
                 controller.Write(light, PinValue.High);
             }
 
-            Thread.Sleep(d);
+            Thread.Sleep(duration);
 
             foreach (int light in backLights)
             {
@@ -73,56 +72,52 @@ namespace SantaPuppet
             }
         }
 
-        public void Back_StrobeRandom_Fast_NoSplit(object repeat)
+        public void Back_StrobeRandom_Fast_NoSplit(int repeat)
         {
             Back_StrobeRandom(125, repeat, false);
         }
-        public void Back_StrobeRandom_Slow_NoSplit(object repeat)
+        public void Back_StrobeRandom_Slow_NoSplit(int repeat)
         {
             Back_StrobeRandom(350, repeat, false);
         }
-        public void Back_StrobeRandom_Fast_Split(object repeat)
+        public void Back_StrobeRandom_Fast_Split(int repeat)
         {
             Back_StrobeRandom(150, repeat, true);
         }
-        public void Back_StrobeRandom_Slow_Split(object repeat)
+        public void Back_StrobeRandom_Slow_Split(int repeat)
         {
             Back_StrobeRandom(400, repeat, true);
         }
-        public void Back_StrobeRandom(object duration, object repeat, object split)
+        public void Back_StrobeRandom(int duration, int repeat, bool split)
         {
-            var rand = new Random();
-
-            int d = Convert.ToInt32(duration);
-            int r = Convert.ToInt32(repeat);
-            bool h = Convert.ToBoolean(split);
+            var rand = new Random();   
 
             int addUpSleepTime = 0;
 
-            for (int n = 0; n < r; n++)
+            for (int n = 0; n < repeat; n++)
             {
-                if (h)
+                if (split)
                 {
                     //Left Half
                     var left = rand.Next(0, 4);
                     var right = rand.Next(5, 8);
                     controller.Write(backLights[left], PinValue.High);
-                    addUpSleepTime += d / 2;
-                    Thread.Sleep(d / 2);
+                    addUpSleepTime += duration / 2;
+                    Thread.Sleep(duration / 2);
                     controller.Write(backLights[right], PinValue.High);
-                    addUpSleepTime += d / 2;
-                    Thread.Sleep(d / 2);
+                    addUpSleepTime += duration / 2;
+                    Thread.Sleep(duration / 2);
                     controller.Write(backLights[left], PinValue.Low);
-                    addUpSleepTime += d / 2;
-                    Thread.Sleep(d / 2);
+                    addUpSleepTime += duration / 2;
+                    Thread.Sleep(duration / 2);
                     controller.Write(backLights[right], PinValue.Low);
                 }
                 else
                 {
                     var light = rand.Next(0, 8);
                     controller.Write(backLights[light], PinValue.High);
-                    addUpSleepTime += d;
-                    Thread.Sleep(d);
+                    addUpSleepTime += duration;
+                    Thread.Sleep(duration);
                     controller.Write(backLights[light], PinValue.Low);
                 }
                 //Console.WriteLine("Total Loop Duration = " + addUpSleepTime);
@@ -133,97 +128,92 @@ namespace SantaPuppet
         /// <summary>
         /// One Off
         /// </summary>
-        public void Back_1Off_Fast_NoBoun_NoSplit(object repeat)
+        public void Back_1Off_Fast_NoBoun_NoSplit(int repeat)
         {
             Back_1Off(85, repeat, false, false);
         }
         /// <summary>
         /// One Off
         /// </summary>
-        public void Back_1Off_Slow_NoBoun_NoSplit(object repeat)
+        public void Back_1Off_Slow_NoBoun_NoSplit(int repeat)
         {
             Back_1Off(110, repeat, false, false);
         }
         /// <summary>
         /// One Off
         /// </summary>
-        public void Back_1Off_Fast_Bounce_NoSplit(object repeat)
+        public void Back_1Off_Fast_Bounce_NoSplit(int repeat)
         {
             Back_1Off(85, repeat, true, false);
         }
         /// <summary>
         /// One Off
         /// </summary>
-        public void Back_1Off_Slow_Bounce_NoSplit(object repeat)
+        public void Back_1Off_Slow_Bounce_NoSplit(int repeat)
         {
             Back_1Off(110, repeat, true, false);
         }
         /// <summary>
         /// One Off
         /// </summary>
-        public void Back_1Off_Fast_NoBounce_Split(object repeat)
+        public void Back_1Off_Fast_NoBounce_Split(int repeat)
         {
             Back_1Off(85, repeat, false, true);
         }
         /// <summary>
         /// One Off
         /// </summary>
-        public void Back_1Off__Slow_NoBoun_Split(object repeat)
+        public void Back_1Off__Slow_NoBoun_Split(int repeat)
         {
             Back_1Off(110, repeat, false, true);
         }
         /// <summary>
         /// One Off
         /// </summary>
-        public void Back_1Off_Fast_Boun_Split(object repeat)
+        public void Back_1Off_Fast_Boun_Split(int repeat)
         {
             Back_1Off(85, repeat, true, true);
         }
         /// <summary>
         /// One Off
         /// </summary>
-        public void Back_1Off_Slow_Bounce_Split(object repeat)
+        public void Back_1Off_Slow_Bounce_Split(int repeat)
         {
             Back_1Off(110, repeat, true, true);
         }
         /// <summary>
         /// One Off
         /// </summary>
-        public void Back_1Off(object speed, object repeat, object bounce, object split)
-        {
-            int s = Convert.ToInt32(speed);
-            int r = Convert.ToInt32(repeat);
-            bool b = Convert.ToBoolean(bounce);
-            bool h = Convert.ToBoolean(split);
-
+        public void Back_1Off(int speed, int repeat, bool bounce, bool split)
+        { 
             //Turn them all On
             foreach (int la in backLights)
             {
                 controller.Write(la, PinValue.High);
             }
 
-            for (int n = 0; n < r; n++)
+            for (int n = 0; n < repeat; n++)
             {
                 for (int i = 0; i < backLights.Count() - 1; i++)
                 {
                     controller.Write(backLights[i], PinValue.Low);
-                    if (h) controller.Write(backLights[i + 4], PinValue.Low);
-                    Thread.Sleep(s);
+                    if (split) controller.Write(backLights[i + 4], PinValue.Low);
+                    Thread.Sleep(speed);
                     controller.Write(backLights[i], PinValue.High);
-                    if (h) controller.Write(backLights[i + 4], PinValue.High);
-                    if (h && i == 3) break;
+                    if (split) controller.Write(backLights[i + 4], PinValue.High);
+                    if (split && i == 3) break;
                 }
-                if (b)
+                if (bounce)
                 {
                     Array.Reverse(backLights);
                     for (int i = 0; i < backLights.Count() - 1; i++)
                     {
                         controller.Write(backLights[i], PinValue.Low);
-                        if (h) controller.Write(backLights[i + 4], PinValue.Low);
-                        Thread.Sleep(s);
+                        if (split) controller.Write(backLights[i + 4], PinValue.Low);
+                        Thread.Sleep(speed);
                         controller.Write(backLights[i], PinValue.High);
-                        if (h) controller.Write(backLights[i + 4], PinValue.High);
-                        if (h && i == 3) break;
+                        if (split) controller.Write(backLights[i + 4], PinValue.High);
+                        if (split && i == 3) break;
                     }
                     Array.Reverse(backLights);
                 }
@@ -240,93 +230,88 @@ namespace SantaPuppet
         /// <summary>
         /// One On
         /// </summary>
-        public void Back_1LOn_Fast_NoBoun_NoSplit(object repeat)
+        public void Back_1LOn_Fast_NoBoun_NoSplit(int repeat)
         {
             Back_1LOn(75, repeat, false, false);
         }
         /// <summary>
         /// One On
         /// </summary>
-        public void Back_1LOn_Slow_NoBoun_NoSplit(object repeat)
+        public void Back_1LOn_Slow_NoBoun_NoSplit(int repeat)
         {
             Back_1LOn(110, repeat, false, false);
         }
         /// <summary>
         /// One On
         /// </summary>
-        public void Back_1LOn_Fast_Bounce_NoSplit(object repeat)
+        public void Back_1LOn_Fast_Bounce_NoSplit(int repeat)
         {
             Back_1LOn(75, repeat, true, false);
         }
         /// <summary>
         /// One On
         /// </summary>
-        public void Back_1LOn_Slow_Bounce_NoSplit(object repeat)
+        public void Back_1LOn_Slow_Bounce_NoSplit(int repeat)
         {
             Back_1LOn(110, repeat, true, false);
         }
         /// <summary>
         /// One On
         /// </summary>
-        public void Back_1LOn_Fast_NoBoun_Split(object repeat)
+        public void Back_1LOn_Fast_NoBoun_Split(int repeat)
         {
             Back_1LOn(75, repeat, false, true);
         }
         /// <summary>
         /// One On
         /// </summary>
-        public void Back_1LOn_Slow_NoBoun_Split(object repeat)
+        public void Back_1LOn_Slow_NoBoun_Split(int repeat)
         {
             Back_1LOn(110, repeat, false, true);
         }
         /// <summary>
         /// One On
         /// </summary>
-        public void Back_1LOn_Fast_Bounce_Split(object repeat)
+        public void Back_1LOn_Fast_Bounce_Split(int repeat)
         {
             Back_1LOn(75, repeat, true, true);
         }
         /// <summary>
         /// One On
         /// </summary>
-        public void Back_1LOn_Slow_Bounce_Split(object repeat)
+        public void Back_1LOn_Slow_Bounce_Split(int repeat)
         {
             Back_1LOn(110, repeat, true, true);
         }
         /// <summary>
         /// One On
         /// </summary>
-        public void Back_1LOn(object speed, object repeat, object bounce, object split)
-        {
-            int s = Convert.ToInt32(speed);
-            int r = Convert.ToInt32(repeat);
-            bool b = Convert.ToBoolean(bounce);
-            bool h = Convert.ToBoolean(split);
-
-            for (int n = 0; n < r; n++)
+        public void Back_1LOn(int speed, int repeat, bool bounce, bool split)
+        {  
+            for (int n = 0; n < repeat; n++)
             {
                 for (int i = 0; i < backLights.Count() - 1; i++)
                 {
                     controller.Write(backLights[i], PinValue.High);
                     //Console.WriteLine("Count Left=" + i.ToString() + "  Count Right=" + (i + 4).ToString());
-                    if (h) controller.Write(backLights[i + 4], PinValue.High);
-                    Thread.Sleep(s);
+                    if (split) controller.Write(backLights[i + 4], PinValue.High);
+                    Thread.Sleep(speed);
                     controller.Write(backLights[i], PinValue.Low);
-                    if (h) controller.Write(backLights[i + 4], PinValue.Low);
-                    if (h && i == 3) break;
+                    if (split) controller.Write(backLights[i + 4], PinValue.Low);
+                    if (split && i == 3) break;
                 }
-                if (b)
+                if (bounce)
                 {
                     Array.Reverse(backLights);
                     for (int i = 0; i < backLights.Count() - 1; i++)
                     {
                         controller.Write(backLights[i], PinValue.High);
                         //Console.WriteLine("Count Left=" + i.ToString() + "  Count Right=" + (i + 4).ToString());
-                        if (h) controller.Write(backLights[i + 4], PinValue.High);
-                        Thread.Sleep(s);
+                        if (split) controller.Write(backLights[i + 4], PinValue.High);
+                        Thread.Sleep(speed);
                         controller.Write(backLights[i], PinValue.Low);
-                        if (h) controller.Write(backLights[i + 4], PinValue.Low);
-                        if (h && i == 3) break;
+                        if (split) controller.Write(backLights[i + 4], PinValue.Low);
+                        if (split && i == 3) break;
                     }
                     Array.Reverse(backLights);
                 }
@@ -337,56 +322,56 @@ namespace SantaPuppet
         /// <summary>
         /// On Off
         /// </summary>
-        public void Back_OnOf_Fast_NoBoun_NoSplit(object repeat)
+        public void Back_OnOf_Fast_NoBoun_NoSplit(int repeat)
         {
             Back_OnOf(70, repeat, false, false);
         }
         /// <summary>
         /// On Off
         /// </summary>
-        public void Back_OnOf_Slow_NoBoun_NoSplit(object repeat)
+        public void Back_OnOf_Slow_NoBoun_NoSplit(int repeat)
         {
             Back_OnOf(105, repeat, false, false);
         }
         /// <summary>
         /// On Off
         /// </summary>
-        public void Back_OnOf_Fast_Bounce_NoSplit(object repeat)
+        public void Back_OnOf_Fast_Bounce_NoSplit(int repeat)
         {
             Back_OnOf(70, repeat, true, false);
         }
         /// <summary>
         /// On Off
         /// </summary>
-        public void Back_OnOf_Slow_Bounce_NoSplit(object repeat)
+        public void Back_OnOf_Slow_Bounce_NoSplit(int repeat)
         {
             Back_OnOf(70, repeat, true, false);
         }
         /// <summary>
         /// On Off
         /// </summary>
-        public void Back_OnOf_Fast_NoBoun_Split(object repeat)
+        public void Back_OnOf_Fast_NoBoun_Split(int repeat)
         {
             Back_OnOf(70, repeat, false, true);
         }
         /// <summary>
         /// On Off
         /// </summary>
-        public void Back_OnOf_Slow_NoBoun_Split(object repeat)
+        public void Back_OnOf_Slow_NoBoun_Split(int repeat)
         {
             Back_OnOf(70, repeat, false, true);
         }
         /// <summary>
         /// On Off
         /// </summary>
-        public void Back_OnOf_Fast_Bounce_Split(object repeat)
+        public void Back_OnOf_Fast_Bounce_Split(int repeat)
         {
             Back_OnOf(70, repeat, true, true);
         }
         /// <summary>
         /// On Off
         /// </summary>
-        public void Back_OnOf_Slow_Bounce_Split(object repeat)
+        public void Back_OnOf_Slow_Bounce_Split(int repeat)
         {
             Back_OnOf(70, repeat, true, true);
         }
@@ -394,55 +379,50 @@ namespace SantaPuppet
         /// <summary>
         /// Backligts all turn on one by one then turn off one by one
         /// </summary>
-        /// <param name="speed">int The time in millaseconds between each light coming one and going off 20 is kinda fast</param>
-        /// <param name="repeat">int How many times should it run</param>
-        /// <param name="bounce">bool true = is left then right, false = just left</param>
-        /// <param name="split">bool true = left 4 and the right 4 chase seprately, false = all 8 light chace together</param>
-        public void Back_OnOf(object speed, object repeat, object bounce, object split)
-        {
-            int s = Convert.ToInt32(speed);
-            int r = Convert.ToInt32(repeat);
-            bool b = Convert.ToBoolean(bounce);
-            bool h = Convert.ToBoolean(split);
-
+        /// <param name="speed">The time in millaseconds between each light coming one and going off 20 is kinda fast</param>
+        /// <param name="repeat">How many times should it run</param>
+        /// <param name="bounce">true = is left then right, false = just left</param>
+        /// <param name="split">left 4 and the right 4 chase seprately, false = all 8 light chace together</param>
+        public void Back_OnOf(int speed, int repeat, bool bounce, bool split)
+        {       
             var addUpSleepTime = 0;
 
-            for (int n = 0; n < r; n++)
+            for (int n = 0; n < repeat; n++)
             {
                 for (int i = 0; i < backLights.Count() - 1; i++)
                 {
                     controller.Write(backLights[i], PinValue.High);
-                    if (h) controller.Write(backLights[i + 4], PinValue.High);
-                    addUpSleepTime += s;
-                    Thread.Sleep(s);
-                    if (h && i == 3) break;
+                    if (split) controller.Write(backLights[i + 4], PinValue.High);
+                    addUpSleepTime += speed;
+                    Thread.Sleep(speed);
+                    if (split && i == 3) break;
                 }
                 for (int i = 0; i < backLights.Count() - 1; i++)
                 {
                     controller.Write(backLights[i], PinValue.Low);
-                    if (h) controller.Write(backLights[i + 4], PinValue.Low);
-                    addUpSleepTime += s;
-                    Thread.Sleep(s);
-                    if (h && i == 3) break;
+                    if (split) controller.Write(backLights[i + 4], PinValue.Low);
+                    addUpSleepTime += speed;
+                    Thread.Sleep(speed);
+                    if (split && i == 3) break;
                 }
-                if (b)
+                if (bounce)
                 {
                     Array.Reverse(backLights);
                     for (int i = 0; i < backLights.Count() - 1; i++)
                     {
                         controller.Write(backLights[i], PinValue.High);
-                        if (h) controller.Write(backLights[i + 4], PinValue.High);
-                        addUpSleepTime += s;
-                        Thread.Sleep(s);
-                        if (h && i == 3) break;
+                        if (split) controller.Write(backLights[i + 4], PinValue.High);
+                        addUpSleepTime += speed;
+                        Thread.Sleep(speed);
+                        if (split && i == 3) break;
                     }
                     for (int i = 0; i < backLights.Count() - 1; i++)
                     {
                         controller.Write(backLights[i], PinValue.Low);
-                        if (h) controller.Write(backLights[i + 4], PinValue.Low);
-                        addUpSleepTime += s;
-                        Thread.Sleep(s);
-                        if (h && i == 3) break;
+                        if (split) controller.Write(backLights[i + 4], PinValue.Low);
+                        addUpSleepTime += speed;
+                        Thread.Sleep(speed);
+                        if (split && i == 3) break;
                     }
                     Array.Reverse(backLights);
 
@@ -477,19 +457,19 @@ namespace SantaPuppet
         {
             Back_Color("Black", false, 0);
         }
-        public void Back_Color_Red_Dur(object duration)
+        public void Back_Color_Red_Dur(int duration)
         {
             Back_Color("Red", false, duration);
         }
-        public void Back_Color_Green_Dur(object duration)
+        public void Back_Color_Green_Dur(int duration)
         {
             Back_Color("Green", false, duration);
         }
-        public void Back_Color_Blue_Dur(object duration)
+        public void Back_Color_Blue_Dur(int duration)
         {
             Back_Color("Blue", false, duration);
         }
-        public void Back_Color_Yellow_Dur(object duration)
+        public void Back_Color_Yellow_Dur(int duration)
         {
             Back_Color("Yellow", false, duration);
         }
@@ -500,16 +480,12 @@ namespace SantaPuppet
         /// <param name="color">Red, Green, Blue, Yellow, Black, Random</param>
         /// <param name="clear">true = Turn off all backligts before turning on the color. </param>
         /// <param name="duration">0 = leave them on </param>
-        public void Back_Color(object color, object clear, object duration)
-        {
-            string c = Convert.ToString(color);
-            bool clr = Convert.ToBoolean(clear);
-            int d = Convert.ToInt32(duration);
-
+        public void Back_Color(string color, bool clear, int duration)
+        {       
             //Console.WriteLine("Back_Color - Color = " + c);
             //Console.WriteLine("Back_Color - Clear = " + clr);
 
-            if (c == "Black" || clr)
+            if (color == "Black" || clear)
             {
                 foreach (var light in backLights)
                 {
@@ -517,14 +493,14 @@ namespace SantaPuppet
                 }
             }
 
-            if (c == "Random")
+            if (color == "Random")
             {
                 var random = new Random();
                 var list = new List<string> { "Red", "Green", "Blue", "Yellow" };
                 int index = random.Next(list.Count);
-                c = list[index];
+                color = list[index];
             }
-            switch (c)
+            switch (color)
             {
                 case "Red":
                     controller.Write(backLights[0], PinValue.High);
@@ -543,10 +519,10 @@ namespace SantaPuppet
                     controller.Write(backLights[7], PinValue.High);
                     break;
             }
-            if (d > 0)
+            if (duration > 0)
             {
-                Thread.Sleep(d);
-                switch (c)
+                Thread.Sleep(duration);
+                switch (color)
                 {
                     case "Red":
                         controller.Write(backLights[0], PinValue.Low);
@@ -579,17 +555,10 @@ namespace SantaPuppet
         /// <param name="max">double 1.0 = full on when fading up, 0.5 is half </param>
         /// <param name="min">double 0.0 = is off, 0.5 is half </param>
         /// <param name="start">double 0.0 = is off, 0.5 is half </param>
-        public void DownStage(object speed, object up, object keyLights, object max, object min, object start)
+        public void DownStage(int speed, bool up, bool keyLights, double max, double min, double start)
         {
-            int s = Convert.ToInt32(speed);
-            bool u = Convert.ToBoolean(up);
-            bool k = Convert.ToBoolean(keyLights);
-            double mx = Convert.ToDouble(max);
-            double mn = Convert.ToDouble(min);
-            double st = Convert.ToDouble(start);
-
             int keyLites = 1;
-            if (k) keyLites = 0;
+            if (keyLights) keyLites = 0;
             //Console.WriteLine("DownStageLights speed=" + s.ToString() + 
             //    " up=" + u.ToString() + 
             //    " key=" + keyLites.ToString() +
@@ -597,15 +566,15 @@ namespace SantaPuppet
             //    " mn=" + mn + 
             //    " st=" + st);
 
-            var pwm = PwmChannel.Create(0, keyLites, 400, st);
+            var pwm = PwmChannel.Create(0, keyLites, 400, start);
             pwm.Start();
 
-            if (s > 0)
+            if (speed > 0)
             {
-                double fadeStatus = st;
+                double fadeStatus = start;
                 while (true)
                 {
-                    if (u)
+                    if (up)
                     {
                         fadeStatus = fadeStatus + 0.001;
                         //Console.WriteLine("Up fadeStatus=" + fadeStatus);
@@ -614,13 +583,12 @@ namespace SantaPuppet
                     {
                         fadeStatus = fadeStatus - 0.001;
                         //Console.WriteLine("Down fadeStatus=" + fadeStatus);
-                    }
-                    int sleepTime0 = s;
-                    if (fadeStatus > mx && u) break;
-                    if (fadeStatus < mn && !u) break;
+                    }            
+                    if (fadeStatus > max && up) break;
+                    if (fadeStatus < min && !up) break;
 
                     pwm.DutyCycle = fadeStatus;
-                    Thread.Sleep(s);
+                    Thread.Sleep(speed);
                 }
             }
         }

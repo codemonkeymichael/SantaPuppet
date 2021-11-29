@@ -1,5 +1,5 @@
 ﻿Merry Christmas Tim
-I wrote some code for you for Christmas.
+I wrote code for you for Christmas.
 
 After you publish run this to push it to the raspberry pi
 
@@ -10,8 +10,6 @@ Host: sftp://192.168.1.15
 Username: pi
 Password: Sydney9-25
 Port: 22
-
-TODO: Put the FTP in a post publish script
 
 To remote into the pi go to a cmd prompt:
 ssh pi@192.168.1.15
