@@ -22,3 +22,64 @@ List Running Apps to get PID
 ps -ef
 To Kill It
 kill -9 <PID>
+
+
+GPIOs
+2. Motor1 Feet
+3. Motor1 Feet
+4. Motor1 Feet
+
+
+8. Play Btn Light
+9. Curtin Stop
+10. 
+11. 
+14. 
+15. 
+17. 
+27. 
+
+22. Motor Curtin
+23. Motor Curtin
+24. Motor Curtin
+25. Motor Curtin
+
+
+
+
+18. LED1 Key Lights (PWM Dimmable)
+
+19. LED2 Foot Lights (PWM Dimmable)
+
+5. LED6 Back Left Red
+6. LED7 Back Left Green
+7. LED8 Back Left Blue
+12. LED9 Back Left Yellow
+13. LED10 Back Right Red
+16. LED11 Back Right Green
+20. LED12 Back Right Blue
+21. LED13 Back Right Yellow
+
+26. Play button 
+
+Extra Pins
+
+1. Motor1 Feet
+2. Motor1 Feet
+3. Motor1 Feet
+4. Motor1 Feet
+
+5. Motor2 Left Arm
+6. Motor2 Left Arm
+7. Motor2 Left Arm
+8. Motor2 Left Arm
+
+9. Motor3 Right Arm
+10. Motor3 Right Arm
+11. Motor3 Right Arm
+12. Motor3 Right Arm
+
+13. Motor4 Shoulders
+14. Motor4 Shoulders
+15. Motor4 Shoulders
+16. Motor4 Shoulders

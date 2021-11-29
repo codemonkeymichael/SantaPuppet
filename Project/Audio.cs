@@ -17,7 +17,7 @@ namespace SantaPuppet
     {
         private static System.Timers.Timer aTimer;
         private static List<int> lightingCuesTimes;
-        private static List<Action> lightingCuesScenes;
+        private static List<Action> lightingCuesCues;
         private static int currentCue = 0;
         private static bool firstCue = true;
         private static SongModel song;
@@ -46,7 +46,7 @@ namespace SantaPuppet
         private static void OnPlaybackStart()
         {
             Console.WriteLine("Playback Started");
-            aTimer = new System.Timers.Timer(song.Scenes[currentCue].CueTime);
+            aTimer = new System.Timers.Timer(song.Cues[currentCue].CueTime);
             // Hook up the Elapsed event for the timer. 
             aTimer.Elapsed += OnTimedEvent;
             aTimer.AutoReset = false;
@@ -63,23 +63,23 @@ namespace SantaPuppet
             {
                 currentCue++;
             }
-            int cueTime = song.Scenes[currentCue].CueTime + (song.Scenes[currentCue].CueTimeMin * 60000);           
+            int cueTime = song.Cues[currentCue].CueTime + (song.Cues[currentCue].CueTimeMin * 60000);           
             Console.WriteLine("Fire currentCue=" + currentCue.ToString() +
                 " time=" + cueTime +
-                " scenes.Count=" + song.Scenes.Count.ToString() +
-                " CueName=" + song.Scenes[currentCue].CueName);
+                " Cues.Count=" + song.Cues.Count.ToString() +
+                " CueName=" + song.Cues[currentCue].CueName);
  
-            Thread t = new Thread(() => song.Scenes[currentCue].CueAction.Invoke());
-            t.Name = song.Scenes[currentCue].CueName;
+            Thread t = new Thread(() => song.Cues[currentCue].CueAction.Invoke());
+            t.Name = song.Cues[currentCue].CueName;
             t.Start(); 
 
-            if (currentCue < song.Scenes.Count)
+            if (currentCue < song.Cues.Count)
             {
-                int nextCueTime = song.Scenes[currentCue + 1].CueTime + (song.Scenes[currentCue + 1].CueTimeMin * 60000);
+                int nextCueTime = song.Cues[currentCue + 1].CueTime + (song.Cues[currentCue + 1].CueTimeMin * 60000);
                 //Console.WriteLine("nextCueTime=" + nextCueTime);
                 //Console.WriteLine("cueTime=" + cueTime);
                 int newInterval = nextCueTime - cueTime;
-                Console.WriteLine("newInterval=" + newInterval);
+                //Console.WriteLine("newInterval=" + newInterval);
                 aTimer.Interval = newInterval;
                 aTimer.Start();
             }
