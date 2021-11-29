@@ -422,8 +422,8 @@ namespace SantaPuppet.Songs
 
 
             CueModel curtin20 = new CueModel();
-            curtin20.CueTime = 3;
-            curtin20.CueTimeMin = 0;
+            curtin20.CueTime = 27435;
+            curtin20.CueTimeMin = 2;
             curtin20.CueName = "Curtin Open";
             curtin20.CueAction = () => cur.OpenClose(true, 2);
             song.Cues.Add(curtin10);
