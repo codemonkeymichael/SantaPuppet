@@ -27,14 +27,14 @@ kill -9 <PID>
 
 GPIOs
 
-8. Play Btn Light
-9. Curtin Stop
-10. 
-11. 
-14. 
-15. 
-17. 
-27. 
+8.Curtin Close Stop - Input
+9. Curtin Open Stop - Input
+10. Play Btn LED Green
+11. (Backdrop Side Lights)
+14. (Backbrop Up Lights)
+15. (Side Light Red)
+17. (Side Light Green)
+27. (Side Light Blue Could Be for Talking)
 
 22. Motor Curtin
 23. Motor Curtin
@@ -56,7 +56,7 @@ GPIOs
 
 26. Play button 
 
-Extra Pins
+MCP23017 Port Expander
 
 1. Motor1 Feet
 2. Motor1 Feet

@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Device.Gpio;
+using System.Device.I2c;
 using System.Device.Pwm;
 using System.Threading;
 using SantaPuppet;
@@ -9,7 +10,20 @@ namespace SantaPuppet
 {
     class Program
     {
-     
+
+        private const string I2C_CONTROLLER_NAME = "I2C1"; //specific to RPI2
+        private const byte PORT_EXPANDER_I2C_ADDRESS = 0x20; // 7-bit I2C address of the port expander
+        private const byte PORT_EXPANDER_IODIR_REGISTER_ADDRESS = 0x00; // IODIR register controls the direction of the GPIO on the port expander
+        private const byte PORT_EXPANDER_GPIO_REGISTER_ADDRESS = 0x09; // GPIO register is used to read the pins input
+        private const byte PORT_EXPANDER_OLAT_REGISTER_ADDRESS = 0x0A; // Output Latch register is used to set the pins output high/low
+  
+
+
+
+        private I2cDevice i2cPortExpander;
+
+
+
 
         static void Main(string[] args)
         {
@@ -18,6 +32,12 @@ namespace SantaPuppet
             Songs.ItsTheMostWonderfulTimeOfTheYear song = new Songs.ItsTheMostWonderfulTimeOfTheYear();
             Thread t = new(() => Audio.PlaySong(song.songData()));   
             t.Start();
+
+            //var i2cSettings = new I2cConnectionSettings(0,PORT_EXPANDER_I2C_ADDRESS);
+            //string deviceSelector = I2cDevice.GetDeviceSelector(I2C_CONTROLLER_NAME);
+            //var i2cDeviceControllers = await DeviceInformation.FindAllAsync(deviceSelector);
+            //i2cPortExpander = await I2cDevice.FromIdAsync(i2cDeviceControllers[0].Id, i2cSettings);
+
 
 
             //Thread threadKeyLights =  new(Lights.FadeKeyLights);
