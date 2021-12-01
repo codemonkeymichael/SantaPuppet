@@ -29,7 +29,11 @@ GPIOs
 
 8.Curtin Close Stop - Input
 9. Curtin Open Stop - Input
+
 10. Play Btn LED Green
+
+Maybe if there''s time
+
 11. (Backdrop Side Lights)
 14. (Backbrop Up Lights)
 15. (Side Light Red)
@@ -44,6 +48,8 @@ GPIOs
 18. LED1 Key Lights (PWM Dimmable Channel 0)
 
 19. LED2 Foot Lights (PWM Dimmable Channel 1)
+
+Backlight Truss
 
 5. LED6 Back Left Red
 6. LED7 Back Left Green
