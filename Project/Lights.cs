@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Iot.Device.Mcp23xxx;
+using System;
 using System.Collections.Generic;
 using System.Device.Gpio;
+using System.Device.I2c;
 using System.Device.Pwm;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+
 
 namespace SantaPuppet
 {
@@ -14,6 +18,7 @@ namespace SantaPuppet
         private static int keyLights = 18;
         private static int footLights = 19;
         private static int[] backLights = new int[] { 5, 6, 7, 12, 13, 16, 20, 21 };
+
         //red1 = 5;
         //green1 = 6;
         //blue1 = 7;
@@ -38,6 +43,65 @@ namespace SantaPuppet
             }
         }
 
+        public void TestI2c()
+        {
+            Console.WriteLine("Test MCP23017 I2C");
+
+            var connectionSettingsx20 = new I2cConnectionSettings(1, 0x20);
+            var i2cDevicex20 = I2cDevice.Create(connectionSettingsx20);          
+            var mcp23017x20 = new Mcp23017(i2cDevicex20);
+
+            mcp23017x20.WriteByte(Register.IODIR, 0b0000_0000, Port.PortA);
+            mcp23017x20.WriteByte(Register.IODIR, 0b0000_0000, Port.PortB);
+ 
+
+            var controller = new GpioController(PinNumberingScheme.Logical, mcp23017x20);
+
+
+            for (int i = 0; i < 15; i++)
+            {
+                controller.OpenPin(i, PinMode.Output, PinValue.Low);
+                controller.SetPinMode(i, PinMode.Output);
+
+            }
+
+            bool status = true;
+
+            while (true)
+            {
+                if (status)
+                {
+                    for (int i = 0; i < 15; i++)
+                    {
+                        controller.Write(i, PinValue.High);          
+                        Task.Delay(250).Wait();
+                    }
+                    Console.WriteLine("On");
+                    for (int i = 0; i < 15; i++)
+                    {
+                        Console.WriteLine("Pin" + i + " " + controller.Read(i) + 
+                            " Mode=" + controller.GetPinMode(i) + 
+                            " PinCount=" + controller.PinCount +
+                            " IsPinModeSupported.Output=" + controller.IsPinModeSupported(i,PinMode.Output));                       
+                    }
+                    status = false;                 
+                }
+                else
+                {
+                    for (int i = 0; i < 15; i++)
+                    {
+                        controller.Write(i, PinValue.Low);
+                        Task.Delay(250).Wait();
+                    }
+                    Console.WriteLine("Off");
+                    for (int i = 0; i < 15; i++)
+                    {
+                        Console.WriteLine("Pin" + i + " " + controller.Read(i));
+                    }
+                    status = true;                   
+                }               
+            }
+        }
 
         public void BLackOut()
         {

@@ -19,35 +19,35 @@ namespace SantaPuppet.Songs
             Lights lites = new Lights();
             Curtin cur = new Curtin();
 
-            //SceneModel sceneTest = new SceneModel();
-            //sceneTest.CueTime = 1;
-            //sceneTest.CueAction = () => lites.Back_StrobeRandom_Fast_NoSplit(1);
-            //sceneTest.CueName = "Test";
-            //song.Cues.Add(sceneTest);
+            CueModel sceneTest = new CueModel();
+            sceneTest.CueTime = 1;
+            sceneTest.CueAction = () => lites.TestI2c();
+            sceneTest.CueName = "Test I2C";
+            song.Cues.Add(sceneTest);
 
             CueModel scene0 = new CueModel();
-            scene0.CueTime = 1;
+            scene0.CueTime = 5;
             scene0.CueTimeMin = 0;
             scene0.CueAction = () => lites.BLackOut();
             scene0.CueName = "Black Out - Its The Most Wonderful Time Of The Year";
             song.Cues.Add(scene0);
 
             CueModel curtin10 = new CueModel();
-            curtin10.CueTime = 3;
+            curtin10.CueTime = 7;
             curtin10.CueTimeMin = 0;
             curtin10.CueName = "Curtin Open";
             curtin10.CueAction = () => cur.OpenClose(true,2);
             song.Cues.Add(curtin10);      
 
             CueModel scene1 = new CueModel();
-            scene1.CueTime = 5;
+            scene1.CueTime = 9;
             scene1.CueTimeMin = 0;
             scene1.CueAction = () => lites.Back_Color_Green();
             scene1.CueName = "Backlights Green Color";
             song.Cues.Add(scene1);
 
             CueModel scene2 = new CueModel();
-            scene2.CueTime = 10;
+            scene2.CueTime = 12;
             scene2.CueTimeMin = 0;
             scene2.CueAction = () => lites.Back_Color_Blue();
             scene2.CueName = "Backlights Blue Color";
