@@ -28,60 +28,61 @@ kill -9 <PID>
 GPIOs 
 https://cdn.sparkfun.com/assets/learn_tutorials/4/2/4/header_pinout.jpg
 
-8. Curtin Stage Left Stop (Open and Close) - Input
-9. Curtin Stage Right Stop (Open and Close) - Input
+GPIO-8. Curtin Stage Left Stop (Open and Close) - Input
+GPIO9. Curtin Stage Right Stop (Open and Close) - Input
 
-10. Play Btn LED Green
-11. Play Btn LED Red
-26. Play button (Input)
+GPIO-10. Play Btn LED Green
+GPIO-11. Play Btn LED Red
+GPIO-26. Play button (Input)
 
 Maybe if there''s time
-4. (Backdrop Up Lights)
-14. (Backbrop Up Lights)
-15. (Side Light Red)
-17. (Side Light Green)
-27. (Talking)
+GPIO-4. (Backdrop Up Lights)
+GPIO-14. (Backbrop Up Lights)
+GPIO-15. (Side Light Red)
+GPIO-17. (Side Light Green)
+GPIO-27. (Talking)
 
-22. Motor Curtin
-23. Motor Curtin
-24. Motor Curtin
-25. Motor Curtin
+GPIO-22. Motor Curtin
+GPIO-23. Motor Curtin
+GPIO-24. Motor Curtin
+GPIO-25. Motor Curtin
 
-18. LED1 Key Lights (PWM Dimmable Channel 0)
-19. LED2 Foot Lights (PWM Dimmable Channel 1)
+GPIO-18. LED1 Key Lights (PWM Dimmable Channel 0)
+GPIO-19. LED2 Foot Lights (PWM Dimmable Channel 1)
 
 Backlight Truss
 
-5. LED6 Back Left Red
-6. LED7 Back Left Green
-7. LED8 Back Left Blue
-12. LED9 Back Left Yellow
-13. LED10 Back Right Red
-16. LED11 Back Right Green
-20. LED12 Back Right Blue
-21. LED13 Back Right Yellow
+GPIO-5. LED6 Back Left Red
+GPIO-6. LED7 Back Left Green
+GPIO-7. LED8 Back Left Blue
+GPIO-12. LED9 Back Left Yellow
+GPIO-13. LED10 Back Right Red
+GPIO-16. LED11 Back Right Green
+GPIO-20. LED12 Back Right Blue
+GPIO-21. LED13 Back Right Yellow
 
 
 
 MCP23017 Port Expander 0x20 
 https://raspi.tv/wp-content/uploads/2013/07/MCP23017.jpg
 
-1. Motor1 Feet
-2. Motor1 Feet
-3. Motor1 Feet
-4. Motor1 Feet
+GPIO-A0. Motor1 Feet
+GPIO-A1. Motor1 Feet
+GPIO-A2. Motor1 Feet
+GPIO-A3. Motor1 Feet
 
-5. Motor2 Left Arm
-6. Motor2 Left Arm
-7. Motor2 Left Arm
-8. Motor2 Left Arm
+GPIO-A4. Motor2 Left Arm
+GPIO-A5. Motor2 Left Arm
+GPIO-A6. Motor2 Left Arm
+GPIO-A7. Motor2 Left Arm
 
-9. Motor3 Right Arm
-10. Motor3 Right Arm
-11. Motor3 Right Arm
-12. Motor3 Right Arm
 
-13. Motor4 Shoulders
-14. Motor4 Shoulders
-15. Motor4 Shoulders
-16. Motor4 Shoulders
+GPIO-B0. Motor3 Right Arm
+GPIO-B1. Motor3 Right Arm
+GPIO-B2. Motor3 Right Arm
+GPIO-B3. Motor3 Right Arm
+
+GPIO-B4. Motor4 Shoulders
+GPIO-B5. Motor4 Shoulders
+GPIO-B6. Motor4 Shoulders
+GPIO-B7. Motor4 Shoulders
