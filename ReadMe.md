@@ -25,16 +25,18 @@ To Kill It
 kill -9 <PID>
 
 
-GPIOs
+GPIOs 
+https://cdn.sparkfun.com/assets/learn_tutorials/4/2/4/header_pinout.jpg
 
 8. Curtin Stage Left Stop (Open and Close) - Input
 9. Curtin Stage Right Stop (Open and Close) - Input
 
 10. Play Btn LED Green
+11. Play Btn LED Red
+26. Play button (Input)
 
 Maybe if there''s time
-
-11. (Backdrop Side Lights)
+4. (Backdrop Up Lights)
 14. (Backbrop Up Lights)
 15. (Side Light Red)
 17. (Side Light Green)
@@ -46,7 +48,6 @@ Maybe if there''s time
 25. Motor Curtin
 
 18. LED1 Key Lights (PWM Dimmable Channel 0)
-
 19. LED2 Foot Lights (PWM Dimmable Channel 1)
 
 Backlight Truss
@@ -60,9 +61,10 @@ Backlight Truss
 20. LED12 Back Right Blue
 21. LED13 Back Right Yellow
 
-26. Play button 
 
-MCP23017 Port Expander 0x20
+
+MCP23017 Port Expander 0x20 
+https://raspi.tv/wp-content/uploads/2013/07/MCP23017.jpg
 
 1. Motor1 Feet
 2. Motor1 Feet
