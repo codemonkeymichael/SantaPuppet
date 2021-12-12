@@ -29,7 +29,7 @@ GPIOs
 https://cdn.sparkfun.com/assets/learn_tutorials/4/2/4/header_pinout.jpg    
     
 GPIO-8. Curtin Stage Left Stop (Open and Close) - Input  
-GPIO9. Curtin Stage Right Stop (Open and Close) - Input  
+GPIO-9. Curtin Stage Right Stop (Open and Close) - Input  
    
 GPIO-10. Play Btn LED Green   
 GPIO-11. Play Btn LED Red   
