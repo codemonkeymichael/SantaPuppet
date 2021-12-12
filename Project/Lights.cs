@@ -47,18 +47,23 @@ namespace SantaPuppet
         {
             Console.WriteLine("Test MCP23017 I2C");
 
-            var connectionSettingsx20 = new I2cConnectionSettings(1, 0x20);
-            var i2cDevicex20 = I2cDevice.Create(connectionSettingsx20);          
-            var mcp23017x20 = new Mcp23017(i2cDevicex20);
+      
 
-            mcp23017x20.WriteByte(Register.IODIR, 0b0000_0000, Port.PortA);
-            mcp23017x20.WriteByte(Register.IODIR, 0b0000_0000, Port.PortB);
- 
+            I2cConnectionSettings connectionSettings = new I2cConnectionSettings(1, 0x20);
+            I2cDevice device = I2cDevice.Create(connectionSettings);
+            Mcp23017 mcp23017 = new Mcp23017(device);
 
-            var controller = new GpioController(PinNumberingScheme.Logical, mcp23017x20);
+            mcp23017.WriteByte(Register.IODIR, 0x00, Port.PortA);
+            mcp23017.WriteByte(Register.IODIR, 0x00, Port.PortB);
+            //mcp23017.WriteByte(Register.GPIO, 0xFF, Port.PortA);
+            //mcp23017.WriteByte(Register.GPIO, 0xFF, Port.PortB);
+           
 
 
-            for (int i = 0; i < 15; i++)
+            var controller = new GpioController(PinNumberingScheme.Logical, mcp23017);
+
+
+            for (int i = 0; i < 16; i++)
             {
                 controller.OpenPin(i, PinMode.Output, PinValue.Low);
                 controller.SetPinMode(i, PinMode.Output);
@@ -71,13 +76,13 @@ namespace SantaPuppet
             {
                 if (status)
                 {
-                    for (int i = 0; i < 15; i++)
+                    for (int i = 0; i < 16; i++)
                     {
                         controller.Write(i, PinValue.High);          
                         Task.Delay(250).Wait();
                     }
                     Console.WriteLine("On");
-                    for (int i = 0; i < 15; i++)
+                    for (int i = 0; i < 16; i++)
                     {
                         Console.WriteLine("Pin" + i + " " + controller.Read(i) + 
                             " Mode=" + controller.GetPinMode(i) + 
@@ -88,13 +93,13 @@ namespace SantaPuppet
                 }
                 else
                 {
-                    for (int i = 0; i < 15; i++)
+                    for (int i = 0; i < 16; i++)
                     {
                         controller.Write(i, PinValue.Low);
                         Task.Delay(250).Wait();
                     }
                     Console.WriteLine("Off");
-                    for (int i = 0; i < 15; i++)
+                    for (int i = 0; i < 16; i++)
                     {
                         Console.WriteLine("Pin" + i + " " + controller.Read(i));
                     }

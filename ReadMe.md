@@ -27,8 +27,8 @@ kill -9 <PID>
 
 GPIOs
 
-8.Curtin Close Stop - Input
-9. Curtin Open Stop - Input
+8. Curtin Stage Left Stop (Open and Close) - Input
+9. Curtin Stage Right Stop (Open and Close) - Input
 
 10. Play Btn LED Green
 
@@ -38,7 +38,7 @@ Maybe if there''s time
 14. (Backbrop Up Lights)
 15. (Side Light Red)
 17. (Side Light Green)
-27. (Side Light Blue Could Be for Talking)
+27. (Talking)
 
 22. Motor Curtin
 23. Motor Curtin
@@ -62,7 +62,7 @@ Backlight Truss
 
 26. Play button 
 
-MCP23017 Port Expander
+MCP23017 Port Expander 0x20
 
 1. Motor1 Feet
 2. Motor1 Feet
