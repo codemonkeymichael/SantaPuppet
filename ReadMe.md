@@ -22,7 +22,7 @@ Kill The App
 List Running Apps to get PID   
 ps -ef  
 To Kill It  
-kill -9 <PID>   
+kill -9 PID   
   
   
 GPIOs   
