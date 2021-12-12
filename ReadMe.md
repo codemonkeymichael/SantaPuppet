@@ -28,19 +28,19 @@ kill -9 <PID>
 GPIOs 
 https://cdn.sparkfun.com/assets/learn_tutorials/4/2/4/header_pinout.jpg
 
-GPIO-8. Curtin Stage Left Stop (Open and Close) - Input
-GPIO9. Curtin Stage Right Stop (Open and Close) - Input
+#GPIO-8. Curtin Stage Left Stop (Open and Close) - Input
+#GPIO9. Curtin Stage Right Stop (Open and Close) - Input
 
-GPIO-10. Play Btn LED Green
-GPIO-11. Play Btn LED Red
-GPIO-26. Play button (Input)
+#GPIO-10. Play Btn LED Green
+#GPIO-11. Play Btn LED Red
+#GPIO-26. Play button (Input)
 
-Maybe if there''s time
-GPIO-4. (Backdrop Up Lights)
-GPIO-14. (Backbrop Up Lights)
-GPIO-15. (Side Light Red)
-GPIO-17. (Side Light Green)
-GPIO-27. (Talking)
+#Maybe if there''s time
+#GPIO-4. (Backdrop Up Lights)
+#GPIO-14. (Backbrop Up Lights)
+#GPIO-15. (Side Light Red)
+#GPIO-17. (Side Light Green)
+#GPIO-27. (Talking)
 
 GPIO-22. Motor Curtin
 GPIO-23. Motor Curtin
