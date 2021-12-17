@@ -19,11 +19,11 @@ namespace SantaPuppet.Songs
             Lights lites = new Lights();
             Curtin cur = new Curtin();
 
-            CueModel sceneTest = new CueModel();
-            sceneTest.CueTime = 1;
-            sceneTest.CueAction = () => lites.TestI2c();
-            sceneTest.CueName = "Test I2C";
-            song.Cues.Add(sceneTest);
+            //CueModel sceneTest = new CueModel();
+            //sceneTest.CueTime = 1;
+            //sceneTest.CueAction = () => lites.TestI2c();
+            //sceneTest.CueName = "Test I2C";
+            //song.Cues.Add(sceneTest);
 
             CueModel scene0 = new CueModel();
             scene0.CueTime = 5;
@@ -36,8 +36,8 @@ namespace SantaPuppet.Songs
             curtin10.CueTime = 7;
             curtin10.CueTimeMin = 0;
             curtin10.CueName = "Curtin Open";
-            curtin10.CueAction = () => cur.OpenClose(true,2);
-            song.Cues.Add(curtin10);      
+            curtin10.CueAction = () => cur.OpenClose(true, 2);
+            song.Cues.Add(curtin10);
 
             CueModel scene1 = new CueModel();
             scene1.CueTime = 9;

@@ -11,7 +11,7 @@ namespace SantaPuppet
     {
         private static GpioController controller = new GpioController();
         private static int[] curtinMotor = new int[4] { 22, 23, 24, 25 };
-        private const int maxSteps = 3000;
+        private const int maxSteps = 100;
         private static int maxStepCounter { get; set; }
 
         public Curtin()
@@ -26,21 +26,23 @@ namespace SantaPuppet
 
 
         public void OpenClose(bool open = true, int speed = 2)
-        { 
+        {
+
+
             if (open) Array.Reverse(curtinMotor);
             maxStepCounter = 0;
             int step = 0; //Four steps 0 1 2 3
-            Console.WriteLine("1 Curtin maxStepCounter=" + maxStepCounter + " maxSteps=" + maxSteps + " speed=" + speed);
+            //Console.WriteLine("1 Curtin maxStepCounter=" + maxStepCounter + " maxSteps=" + maxSteps + " speed=" + speed);
             while (true)
-            {               
-                var positionStatus = controller.Read(9);                
-                if (positionStatus == PinValue.Low || maxStepCounter > maxSteps)
+            {
+                //    var positionStatus = controller.Read(9);                
+                if (maxStepCounter < maxSteps)
                 {
-                    Console.WriteLine("2 Curtin Break maxStepCounter=" + maxStepCounter + " positionStatus=" + positionStatus + " speed=" + speed);
-                    break;
-                }
-                else
-                {
+                    //        Console.WriteLine("2 Curtin Break maxStepCounter=" + maxStepCounter + " positionStatus=" + positionStatus + " speed=" + speed);
+                    //        break;
+                    //    }
+                    //    else
+                    //    {
                     int motorSteps = step;
                     controller.Write(curtinMotor[motorSteps], PinValue.High);
                     motorSteps++;
@@ -56,7 +58,12 @@ namespace SantaPuppet
                     if (step > 3) step = 0;
                     Thread.Sleep(speed);
                 }
+                else
+                {
+                    Console.WriteLine("Curtin over ran the max number of steps. Something must be wrong with the stop input GPIO.");
+                }
                 maxStepCounter++;
+        
             }
             if (open) Array.Reverse(curtinMotor);
             foreach (int motor in curtinMotor)

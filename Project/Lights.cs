@@ -55,8 +55,7 @@ namespace SantaPuppet
 
             mcp23017.WriteByte(Register.IODIR, 0x00, Port.PortA);
             mcp23017.WriteByte(Register.IODIR, 0x00, Port.PortB);
-            //mcp23017.WriteByte(Register.GPIO, 0xFF, Port.PortA);
-            //mcp23017.WriteByte(Register.GPIO, 0xFF, Port.PortB);
+       
            
 
 

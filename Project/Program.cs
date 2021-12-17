@@ -11,16 +11,16 @@ namespace SantaPuppet
     class Program
     {
 
-        private const string I2C_CONTROLLER_NAME = "I2C1"; //specific to RPI2
-        private const byte PORT_EXPANDER_I2C_ADDRESS = 0x20; // 7-bit I2C address of the port expander
-        private const byte PORT_EXPANDER_IODIR_REGISTER_ADDRESS = 0x00; // IODIR register controls the direction of the GPIO on the port expander
-        private const byte PORT_EXPANDER_GPIO_REGISTER_ADDRESS = 0x09; // GPIO register is used to read the pins input
-        private const byte PORT_EXPANDER_OLAT_REGISTER_ADDRESS = 0x0A; // Output Latch register is used to set the pins output high/low
+        //private const string I2C_CONTROLLER_NAME = "I2C1"; //specific to RPI2
+        //private const byte PORT_EXPANDER_I2C_ADDRESS = 0x20; // 7-bit I2C address of the port expander
+        //private const byte PORT_EXPANDER_IODIR_REGISTER_ADDRESS = 0x00; // IODIR register controls the direction of the GPIO on the port expander
+        //private const byte PORT_EXPANDER_GPIO_REGISTER_ADDRESS = 0x09; // GPIO register is used to read the pins input
+        //private const byte PORT_EXPANDER_OLAT_REGISTER_ADDRESS = 0x0A; // Output Latch register is used to set the pins output high/low
   
 
 
 
-        private I2cDevice i2cPortExpander;
+        //private I2cDevice i2cPortExpander;
 
 
 
@@ -65,7 +65,12 @@ namespace SantaPuppet
         }
 
 
+        static void CurrentDomain_ProcessExit(object sender, EventArgs e)
+        {
+            Console.WriteLine("I quit!");
+        }
 
-       
+
+
     }
 }
