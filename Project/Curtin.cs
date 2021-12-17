@@ -20,8 +20,9 @@ namespace SantaPuppet
             foreach (int motor in curtinMotor)
             {
                 controller.OpenPin(motor, PinMode.Output);
-            }
+            }        
             controller.OpenPin(9, PinMode.Input);
+            controller.SetPinMode(9, PinMode.Input);
         }
 
 
