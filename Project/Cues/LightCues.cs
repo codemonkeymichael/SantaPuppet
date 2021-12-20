@@ -20,11 +20,7 @@ namespace SantaPuppet.Cues
 
         public LightCues()
         {
-            Console.WriteLine("Lights Controller");
-            //foreach (int light in Lights.Backlights )
-            //{
-            //    controller.OpenPin(light, PinMode.Output);
-            //}
+            Console.WriteLine("Lights Controller");     
         }
 
         public void TestI2c()
