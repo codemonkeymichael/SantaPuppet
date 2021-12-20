@@ -16,24 +16,7 @@ namespace SantaPuppet.Cues
     public class LightCues
     {
         private static GpioController controller = new GpioController();
-        //private static int keyLights = 18;
-        //private static int footLights = 19;
-        //private static int[] Lights.Backlights  = new int[] { 5, 6, 7, 12, 13, 16, 20, 21 };
 
-        //red1 = 5;
-        //green1 = 6;
-        //blue1 = 7;
-        //yellow1 = 12;
-        //red2 = 13;
-        //green2 = 16;
-        //blue2 = 20;
-        //yellow2 = 21;
-        //
-        //Dimming an LED
-        //https://github.com/dotnet/iot/blob/main/Documentation/raspi-pwm.md
-        //nano /boot/config.txt Add this dtoverlay=pwm-2chan,pin=18,func=2,pin2=19,func2=2
-        //GPIO 18 defaults to PWM chan0
-        //GPIO 19 defaults to PWM chan1
 
         public LightCues()
         {
