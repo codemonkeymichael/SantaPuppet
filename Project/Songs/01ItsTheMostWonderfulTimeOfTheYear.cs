@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SantaPuppet.Cues;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,13 @@ namespace SantaPuppet.Songs
 {
     public class ItsTheMostWonderfulTimeOfTheYear
     {
-        public SongModel songData()
+
+        public SongModel stop()
+        {
+            SongModel song = new SongModel();
+            return song;
+        }
+        public SongModel play()
         {
             //Build the Song
             SongModel song = new SongModel();
@@ -16,8 +23,8 @@ namespace SantaPuppet.Songs
             song.SongPath = "/home/pi/SantaPuppet/audio/01ItsTheMostWonderfulTimeOfTheYear.wav";
             song.Cues = new List<CueModel>();
 
-            Lights lites = new Lights();
-            Curtin cur = new Curtin();
+            LightCues lites = new LightCues();
+            CurtinCues cur = new CurtinCues();
 
             //CueModel sceneTest = new CueModel();
             //sceneTest.CueTime = 1;
@@ -36,7 +43,7 @@ namespace SantaPuppet.Songs
             curtin10.CueTime = 7;
             curtin10.CueTimeMin = 0;
             curtin10.CueName = "Curtin Open";
-            curtin10.CueAction = () => cur.OpenClose(true, 2);
+            curtin10.CueAction = () => cur.OpenClose(true, 222);
             song.Cues.Add(curtin10);
 
             CueModel scene1 = new CueModel();
@@ -230,7 +237,7 @@ namespace SantaPuppet.Songs
             song.Cues.Add(scene37);
 
             CueModel scene38 = new CueModel();
-            scene38.CueTime = 27000; 
+            scene38.CueTime = 27000;
             scene38.CueTimeMin = 1;
             scene38.CueAction = () => lites.Back_OnOf_Slow_Bounce_NoSplit(3); //1960 Per Loop 
             scene38.CueName = "Horns";
@@ -386,7 +393,7 @@ namespace SantaPuppet.Songs
             CueModel scene58 = new CueModel();
             scene58.CueTime = 27410;
             scene58.CueTimeMin = 2;
-            scene58.CueAction = () => lites.DownStage(0,true,true,0.999,0.0,1.0);
+            scene58.CueAction = () => lites.DownStage(0, true, true, 0.999, 0.0, 1.0);
             scene58.CueName = "Strobe 3 Down Stage Key";
             song.Cues.Add(scene58);
 

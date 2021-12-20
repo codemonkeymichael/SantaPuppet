@@ -7,17 +7,18 @@ using System.Device.Pwm;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SantaPuppet.Models.Outputs;
 
 
 
-namespace SantaPuppet
+namespace SantaPuppet.Cues
 {
-    public class Lights
+    public class LightCues
     {
         private static GpioController controller = new GpioController();
-        private static int keyLights = 18;
-        private static int footLights = 19;
-        private static int[] backLights = new int[] { 5, 6, 7, 12, 13, 16, 20, 21 };
+        //private static int keyLights = 18;
+        //private static int footLights = 19;
+        //private static int[] Lights.Backlights  = new int[] { 5, 6, 7, 12, 13, 16, 20, 21 };
 
         //red1 = 5;
         //green1 = 6;
@@ -34,82 +35,82 @@ namespace SantaPuppet
         //GPIO 18 defaults to PWM chan0
         //GPIO 19 defaults to PWM chan1
 
-        public Lights()
+        public LightCues()
         {
             Console.WriteLine("Lights Controller");
-            foreach (int light in backLights)
-            {
-                controller.OpenPin(light, PinMode.Output);
-            }
+            //foreach (int light in Lights.Backlights )
+            //{
+            //    controller.OpenPin(light, PinMode.Output);
+            //}
         }
 
         public void TestI2c()
         {
-            Console.WriteLine("Test MCP23017 I2C");
+            //Console.WriteLine("Test MCP23017 I2C");
 
       
 
-            I2cConnectionSettings connectionSettings = new I2cConnectionSettings(1, 0x20);
-            I2cDevice device = I2cDevice.Create(connectionSettings);
-            Mcp23017 mcp23017 = new Mcp23017(device);
+            //I2cConnectionSettings connectionSettings = new I2cConnectionSettings(1, 0x20);
+            //I2cDevice device = I2cDevice.Create(connectionSettings);
+            //Mcp23017 mcp23017 = new Mcp23017(device);
 
-            mcp23017.WriteByte(Register.IODIR, 0x00, Port.PortA);
-            mcp23017.WriteByte(Register.IODIR, 0x00, Port.PortB);
+            //mcp23017.WriteByte(Register.IODIR, 0x00, Port.PortA);
+            //mcp23017.WriteByte(Register.IODIR, 0x00, Port.PortB);
        
            
 
 
-            var controller = new GpioController(PinNumberingScheme.Logical, mcp23017);
+            //var controller = new GpioController(PinNumberingScheme.Logical, mcp23017);
 
 
-            for (int i = 0; i < 16; i++)
-            {
-                controller.OpenPin(i, PinMode.Output, PinValue.Low);
-                controller.SetPinMode(i, PinMode.Output);
+            //for (int i = 0; i < 16; i++)
+            //{
+            //    controller.OpenPin(i, PinMode.Output, PinValue.Low);
+            //    controller.SetPinMode(i, PinMode.Output);
 
-            }
+            //}
 
-            bool status = true;
+            //bool status = true;
 
-            while (true)
-            {
-                if (status)
-                {
-                    for (int i = 0; i < 16; i++)
-                    {
-                        controller.Write(i, PinValue.High);          
-                        Task.Delay(250).Wait();
-                    }
-                    Console.WriteLine("On");
-                    for (int i = 0; i < 16; i++)
-                    {
-                        Console.WriteLine("Pin" + i + " " + controller.Read(i) + 
-                            " Mode=" + controller.GetPinMode(i) + 
-                            " PinCount=" + controller.PinCount +
-                            " IsPinModeSupported.Output=" + controller.IsPinModeSupported(i,PinMode.Output));                       
-                    }
-                    status = false;                 
-                }
-                else
-                {
-                    for (int i = 0; i < 16; i++)
-                    {
-                        controller.Write(i, PinValue.Low);
-                        Task.Delay(250).Wait();
-                    }
-                    Console.WriteLine("Off");
-                    for (int i = 0; i < 16; i++)
-                    {
-                        Console.WriteLine("Pin" + i + " " + controller.Read(i));
-                    }
-                    status = true;                   
-                }               
-            }
+            //while (true)
+            //{
+            //    if (status)
+            //    {
+            //        for (int i = 0; i < 16; i++)
+            //        {
+            //            controller.Write(i, PinValue.High);          
+            //            Task.Delay(250).Wait();
+            //        }
+            //        Console.WriteLine("On");
+            //        for (int i = 0; i < 16; i++)
+            //        {
+            //            Console.WriteLine("Pin" + i + " " + controller.Read(i) + 
+            //                " Mode=" + controller.GetPinMode(i) + 
+            //                " PinCount=" + controller.PinCount +
+            //                " IsPinModeSupported.Output=" + controller.IsPinModeSupported(i,PinMode.Output));                       
+            //        }
+            //        status = false;                 
+            //    }
+            //    else
+            //    {
+            //        for (int i = 0; i < 16; i++)
+            //        {
+            //            controller.Write(i, PinValue.Low);
+            //            Task.Delay(250).Wait();
+            //        }
+            //        Console.WriteLine("Off");
+            //        for (int i = 0; i < 16; i++)
+            //        {
+            //            Console.WriteLine("Pin" + i + " " + controller.Read(i));
+            //        }
+            //        status = true;                   
+            //    }               
+            //}
         }
 
         public void BLackOut()
         {
-            foreach (int light in backLights)
+            foreach (int light in Lights.Backlights  )
             {
                 controller.Write(light, PinValue.Low);
             }
@@ -127,14 +128,14 @@ namespace SantaPuppet
         }
         public void Back_StrobeAll(int duration)
         {         
-            foreach (int light in backLights)
+            foreach (int light in Lights.Backlights )
             {
                 controller.Write(light, PinValue.High);
             }
 
             Thread.Sleep(duration);
 
-            foreach (int light in backLights)
+            foreach (int light in Lights.Backlights )
             {
                 controller.Write(light, PinValue.Low);
             }
@@ -169,24 +170,24 @@ namespace SantaPuppet
                     //Left Half
                     var left = rand.Next(0, 4);
                     var right = rand.Next(5, 8);
-                    controller.Write(backLights[left], PinValue.High);
+                    controller.Write(Lights.Backlights [left], PinValue.High);
                     addUpSleepTime += duration / 2;
                     Thread.Sleep(duration / 2);
-                    controller.Write(backLights[right], PinValue.High);
+                    controller.Write(Lights.Backlights [right], PinValue.High);
                     addUpSleepTime += duration / 2;
                     Thread.Sleep(duration / 2);
-                    controller.Write(backLights[left], PinValue.Low);
+                    controller.Write(Lights.Backlights [left], PinValue.Low);
                     addUpSleepTime += duration / 2;
                     Thread.Sleep(duration / 2);
-                    controller.Write(backLights[right], PinValue.Low);
+                    controller.Write(Lights.Backlights [right], PinValue.Low);
                 }
                 else
                 {
                     var light = rand.Next(0, 8);
-                    controller.Write(backLights[light], PinValue.High);
+                    controller.Write(Lights.Backlights [light], PinValue.High);
                     addUpSleepTime += duration;
                     Thread.Sleep(duration);
-                    controller.Write(backLights[light], PinValue.Low);
+                    controller.Write(Lights.Backlights [light], PinValue.Low);
                 }
                 //Console.WriteLine("Total Loop Duration = " + addUpSleepTime);
             }
@@ -255,40 +256,40 @@ namespace SantaPuppet
         public void Back_1Off(int speed, int repeat, bool bounce, bool split)
         { 
             //Turn them all On
-            foreach (int la in backLights)
+            foreach (int la in Lights.Backlights )
             {
                 controller.Write(la, PinValue.High);
             }
 
             for (int n = 0; n < repeat; n++)
             {
-                for (int i = 0; i < backLights.Count() - 1; i++)
+                for (int i = 0; i < Lights.Backlights .Count() - 1; i++)
                 {
-                    controller.Write(backLights[i], PinValue.Low);
-                    if (split) controller.Write(backLights[i + 4], PinValue.Low);
+                    controller.Write(Lights.Backlights [i], PinValue.Low);
+                    if (split) controller.Write(Lights.Backlights [i + 4], PinValue.Low);
                     Thread.Sleep(speed);
-                    controller.Write(backLights[i], PinValue.High);
-                    if (split) controller.Write(backLights[i + 4], PinValue.High);
+                    controller.Write(Lights.Backlights [i], PinValue.High);
+                    if (split) controller.Write(Lights.Backlights [i + 4], PinValue.High);
                     if (split && i == 3) break;
                 }
                 if (bounce)
                 {
-                    Array.Reverse(backLights);
-                    for (int i = 0; i < backLights.Count() - 1; i++)
+                    Array.Reverse(Lights.Backlights );
+                    for (int i = 0; i < Lights.Backlights .Count() - 1; i++)
                     {
-                        controller.Write(backLights[i], PinValue.Low);
-                        if (split) controller.Write(backLights[i + 4], PinValue.Low);
+                        controller.Write(Lights.Backlights [i], PinValue.Low);
+                        if (split) controller.Write(Lights.Backlights [i + 4], PinValue.Low);
                         Thread.Sleep(speed);
-                        controller.Write(backLights[i], PinValue.High);
-                        if (split) controller.Write(backLights[i + 4], PinValue.High);
+                        controller.Write(Lights.Backlights [i], PinValue.High);
+                        if (split) controller.Write(Lights.Backlights [i + 4], PinValue.High);
                         if (split && i == 3) break;
                     }
-                    Array.Reverse(backLights);
+                    Array.Reverse(Lights.Backlights );
                 }
             }
 
             //Turn them all Off
-            foreach (int la in backLights)
+            foreach (int la in Lights.Backlights )
             {
                 controller.Write(la, PinValue.Low);
             }
@@ -358,30 +359,30 @@ namespace SantaPuppet
         {  
             for (int n = 0; n < repeat; n++)
             {
-                for (int i = 0; i < backLights.Count() - 1; i++)
+                for (int i = 0; i < Lights.Backlights .Count() - 1; i++)
                 {
-                    controller.Write(backLights[i], PinValue.High);
+                    controller.Write(Lights.Backlights [i], PinValue.High);
                     //Console.WriteLine("Count Left=" + i.ToString() + "  Count Right=" + (i + 4).ToString());
-                    if (split) controller.Write(backLights[i + 4], PinValue.High);
+                    if (split) controller.Write(Lights.Backlights [i + 4], PinValue.High);
                     Thread.Sleep(speed);
-                    controller.Write(backLights[i], PinValue.Low);
-                    if (split) controller.Write(backLights[i + 4], PinValue.Low);
+                    controller.Write(Lights.Backlights [i], PinValue.Low);
+                    if (split) controller.Write(Lights.Backlights [i + 4], PinValue.Low);
                     if (split && i == 3) break;
                 }
                 if (bounce)
                 {
-                    Array.Reverse(backLights);
-                    for (int i = 0; i < backLights.Count() - 1; i++)
+                    Array.Reverse(Lights.Backlights );
+                    for (int i = 0; i < Lights.Backlights .Count() - 1; i++)
                     {
-                        controller.Write(backLights[i], PinValue.High);
+                        controller.Write(Lights.Backlights [i], PinValue.High);
                         //Console.WriteLine("Count Left=" + i.ToString() + "  Count Right=" + (i + 4).ToString());
-                        if (split) controller.Write(backLights[i + 4], PinValue.High);
+                        if (split) controller.Write(Lights.Backlights [i + 4], PinValue.High);
                         Thread.Sleep(speed);
-                        controller.Write(backLights[i], PinValue.Low);
-                        if (split) controller.Write(backLights[i + 4], PinValue.Low);
+                        controller.Write(Lights.Backlights [i], PinValue.Low);
+                        if (split) controller.Write(Lights.Backlights [i + 4], PinValue.Low);
                         if (split && i == 3) break;
                     }
-                    Array.Reverse(backLights);
+                    Array.Reverse(Lights.Backlights );
                 }
             }
         }
@@ -457,42 +458,42 @@ namespace SantaPuppet
 
             for (int n = 0; n < repeat; n++)
             {
-                for (int i = 0; i < backLights.Count() - 1; i++)
+                for (int i = 0; i < Lights.Backlights .Count() - 1; i++)
                 {
-                    controller.Write(backLights[i], PinValue.High);
-                    if (split) controller.Write(backLights[i + 4], PinValue.High);
+                    controller.Write(Lights.Backlights [i], PinValue.High);
+                    if (split) controller.Write(Lights.Backlights [i + 4], PinValue.High);
                     addUpSleepTime += speed;
                     Thread.Sleep(speed);
                     if (split && i == 3) break;
                 }
-                for (int i = 0; i < backLights.Count() - 1; i++)
+                for (int i = 0; i < Lights.Backlights .Count() - 1; i++)
                 {
-                    controller.Write(backLights[i], PinValue.Low);
-                    if (split) controller.Write(backLights[i + 4], PinValue.Low);
+                    controller.Write(Lights.Backlights [i], PinValue.Low);
+                    if (split) controller.Write(Lights.Backlights [i + 4], PinValue.Low);
                     addUpSleepTime += speed;
                     Thread.Sleep(speed);
                     if (split && i == 3) break;
                 }
                 if (bounce)
                 {
-                    Array.Reverse(backLights);
-                    for (int i = 0; i < backLights.Count() - 1; i++)
+                    Array.Reverse(Lights.Backlights );
+                    for (int i = 0; i < Lights.Backlights .Count() - 1; i++)
                     {
-                        controller.Write(backLights[i], PinValue.High);
-                        if (split) controller.Write(backLights[i + 4], PinValue.High);
+                        controller.Write(Lights.Backlights [i], PinValue.High);
+                        if (split) controller.Write(Lights.Backlights [i + 4], PinValue.High);
                         addUpSleepTime += speed;
                         Thread.Sleep(speed);
                         if (split && i == 3) break;
                     }
-                    for (int i = 0; i < backLights.Count() - 1; i++)
+                    for (int i = 0; i < Lights.Backlights .Count() - 1; i++)
                     {
-                        controller.Write(backLights[i], PinValue.Low);
-                        if (split) controller.Write(backLights[i + 4], PinValue.Low);
+                        controller.Write(Lights.Backlights [i], PinValue.Low);
+                        if (split) controller.Write(Lights.Backlights [i + 4], PinValue.Low);
                         addUpSleepTime += speed;
                         Thread.Sleep(speed);
                         if (split && i == 3) break;
                     }
-                    Array.Reverse(backLights);
+                    Array.Reverse(Lights.Backlights );
 
                 }
                 //Console.WriteLine("Total Sleep Per Repeat = " + addUpSleepTime);
@@ -555,7 +556,7 @@ namespace SantaPuppet
 
             if (color == "Black" || clear)
             {
-                foreach (var light in backLights)
+                foreach (var light in Lights.Backlights )
                 {
                     controller.Write(light, PinValue.Low);
                 }
@@ -571,20 +572,20 @@ namespace SantaPuppet
             switch (color)
             {
                 case "Red":
-                    controller.Write(backLights[0], PinValue.High);
-                    controller.Write(backLights[4], PinValue.High);
+                    controller.Write(Lights.Backlights [0], PinValue.High);
+                    controller.Write(Lights.Backlights [4], PinValue.High);
                     break;
                 case "Green":
-                    controller.Write(backLights[1], PinValue.High);
-                    controller.Write(backLights[5], PinValue.High);
+                    controller.Write(Lights.Backlights [1], PinValue.High);
+                    controller.Write(Lights.Backlights [5], PinValue.High);
                     break;
                 case "Blue":
-                    controller.Write(backLights[2], PinValue.High);
-                    controller.Write(backLights[6], PinValue.High);
+                    controller.Write(Lights.Backlights [2], PinValue.High);
+                    controller.Write(Lights.Backlights [6], PinValue.High);
                     break;
                 case "Yellow":
-                    controller.Write(backLights[3], PinValue.High);
-                    controller.Write(backLights[7], PinValue.High);
+                    controller.Write(Lights.Backlights [3], PinValue.High);
+                    controller.Write(Lights.Backlights [7], PinValue.High);
                     break;
             }
             if (duration > 0)
@@ -593,20 +594,20 @@ namespace SantaPuppet
                 switch (color)
                 {
                     case "Red":
-                        controller.Write(backLights[0], PinValue.Low);
-                        controller.Write(backLights[4], PinValue.Low);
+                        controller.Write(Lights.Backlights [0], PinValue.Low);
+                        controller.Write(Lights.Backlights [4], PinValue.Low);
                         break;
                     case "Green":
-                        controller.Write(backLights[1], PinValue.Low);
-                        controller.Write(backLights[5], PinValue.Low);
+                        controller.Write(Lights.Backlights [1], PinValue.Low);
+                        controller.Write(Lights.Backlights [5], PinValue.Low);
                         break;
                     case "Blue":
-                        controller.Write(backLights[2], PinValue.Low);
-                        controller.Write(backLights[6], PinValue.Low);
+                        controller.Write(Lights.Backlights [2], PinValue.Low);
+                        controller.Write(Lights.Backlights [6], PinValue.Low);
                         break;
                     case "Yellow":
-                        controller.Write(backLights[3], PinValue.Low);
-                        controller.Write(backLights[7], PinValue.Low);
+                        controller.Write(Lights.Backlights [3], PinValue.Low);
+                        controller.Write(Lights.Backlights [7], PinValue.Low);
                         break;
                 }
             }

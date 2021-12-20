@@ -15,18 +15,16 @@ namespace SantaPuppet
 {
     internal class Audio
     {
-        private static System.Timers.Timer aTimer;
-        private static List<int> lightingCuesTimes;
-        private static List<Action> lightingCuesCues;
+        private static System.Timers.Timer _timer;
         private static int currentCue = 0;
         private static bool firstCue = true;
         private static SongModel song;
-        private static List<Thread> listThreads = new List<Thread>();
+        private static Player player;
 
         public static void PlaySong(SongModel s)
         {
             song = s;
-            var player = new Player();
+            player = new Player();
             player.PlaybackFinished += OnPlaybackFinished;
             player.Play(song.SongPath).Wait();
 
@@ -43,15 +41,20 @@ namespace SantaPuppet
             Console.WriteLine(s.Title);
         }
 
+        public static void StopSong(SongModel s)
+        {
+            player.Stop();
+        }
+
         private static void OnPlaybackStart()
         {
             Console.WriteLine("Playback Started");
-            aTimer = new System.Timers.Timer(song.Cues[currentCue].CueTime);
+            _timer = new System.Timers.Timer(song.Cues[currentCue].CueTime);
             // Hook up the Elapsed event for the timer. 
-            aTimer.Elapsed += OnTimedEvent;
-            aTimer.AutoReset = false;
-            aTimer.Enabled = true;
-            aTimer.Start();
+            _timer.Elapsed += OnTimedEvent;
+            _timer.AutoReset = false;
+            _timer.Enabled = true;
+            _timer.Start();
         }
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
@@ -80,8 +83,8 @@ namespace SantaPuppet
                 //Console.WriteLine("cueTime=" + cueTime);
                 int newInterval = nextCueTime - cueTime;
                 //Console.WriteLine("newInterval=" + newInterval);
-                aTimer.Interval = newInterval;
-                aTimer.Start();
+                _timer.Interval = newInterval;
+                _timer.Start();
             }
         }
         private static void OnPlaybackFinished(object sender, EventArgs e)
