@@ -111,3 +111,9 @@ GPIO-B4.
 GPIO-B5.  
 GPIO-B6. 
 GPIO-B7. 
+
+
+Audio playback ref
+https://github.com/mobiletechtracker/NetCoreAudio
+https://code.videolan.org/videolan/LibVLCSharp
+https://code.videolan.org/videolan/LibVLCSharp/-/blob/3.x/docs/linux-setup.md

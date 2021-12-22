@@ -1,6 +1,7 @@
 ﻿using SantaPuppet.Cues;
 using System;
 using System.Collections.Generic;
+using System.Device.Gpio;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,13 @@ namespace SantaPuppet.Songs
 {
     public class ItsTheMostWonderfulTimeOfTheYear
     {
+
+        public static GpioController _controller;
+
+        public ItsTheMostWonderfulTimeOfTheYear(GpioController controller)
+        {
+            _controller = controller;
+        }
 
         public SongModel stop()
         {
@@ -23,8 +31,8 @@ namespace SantaPuppet.Songs
             song.SongPath = "/home/pi/SantaPuppet/audio/01ItsTheMostWonderfulTimeOfTheYear.wav";
             song.Cues = new List<CueModel>();
 
-            LightCues lites = new LightCues();
-            CurtinCues cur = new CurtinCues();
+            LightCues lites = new LightCues(_controller);
+            CurtinCues cur = new CurtinCues(_controller);
 
             //CueModel sceneTest = new CueModel();
             //sceneTest.CueTime = 1;

@@ -13,7 +13,7 @@ namespace SantaPuppet.Models.Outputs
 
 
         //GPIO-27. Play Btn Feedback LED Green
-        public static int PlayBtGreen { get; } = 27;
+        public static int PlayBtnGreen { get; } = 27;
         //GPIO-15. Play Btn Feedback LED Red
         public static int PlayBtnRed { get; } = 15;
 
@@ -55,18 +55,16 @@ namespace SantaPuppet.Models.Outputs
             BackStageLeftYellow
         };
 
-        public Lights(GpioController controller)
+        public static void OpenPins(GpioController controller)
         {
+            //Button Lights
             controller.OpenPin(PlayBtnRed, PinMode.Output);
-            controller.OpenPin(PlayBtGreen, PinMode.Output);
-            controller.OpenPin(BackStageRightRed, PinMode.Output);
-            controller.OpenPin(BackStageRightGreen, PinMode.Output);
-            controller.OpenPin(BackStageRightBlue, PinMode.Output);
-            controller.OpenPin(BackStageRightYellow, PinMode.Output);
-            controller.OpenPin(BackStageLeftRed, PinMode.Output);
-            controller.OpenPin(BackStageLeftGreen, PinMode.Output);
-            controller.OpenPin(BackStageLeftBlue, PinMode.Output);
-            controller.OpenPin(BackStageLeftYellow, PinMode.Output);
+            controller.OpenPin(PlayBtnGreen, PinMode.Output);
+            //Stage Back Lights
+            foreach(var pin in Backlights) { 
+                controller.OpenPin(pin, PinMode.Output);
+            }
+
         }
     }
 
@@ -75,10 +73,12 @@ namespace SantaPuppet.Models.Outputs
 
         //GPIO-14. Talking
 
-        //GPIO-22. Motor Curtin(QA Pass)
-        //GPIO-23. Motor Curtin(QA Pass)
-        //GPIO-24. Motor Curtin(QA Pass)
-        //GPIO-25. Motor Curtin(QA Pass)
+
+
+        /// <summary>
+        /// Curtin Motor GPIO 22, 23, 24, 25
+        /// </summary>
+        public static int[] curtinMotor = new int[4] { 22, 23, 24, 25 };
 
         //MCP23017 Port Expander 0x20 
         //https://raspi.tv/wp-content/uploads/2013/07/MCP23017.jpg  
@@ -107,9 +107,12 @@ namespace SantaPuppet.Models.Outputs
         //GPIO-B6.Motor4 Shoulders
         //GPIO-B7.Motor4 Shoulders
 
-        public Motors(GpioController controller)
+        public static void OpenPins(GpioController controller)
         {
-
+            foreach (int motor in curtinMotor)
+            {
+                controller.OpenPin(motor, PinMode.Output);
+            }
         }
     }
 }

@@ -7,9 +7,7 @@ using System.Media;
 using NetCoreAudio;
 using System.Timers;
 
-//https://github.com/mobiletechtracker/NetCoreAudio
-//https://code.videolan.org/videolan/LibVLCSharp
-//https://code.videolan.org/videolan/LibVLCSharp/-/blob/3.x/docs/linux-setup.md
+
 
 namespace SantaPuppet
 {
@@ -41,7 +39,7 @@ namespace SantaPuppet
             Console.WriteLine(s.Title);
         }
 
-        public static void StopSong(SongModel s)
+        public static void StopSong()
         {
             player.Stop();
         }

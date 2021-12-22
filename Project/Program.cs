@@ -5,74 +5,88 @@ using System.Device.I2c;
 using System.Device.Pwm;
 using System.Threading;
 using SantaPuppet;
+using SantaPuppet.Cues;
 using SantaPuppet.Models.Inputs;
+using SantaPuppet.Models.Outputs;
 
 namespace SantaPuppet
 {
     class Program
     {
         public static bool songPlaying = false;
-        public static GpioController gpioController = new GpioController();
-        public static Inputs ins = new Inputs(gpioController);
+        public static GpioController _controller = new GpioController();
+
 
         public Program()
         {
-            //TODO: Open all the GPIO Pin Here not in classes
-            //gpioController.OpenPin(26, PinMode.Input); //GPIO-26. Play button - Input
 
         }
-
 
 
         static void Main(string[] args)
         {
             Console.WriteLine("Santa Puppet is Running");
-            Songs.ItsTheMostWonderfulTimeOfTheYear song01 = new Songs.ItsTheMostWonderfulTimeOfTheYear();
 
-            //Thread songThread;
+            Lights.OpenPins(_controller);
+            Motors.OpenPins(_controller);
+            Inputs.OpenPins(_controller);
+
+
+            Songs.ItsTheMostWonderfulTimeOfTheYear song01 = new Songs.ItsTheMostWonderfulTimeOfTheYear(_controller);
+
+            //Blink the play btn
+            LightCues lc = new LightCues(_controller);
+            Thread blinkPlayBtn = new Thread(() => lc.PlayBtnBlink());
+            blinkPlayBtn.Start();
+            
+
+
 
             while (true)
             {
 
-                if (gpioController.Read(ins.PlayButton) == PinValue.High)
+                if (_controller.Read(Inputs.PlayButton) == PinValue.High)
                 {
                     if (songPlaying)
                     {
-                        Audio.StopSong(song01.stop());
-                        songPlaying = false;
+                        //Audio.StopSong(song01.stop());
+                        //songPlaying = false;
+                        lc.PlayBtnGreen();
+                        Audio.StopSong();
                     }
                     else
                     {
                         songPlaying = true;
-                        
-                        //songThread = new(() => Audio.PlaySong(song.play()));
-                        //songThread.Start();
-
+                        lc.PlayBtnRed();
                         Audio.PlaySong(song01.play());
-                   
+                        while (_controller.Read(Inputs.PlayButton) == PinValue.High)
+                        {
+                            Thread.Sleep(250);
+                        }
+
                     }
                 }
             }
+
+            //TODO: Push to start and feedback
+
+
+            //TODO: Push to stop and feedback
+
+            //TODO: Play song and store it what has played
+
+
+
+
+            static void CurrentDomain_ProcessExit(object sender, EventArgs e)
+            {
+                //TODO: Make this work
+                //Close a pins and stop playing music
+                Console.WriteLine("I quit!");
+            }
+
+
+
         }
-
-        //TODO: Push to start and feedback
-
-
-        //TODO: Push to stop and feedback
-
-        //TODO: Play song and store it what has played
-
-
-
-
-        static void CurrentDomain_ProcessExit(object sender, EventArgs e)
-        {
-            //TODO: Make this work
-            //Close a pins and stop playing music
-            Console.WriteLine("I quit!");
-        }
-
-
-
     }
 }
