@@ -48,21 +48,30 @@ namespace SantaPuppet
                 if (_controller.Read(Inputs.PlayButton) == PinValue.High)
                 {
                     if (songPlaying)
-                    {
-                        //Audio.StopSong(song01.stop());
-                        //songPlaying = false;
+                    {                  
+                        songPlaying = false;
                         lc.PlayBtnGreen();
                         Audio.StopSong();
+                        //Wait for playbutton to be released
+                        while (_controller.Read(Inputs.PlayButton) == PinValue.High)
+                        {
+                            Thread.Sleep(25);
+                        }
+                        //Don't respond to a button push for a couple seconds
+                        Thread.Sleep(2500);
                     }
                     else
                     {
                         songPlaying = true;
                         lc.PlayBtnRed();
                         Audio.PlaySong(song01.play());
+                        //Wait for playbutton to be released
                         while (_controller.Read(Inputs.PlayButton) == PinValue.High)
                         {
-                            Thread.Sleep(250);
+                            Thread.Sleep(25);
                         }
+                        //Don't respond to a button push for a couple seconds
+                        Thread.Sleep(2500);
 
                     }
                 }

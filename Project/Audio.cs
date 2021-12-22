@@ -88,6 +88,7 @@ namespace SantaPuppet
         private static void OnPlaybackFinished(object sender, EventArgs e)
         {
             Console.WriteLine("Playback finished");
+            Program.songPlaying = false;
         }
     }
 }
