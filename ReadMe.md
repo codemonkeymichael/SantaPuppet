@@ -45,23 +45,22 @@ GPIO-14. Talking
      
 GPIO-22. Motor Curtin (QA Pass)  
 GPIO-23. Motor Curtin (QA Pass)     
-GPIO-24. Motor Curtin (QA Pass) 
-GPIO-25. Motor Curtin (QA Pass) 
-  
+GPIO-24. Motor Curtin (QA Pass)   
+GPIO-25. Motor Curtin (QA Pass)    
+   
 GPIO-18. LED1 Key Lights (PWM Dimmable Channel 0)  
 GPIO-19. LED2 Foot Lights (PWM Dimmable Channel 1)  
    
-Backlight Truss:
-GPIO-5. LED6 Back Left Red  (QA Pass) 
-GPIO-6. LED7 Back Left Green  (QA Pass) 
-GPIO-7. LED8 Back Left Blue  (QA Pass) 
-GPIO-12. LED9 Back Left Yellow  (QA Pass) 
-GPIO-13. LED10 Back Right Red  (QA Pass) 
-GPIO-16. LED11 Back Right Green  (QA Pass) 
-GPIO-20. LED12 Back Right Blue   (QA Pass) 
-GPIO-21. LED13 Back Right Yellow  (QA Pass) 
+Backlight Truss:  
+GPIO-5. LED6 Back Left Red  (QA Pass)   
+GPIO-6. LED7 Back Left Green  (QA Pass)   
+GPIO-7. LED8 Back Left Blue  (QA Pass)   
+GPIO-12. LED9 Back Left Yellow  (QA Pass)   
+GPIO-13. LED10 Back Right Red  (QA Pass)   
+GPIO-16. LED11 Back Right Green  (QA Pass)    
+GPIO-20. LED12 Back Right Blue   (QA Pass)    
+GPIO-21. LED13 Back Right Yellow  (QA Pass)   
   
-
 
 MCP23017 Port Expander 0x20 
 https://raspi.tv/wp-content/uploads/2013/07/MCP23017.jpg  
