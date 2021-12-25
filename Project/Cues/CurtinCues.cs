@@ -42,7 +42,7 @@ namespace SantaPuppet.Cues
 
                         int motorSteps = step;
                         _controller.Write(_curtinMotor[motorSteps], PinValue.High);
-                        Console.WriteLine("motorSteps=" + motorSteps + " curtinMotor[motorSteps]=" + _curtinMotor[motorSteps]);
+                        //Console.WriteLine("motorSteps=" + motorSteps + " curtinMotor[motorSteps]=" + _curtinMotor[motorSteps]);
                         motorSteps++;
                         if (motorSteps > 3) motorSteps = 0;
                         _controller.Write(_curtinMotor[motorSteps], PinValue.High);
