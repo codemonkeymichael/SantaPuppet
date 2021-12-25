@@ -46,6 +46,7 @@ namespace SantaPuppet
             //Console.WriteLine("CC=" + cueTime);
             //Console.WriteLine("CN=" + nextCueTime);
             double newInterval =  cueTime - e.Time;
+            if (newInterval < 2) newInterval = 2;
             //Console.WriteLine("NI=" + newInterval);
             _timer.Interval = newInterval;
 
