@@ -36,7 +36,7 @@ GPIO-11. Feet Stops (Blue)
 GPIO-17. Twist Stops (Black)   
 GPIO-8. Curtin Stage Left Stop (Open) (Yellow) Need 10K  
 GPIO-9. Curtin Stage Right Stop (Close) (Green) Need 10K  
-GPIO-26. Play button - Input  
+GPIO-26. Play button (Blue)  
      
 GPIO-27. Play Btn Feedback LED Green   
 GPIO-15. Play Btn Feedback LED Red  
