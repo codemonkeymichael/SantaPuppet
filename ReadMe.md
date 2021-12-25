@@ -34,8 +34,8 @@ GPIO-4. Left Arm Stops (Red)
 GPIO-10. Right Arm Stops (White)  
 GPIO-11. Feet Stops (Blue)  
 GPIO-17. Twist Stops (Black)   
-GPIO-8. Curtin Stage Left Stop (Open) (Yellow) Need 10K  
-GPIO-9. Curtin Stage Right Stop (Close) (Green) Need 10K  
+GPIO-8. Curtin Stage Left Stop (Open) (Yellow)  
+GPIO-9. Curtin Stage Right Stop (Close) (Green)  
 GPIO-26. Play button (Blue)  
      
 GPIO-27. Play Btn Feedback LED Green   
