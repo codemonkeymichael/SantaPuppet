@@ -77,7 +77,7 @@ namespace SantaPuppet
                     if (songPlaying)
                     {                  
                         songPlaying = false;
-                        lc.PlayBtnGreen();
+                        //lc.PlayBtnGreen();
                         Audio.StopSong();
                         //Wait for playbutton to be released
                         while (_controller.Read(Inputs.PlayButton) == PinValue.High)
@@ -90,7 +90,7 @@ namespace SantaPuppet
                     else
                     {
                         songPlaying = true;
-                        lc.PlayBtnRed();
+                        //lc.PlayBtnRed();
                         Audio.PlaySong(song01.play());
        
                         //Wait for playbutton to be released

@@ -4,6 +4,7 @@ using System.Device.Gpio;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SantaPuppet.Models.Inputs;
 using SantaPuppet.Models.Outputs;
 
 namespace SantaPuppet.Cues
@@ -12,7 +13,7 @@ namespace SantaPuppet.Cues
     {
         private static GpioController _controller;
         private static int[] _curtinMotor;
-        private const int maxSteps = 20000;
+        private const int maxSteps = 500;
         private static int maxStepCounter { get; set; }
 
         public CurtinCues(GpioController controller)
@@ -25,9 +26,8 @@ namespace SantaPuppet.Cues
 
         public void OpenClose(bool open = true, int speed = 2)
         {
-            var positionStatus = _controller.Read(8);
-            Console.WriteLine("A pos Status:" + positionStatus);
-
+   
+           
             if (open) Array.Reverse(_curtinMotor);
             maxStepCounter = 0;
             int step = 0; //Four steps 0 1 2 3
@@ -37,12 +37,16 @@ namespace SantaPuppet.Cues
              
                 if (maxStepCounter < maxSteps )
                 {
-                    if (_controller.Read(8) == PinValue.Low) {
+                    if (open && _controller.Read(Inputs.CurtinStageLeftStopOpen) == PinValue.Low
+                        || 
+                        !open && _controller.Read(Inputs.CurtinStageRightStopClosed) == PinValue.Low)
+                      
+                       {
                         //Console.WriteLine("2 Curtin Break maxStepCounter=" + maxStepCounter + " positionStatus=" + positionStatus + " speed=" + speed);
 
                         int motorSteps = step;
                         _controller.Write(_curtinMotor[motorSteps], PinValue.High);
-                        //Console.WriteLine("motorSteps=" + motorSteps + " curtinMotor[motorSteps]=" + _curtinMotor[motorSteps]);
+           
                         motorSteps++;
                         if (motorSteps > 3) motorSteps = 0;
                         _controller.Write(_curtinMotor[motorSteps], PinValue.High);
@@ -58,7 +62,7 @@ namespace SantaPuppet.Cues
                     }
                     else
                     {
-                        Console.WriteLine("Curtin hit the stop.");
+                        Console.WriteLine("Curtin hit the stop. Open = " + open);
                         break;
                     }
                 }
@@ -73,7 +77,7 @@ namespace SantaPuppet.Cues
             if (open) Array.Reverse(_curtinMotor);
             foreach (int motor in _curtinMotor)
             {
-                Console.WriteLine("Curtin Low.");
+                //Console.WriteLine("Curtin Low.");
                 _controller.Write(motor, PinValue.Low);
             }
         }

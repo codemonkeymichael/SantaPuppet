@@ -24,12 +24,12 @@ namespace SantaPuppet
             _song = s;
             //VLC Player Init
             Core.Initialize();
-            var libVLC = new LibVLC();          
+            var libVLC = new LibVLC();
             var media = new Media(libVLC, _song.SongPath, FromType.FromPath);
             _player = new MediaPlayer(media);
-            _player.Playing += OnPlaybackStart; 
+            _player.Playing += OnPlaybackStart;
             _player.TimeChanged += Player_TimeChanged; //Keep cues in sync with the audio
-            _player.Play(); 
+            _player.Play();
             //Reset for a new song
             _currentCue = 0;
             Console.WriteLine(s.Title);
@@ -45,7 +45,7 @@ namespace SantaPuppet
             int cueTime = _song.Cues[_currentCue].CueTime + (_song.Cues[_currentCue].CueTimeMin * 60000);
             //Console.WriteLine("CC=" + cueTime);
             //Console.WriteLine("CN=" + nextCueTime);
-            double newInterval =  cueTime - e.Time;
+            double newInterval = cueTime - e.Time;
             if (newInterval < 2) newInterval = 2;
             //Console.WriteLine("NI=" + newInterval);
             _timer.Interval = newInterval;
@@ -65,7 +65,7 @@ namespace SantaPuppet
         }
 
         private static void OnPlaybackStart(object? sender, EventArgs e)
-        {      
+        {
             //Console.WriteLine("Playback Started Run Cue Timer");
             _timer = new System.Timers.Timer(_song.Cues[_currentCue].CueTime);
             // Hook up the Elapsed event for the timer. 
@@ -79,10 +79,10 @@ namespace SantaPuppet
             //Console.WriteLine("OnTimedEvent");
             int cueTime = _song.Cues[_currentCue].CueTime + (_song.Cues[_currentCue].CueTimeMin * 60000);
             //Console.WriteLine("T=" + cueTime.ToString());  
-            Console.WriteLine("Fire currentCue=" + _currentCue.ToString() +
-                " time=" + cueTime +
-                " Cues.Count=" + _song.Cues.Count.ToString() +
-                " CueName=" + _song.Cues[_currentCue].CueName);
+            Console.WriteLine("Fire Cue " + _currentCue +
+                " of " + _song.Cues.Count +
+                "  Time " + cueTime +
+                "  CueName " + _song.Cues[_currentCue].CueName);
 
             Thread t = new Thread(() => _song.Cues[_currentCue].CueAction.Invoke());
             t.Name = _song.Cues[_currentCue].CueName;
