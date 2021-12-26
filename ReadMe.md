@@ -29,7 +29,8 @@ GPIOs
 https://cdn.sparkfun.com/assets/learn_tutorials/4/2/4/header_pinout.jpg    
    
 Inputs:
-https://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/robot/buttons_and_switches/
+https://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/robot/buttons_and_switches/  
+
 GPIO-4. Left Arm Stops (Red)  
 GPIO-10. Right Arm Stops (White)  
 GPIO-11. Feet Stops (Blue)  
