@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace SantaPuppet.Songs
 {
+    /// <summary>
+    /// Cue Playlist
+    /// </summary>
     public class ItsTheMostWonderfulTimeOfTheYear
     {
 
@@ -33,6 +36,7 @@ namespace SantaPuppet.Songs
 
             LightCues lites = new LightCues(_controller);
             CurtinCues cur = new CurtinCues(_controller);
+            AnimationCues ani = new AnimationCues(_controller);
 
             //CueModel sceneTest = new CueModel();
             //sceneTest.CueTime = 1;

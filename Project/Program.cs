@@ -24,10 +24,10 @@ namespace SantaPuppet
 
         }
 
-        private static void OnPositionChanged(object? sender, MediaPlayerPositionChangedEventArgs e)
-        {
-            Console.WriteLine(e.Position.ToString());
-        }
+        //private static void OnPositionChanged(object? sender, MediaPlayerPositionChangedEventArgs e)
+        //{
+        //    Console.WriteLine(e.Position.ToString());
+        //}
 
 
         static void Main(string[] args)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Media;
-using NetCoreAudio;
+//using NetCoreAudio;
 using System.Timers;
 using LibVLCSharp.Shared;
 
