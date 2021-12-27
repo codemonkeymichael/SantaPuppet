@@ -13,7 +13,7 @@ namespace SantaPuppet.Models.Outputs
         /// <summary>
         /// GPIO-27. Play Btn Feedback LED Green
         /// </summary>
-        public static int PlayBtnGreen { get; } = 27;    
+        public static int PlayBtnGreen { get; } = 27;
 
         /// <summary>
         /// GPIO-15. Play Btn Feedback LED Red
@@ -24,13 +24,13 @@ namespace SantaPuppet.Models.Outputs
         /// GPIO-18. Key Lights(PWM Dimmable Channel 0)
         /// </summary>
         private static int KeyLights { get; } = 18;
-     
+
         /// <summary>
         /// GPIO-19. Foot Lights(PWM Dimmable Channel 1)
         /// </summary>
         private static int FootLights { get; } = 19;
 
-   
+
         /// <summary>
         /// Backlight Truss
         /// GPIO-5. Back Left Red(QA Pass)
@@ -90,7 +90,8 @@ namespace SantaPuppet.Models.Outputs
             controller.OpenPin(PlayBtnRed, PinMode.Output);
             controller.OpenPin(PlayBtnGreen, PinMode.Output);
             //Stage Back Lights
-            foreach(var pin in Backlights) { 
+            foreach (var pin in Backlights)
+            {
                 controller.OpenPin(pin, PinMode.Output);
             }
 
@@ -99,15 +100,20 @@ namespace SantaPuppet.Models.Outputs
 
     public class Motors
     {
-
-        //GPIO-14. Talking
-
+        /// <summary>
+        /// GPIO-14. Talking (Black)
+        /// </summary>
+        public int SantaTalk { get; } = 14;
 
 
         /// <summary>
-        /// Curtin Motor GPIO 22, 23, 24, 25
+        /// Curtin Motor GPIO 22, 23, 24, 25S
+        /// GPIO-22. Motor Curtin 1 (Red)
+        /// GPIO-23. Motor Curtin 2 (Green)
+        /// GPIO-24. Motor Curtin 3 (Blue)
+        /// GPIO-25. Motor Curtin 4 (Yellow)
         /// </summary>
-        public static int[] curtinMotor = new int[4] { 22, 23, 24, 25 };
+        public static int[] curtinMotor { get; } = new int[4] { 22, 23, 24, 25 };
 
         //MCP23017 Port Expander 0x20 
         //https://raspi.tv/wp-content/uploads/2013/07/MCP23017.jpg  
