@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Device.Gpio;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SantaPuppet.Models.Outputs
 {
@@ -103,7 +100,7 @@ namespace SantaPuppet.Models.Outputs
         /// <summary>
         /// GPIO-14. Talking (Black)
         /// </summary>
-        public int SantaTalk { get; } = 14;
+        public static int SantaTalk { get; } = 14;
 
 
         /// <summary>
@@ -144,6 +141,7 @@ namespace SantaPuppet.Models.Outputs
 
         public static void OpenPins(GpioController controller)
         {
+            controller.OpenPin(SantaTalk, PinMode.Output);
             foreach (int motor in curtinMotor)
             {
                 controller.OpenPin(motor, PinMode.Output);
