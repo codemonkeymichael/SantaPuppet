@@ -33,7 +33,7 @@ https://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/robot/buttons_and_switch
 
 GPIO-4. Left Arm Stops (Red)  
 GPIO-10. Right Arm Stops (White)  
-GPIO-11. Feet Stops (Blue)  
+GPIO-11. Feet Stops (Blue Red)  
 GPIO-17. Twist Stops (Black)   
 GPIO-8. Curtin Stage Left Stop (Open) (Yellow)  
 GPIO-9. Curtin Stage Right Stop (Close) (Green)  
