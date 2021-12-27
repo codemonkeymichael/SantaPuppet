@@ -42,15 +42,15 @@ GPIO-26. Play button (Blue)
 GPIO-27. Play Btn Feedback LED Green   
 GPIO-15. Play Btn Feedback LED Red  
   
-GPIO-14. Talking  
+GPIO-14. Talking (Black)   
      
 GPIO-22. Motor Curtin (QA Pass)  
 GPIO-23. Motor Curtin (QA Pass)     
 GPIO-24. Motor Curtin (QA Pass)   
 GPIO-25. Motor Curtin (QA Pass)    
    
-GPIO-18. LED1 Key Lights (PWM Dimmable Channel 0)  
-GPIO-19. LED2 Foot Lights (PWM Dimmable Channel 1)  
+GPIO-18. LED1 Key Lights (PWM Dimmable Channel 0) (Blue)   
+GPIO-19. LED2 Foot Lights (PWM Dimmable Channel 1) (Yellow)   
    
 Backlight Truss:  
 GPIO-5. LED6 Back Left Red  (QA Pass)   
@@ -110,7 +110,7 @@ GPIO-B3.
 GPIO-B4.    
 GPIO-B5.  
 GPIO-B6. 
-GPIO-B7. 
+GPIO-B7.  
 
 
 Audio playback ref
