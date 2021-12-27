@@ -23,7 +23,11 @@ namespace SantaPuppet.Cues
             _controller = controller;
         }
 
-
+        /// <summary>
+        /// Open and close the curtin.
+        /// </summary>
+        /// <param name="open"></param>
+        /// <param name="speed"></param>
         public void OpenClose(bool open = true, int speed = 2)
         {
    
