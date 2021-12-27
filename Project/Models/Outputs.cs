@@ -10,37 +10,66 @@ namespace SantaPuppet.Models.Outputs
     public class Lights
     {
 
+        /// <summary>
+        /// GPIO-27. Play Btn Feedback LED Green
+        /// </summary>
+        public static int PlayBtnGreen { get; } = 27;    
 
-
-        //GPIO-27. Play Btn Feedback LED Green
-        public static int PlayBtnGreen { get; } = 27;
-        //GPIO-15. Play Btn Feedback LED Red
+        /// <summary>
+        /// GPIO-15. Play Btn Feedback LED Red
+        /// </summary>
         public static int PlayBtnRed { get; } = 15;
 
-
-        //GPIO-18. Key Lights(PWM Dimmable Channel 0)
+        /// <summary>
+        /// GPIO-18. Key Lights(PWM Dimmable Channel 0)
+        /// </summary>
         private static int KeyLights { get; } = 18;
-        //GPIO-19. Foot Lights(PWM Dimmable Channel 1)
+     
+        /// <summary>
+        /// GPIO-19. Foot Lights(PWM Dimmable Channel 1)
+        /// </summary>
         private static int FootLights { get; } = 19;
 
-
-        //Backlight Truss:
-        //GPIO-5. Back Left Red(QA Pass)
+   
+        /// <summary>
+        /// Backlight Truss
+        /// GPIO-5. Back Left Red(QA Pass)
+        /// </summary>
         public static int BackStageRightRed { get; } = 5;
-        //GPIO-6. Back Left Green(QA Pass)
+
+        /// <summary>
+        /// GPIO-6. Back Left Green(QA Pass)
+        /// </summary>
         public static int BackStageRightGreen { get; } = 6;
-        //GPIO-7. Back Left Blue(QA Pass)
+
+        /// <summary>
+        /// GPIO-7. Back Left Blue(QA Pass)
+        /// </summary>
         public static int BackStageRightBlue { get; } = 7;
-        //GPIO-12. Back Left Yellow(QA Pass)
+
+        /// <summary>
+        /// GPIO-12. Back Left Yellow(QA Pass)
+        /// </summary> 
         public static int BackStageRightYellow { get; } = 12;
 
-        //GPIO-13. Back Right Red(QA Pass)
+        /// <summary>
+        /// GPIO-13. Back Right Red(QA Pass)
+        /// </summary>
         public static int BackStageLeftRed { get; } = 13;
-        //GPIO-16. Back Right Green(QA Pass)
+
+        /// <summary>
+        /// GPIO-16. Back Right Green(QA Pass)
+        /// </summary>
         public static int BackStageLeftGreen { get; } = 16;
-        //GPIO-20. Back Right Blue(QA Pass)
+
+        /// <summary>
+        /// GPIO-20. Back Right Blue(QA Pass)
+        /// </summary>
         public static int BackStageLeftBlue { get; } = 20;
-        //GPIO-21. Back Right Yellow(QA Pass)
+
+        /// <summary>
+        /// GPIO-21. Back Right Yellow(QA Pass)
+        /// </summary>
         public static int BackStageLeftYellow { get; } = 21;
 
         public static int[] Backlights { get; } = new int[8]
