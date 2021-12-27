@@ -21,7 +21,7 @@ namespace SantaPuppet.Cues
         }
 
 
-        public void Someting(int speed = 2)
+        public void RightArm(int speed = 2)
         {   
            
             //if (open) Array.Reverse(_curtinMotor);
