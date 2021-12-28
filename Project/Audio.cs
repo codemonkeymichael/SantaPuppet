@@ -40,28 +40,18 @@ namespace SantaPuppet
         private static void Player_TimeChanged(object? sender, MediaPlayerTimeChangedEventArgs e)
         {
             //This corrects the timer interval as the audio plays
-            //Console.WriteLine("PY=" + e.Time.ToString());
-            //Console.WriteLine("IN=" + _timer.Interval);
             int cueTime = _song.Cues[_currentCue].CueTime + (_song.Cues[_currentCue].CueTimeMin * 60000);
-            //Console.WriteLine("CC=" + cueTime);
-            //Console.WriteLine("CN=" + nextCueTime);
             double newInterval = cueTime - e.Time;
-            if (newInterval < 2) newInterval = 2;
-            //Console.WriteLine("NI=" + newInterval);
+            if (newInterval < 2) newInterval = 2;    
             _timer.Interval = newInterval;
-
         }
-
-        //private static void OnPositionChanged(object? sender, MediaPlayerPositionChangedEventArgs e)
-        //{
-        //    Console.WriteLine(e.Position.ToString());
-        //}
-
 
         public static void StopSong()
         {
+            Program.songPlaying = false;
             _player.Stop();
             _timer.Stop();
+            _timer.Dispose();
         }
 
         private static void OnPlaybackStart(object? sender, EventArgs e)
@@ -78,25 +68,19 @@ namespace SantaPuppet
         {
             //Console.WriteLine("OnTimedEvent");
             int cueTime = _song.Cues[_currentCue].CueTime + (_song.Cues[_currentCue].CueTimeMin * 60000);
-            //Console.WriteLine("T=" + cueTime.ToString());  
-            Console.WriteLine("Fire Cue " + _currentCue +
+            Console.WriteLine("Cue " + _currentCue +
                 " of " + _song.Cues.Count +
                 "  Time " + cueTime +
                 "  CueName " + _song.Cues[_currentCue].CueName);
-
             Thread t = new Thread(() => _song.Cues[_currentCue].CueAction.Invoke());
             t.Name = _song.Cues[_currentCue].CueName;
             t.Start();
 
             if (_currentCue < _song.Cues.Count)
             {
-                int nextCueTime = _song.Cues[_currentCue + 1].CueTime + (_song.Cues[_currentCue + 1].CueTimeMin * 60000);
-                //Console.WriteLine("nextCueTime=" + nextCueTime);
-                //Console.WriteLine("cueTime=" + cueTime);
-                int newInterval = nextCueTime - cueTime;
-                //Console.WriteLine("newInterval=" + newInterval);
-                _timer.Interval = newInterval;
-                //_timer.Start();
+                int nextCueTime = _song.Cues[_currentCue + 1].CueTime + (_song.Cues[_currentCue + 1].CueTimeMin * 60000);   
+                int newInterval = nextCueTime - cueTime; 
+                _timer.Interval = newInterval;          
             }
             _currentCue++;
         }
@@ -104,6 +88,8 @@ namespace SantaPuppet
         {
             Console.WriteLine("Playback finished");
             Program.songPlaying = false;
+            _timer.Stop();
+            _timer.Dispose();
         }
     }
 }
