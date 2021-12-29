@@ -20,14 +20,13 @@ internal class Audio
         var media = new Media(libVLC, _song.SongPath, FromType.FromPath);
         _player = new MediaPlayer(media);
         _player.Playing += OnPlaybackStart;
+        _player.EndReached += OnPlaybackFinished;
         _player.TimeChanged += Player_TimeChanged; //Keep cues in sync with the audio
         _player.Play();
         //Reset for a new song
         _currentCue = 0;
         Console.WriteLine(s.Title);
     }
-
-
 
     private static void Player_TimeChanged(object? sender, MediaPlayerTimeChangedEventArgs e)
     {
@@ -76,7 +75,8 @@ internal class Audio
         }
         _currentCue++;
     }
-    private static void OnPlaybackFinished(object sender, EventArgs e)
+
+    private static void OnPlaybackFinished(object? sender, EventArgs e)
     {
         Console.WriteLine("Playback finished");
         Program.songPlaying = false;
