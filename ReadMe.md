@@ -65,29 +65,28 @@ GPIO-B7. Motor4 Shoulders
 MCP23017 Port Expander 0x21   
 https://raspi.tv/wp-content/uploads/2013/07/MCP23017.jpg   
   
-GPIO-A0.  
-GPIO-A1.   
-GPIO-A2.   
-GPIO-A3.   
+GPIO-A0.    
+GPIO-A1.     
+GPIO-A2.     
+GPIO-A3.     
    
-GPIO-A4.   
-GPIO-A5. 
-GPIO-A6.   
-GPIO-A7.   
+GPIO-A4.     
+GPIO-A5.   
+GPIO-A6.     
+GPIO-A7.     
 
   
-GPIO-B0.  
-GPIO-B1.   
-GPIO-B2.   
-GPIO-B3.   
+GPIO-B0.    
+GPIO-B1.     
+GPIO-B2.     
+GPIO-B3.     
    
-GPIO-B4.    
-GPIO-B5.  
+GPIO-B4.      
+GPIO-B5.    
 GPIO-B6. 
 GPIO-B7.  
 
 
 Audio playback ref
-https://github.com/mobiletechtracker/NetCoreAudio
 https://code.videolan.org/videolan/LibVLCSharp
 https://code.videolan.org/videolan/LibVLCSharp/-/blob/3.x/docs/linux-setup.md
