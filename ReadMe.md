@@ -18,23 +18,23 @@ GPIO-15. Play Btn Feedback LED Red
   
 GPIO-14. Talking (Black)   
      
-GPIO-22. Motor Curtin (QA Pass)  
-GPIO-23. Motor Curtin (QA Pass)     
-GPIO-24. Motor Curtin (QA Pass)   
-GPIO-25. Motor Curtin (QA Pass)    
+GPIO-22. Motor Curtin (Red)  
+GPIO-23. Motor Curtin (Green)     
+GPIO-24. Motor Curtin (Blue)   
+GPIO-25. Motor Curtin (Yellow)    
    
 GPIO-18. LED1 Key Lights (PWM Dimmable Channel 0) (Blue)   
 GPIO-19. LED2 Foot Lights (PWM Dimmable Channel 1) (Yellow)   
    
 Backlight Truss:  
-GPIO-5. LED6 Back Left Red  (QA Pass)   
-GPIO-6. LED7 Back Left Green  (QA Pass)   
-GPIO-7. LED8 Back Left Blue  (QA Pass)   
-GPIO-12. LED9 Back Left Yellow  (QA Pass)   
-GPIO-13. LED10 Back Right Red  (QA Pass)   
-GPIO-16. LED11 Back Right Green  (QA Pass)    
-GPIO-20. LED12 Back Right Blue   (QA Pass)    
-GPIO-21. LED13 Back Right Yellow  (QA Pass)   
+GPIO-5. LED6 Back Left Red  
+GPIO-6. LED7 Back Left Green   
+GPIO-7. LED8 Back Left Blue    
+GPIO-12. LED9 Back Left Yellow   
+GPIO-13. LED10 Back Right Red  
+GPIO-16. LED11 Back Right Green  
+GPIO-20. LED12 Back Right Blue   
+GPIO-21. LED13 Back Right Yellow   
   
 
 MCP23017 Port Expander 0x20 
@@ -83,8 +83,8 @@ GPIO-B3.
    
 GPIO-B4.      
 GPIO-B5.    
-GPIO-B6. 
-GPIO-B7.  
+GPIO-B6.   
+GPIO-B7.    
 
 
 Audio playback ref
