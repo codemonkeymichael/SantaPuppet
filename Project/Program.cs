@@ -1,4 +1,6 @@
-﻿namespace SantaPuppet;
+﻿using LibVLCSharp.Shared;
+
+namespace SantaPuppet;
 
 class Program
 {
@@ -22,6 +24,7 @@ class Program
 
 
         Songs.ItsTheMostWonderfulTimeOfTheYear song01 = new Songs.ItsTheMostWonderfulTimeOfTheYear(_controller);
+        Audio.CueSong(song01.play());
 
         //Blink the play btn
         LightCues lc = new LightCues(_controller);
@@ -52,9 +55,10 @@ class Program
                 }
                 else
                 {
+                    Console.WriteLine("Button pushed play song");
                     songPlaying = true;
-                    //lc.PlayBtnRed();
-                    Audio.PlaySong(song01.play());
+             
+                    Audio.PlaySong();
 
                     //Wait for playbutton to be released
                     while (_controller.Read(Inputs.PlayButton) == PinValue.High)

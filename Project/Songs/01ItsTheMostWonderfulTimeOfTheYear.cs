@@ -31,7 +31,7 @@ namespace SantaPuppet.Songs
             //Build the Song
             SongModel song = new SongModel();
             song.Title = "Its The Most Wonderful Time Of The Year";
-            song.SongPath = "audio/01ItsTheMostWonderfulTimeOfTheYear.wav";
+            song.SongPath = "01ItsTheMostWonderfulTimeOfTheYear.wav";
             song.Cues = new List<CueModel>();
 
             LightCues lites = new LightCues(_controller);
