@@ -111,10 +111,11 @@ public class Motors
     //MCP23017 Port Expander 0x20 
     //https://raspi.tv/wp-content/uploads/2013/07/MCP23017.jpg  
 
-    //GPIO-A0.Motor1 Feet
-    //GPIO-A1.Motor1 Feet
-    //GPIO-A2.Motor1 Feet
-    //GPIO-A3.Motor1 Feet
+    //GPIO-A0.Motor1 Shoulders
+    //GPIO-A1.Motor1 Shoulders
+    //GPIO-A2.Motor1 Shoulders
+    //GPIO-A3.Motor1 Shoulders
+    public static int[] shouldersMotor { get; } = new int[4] { 0, 1, 2, 3 };
 
 
     //GPIO-A4.Motor2 Left Arm
@@ -130,10 +131,10 @@ public class Motors
     //GPIO-B3.Motor3 Right Arm
 
 
-    //GPIO-B4.Motor4 Shoulders
-    //GPIO-B5.Motor4 Shoulders
-    //GPIO-B6.Motor4 Shoulders
-    //GPIO-B7.Motor4 Shoulders
+    //GPIO-B4.Motor4 Feet
+    //GPIO-B5.Motor4 Feet
+    //GPIO-B6.Motor4 Feet
+    //GPIO-B7.Motor4 Feet
 
     public static void OpenPins(GpioController controller)
     {

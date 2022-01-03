@@ -22,6 +22,9 @@ class Program
         Motors.OpenPins(_controller);
         Inputs.OpenPins(_controller);
 
+        AnimationCues thing = new AnimationCues();
+        thing.TestI2c();
+
         //CurtinCues cur = new CurtinCues(_controller);
         //cur.OpenClose(false, 2);
 

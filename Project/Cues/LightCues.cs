@@ -18,69 +18,7 @@ public class LightCues
 
 
 
-    public void TestI2c()
-    {
-        //Console.WriteLine("Test MCP23017 I2C");
-
-
-
-        //I2cConnectionSettings connectionSettings = new I2cConnectionSettings(1, 0x20);
-        //I2cDevice device = I2cDevice.Create(connectionSettings);
-        //Mcp23017 mcp23017 = new Mcp23017(device);
-
-        //mcp23017.WriteByte(Register.IODIR, 0x00, Port.PortA);
-        //mcp23017.WriteByte(Register.IODIR, 0x00, Port.PortB);
-
-
-
-
-        //var controller = new GpioController(PinNumberingScheme.Logical, mcp23017);
-
-
-        //for (int i = 0; i < 16; i++)
-        //{
-        //    controller.OpenPin(i, PinMode.Output, PinValue.Low);
-        //    controller.SetPinMode(i, PinMode.Output);
-
-        //}
-
-        //bool status = true;
-
-        //while (true)
-        //{
-        //    if (status)
-        //    {
-        //        for (int i = 0; i < 16; i++)
-        //        {
-        //            controller.Write(i, PinValue.High);          
-        //            Task.Delay(250).Wait();
-        //        }
-        //        Console.WriteLine("On");
-        //        for (int i = 0; i < 16; i++)
-        //        {
-        //            Console.WriteLine("Pin" + i + " " + controller.Read(i) + 
-        //                " Mode=" + controller.GetPinMode(i) + 
-        //                " PinCount=" + controller.PinCount +
-        //                " IsPinModeSupported.Output=" + controller.IsPinModeSupported(i,PinMode.Output));                       
-        //        }
-        //        status = false;                 
-        //    }
-        //    else
-        //    {
-        //        for (int i = 0; i < 16; i++)
-        //        {
-        //            controller.Write(i, PinValue.Low);
-        //            Task.Delay(250).Wait();
-        //        }
-        //        Console.WriteLine("Off");
-        //        for (int i = 0; i < 16; i++)
-        //        {
-        //            Console.WriteLine("Pin" + i + " " + controller.Read(i));
-        //        }
-        //        status = true;                   
-        //    }               
-        //}
-    }
+   
 
     public void Back_StrobeAll_Fast()
     {
