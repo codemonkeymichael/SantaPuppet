@@ -50,18 +50,18 @@ internal class Audio
     private static void Player_TimeChanged(object? sender, MediaPlayerTimeChangedEventArgs e)
     {
         //This corrects the timer interval as the audio plays
-        //if (_currentCue < _song.Cues.Count)
-        //{
-        //    int cueTime = _song.Cues[_currentCue].CueTime + (_song.Cues[_currentCue].CueTimeMin * 60000);
-        //    double newInterval = cueTime - e.Time; //Compair the cue time with where the song is  
-        //    Console.WriteLine("Player_TimeChanged()" +
-        //    " _currentCue=" + _currentCue +
-        //    " _song.Cues.Count=" + _song.Cues.Count +
-        //    " cue time=" + cueTime +
-        //    " new timer interval=" + newInterval);
-        //    if (newInterval > 0) _timer.Interval = newInterval;
+        if (_currentCue < _song.Cues.Count)
+        {
+            int cueTime = _song.Cues[_currentCue].CueTime + (_song.Cues[_currentCue].CueTimeMin * 60000);
+            double newInterval = cueTime - e.Time; //Compair the cue time with where the song is  
+            //Console.WriteLine("Player_TimeChanged()" +
+            //" _currentCue=" + _currentCue +
+            //" _song.Cues.Count=" + _song.Cues.Count +
+            //" cue time=" + cueTime +
+            //" new timer interval=" + newInterval);
+            if (newInterval > 0) _timer.Interval = newInterval;
 
-        //}
+        }
     }
 
     public static void StopSong()
