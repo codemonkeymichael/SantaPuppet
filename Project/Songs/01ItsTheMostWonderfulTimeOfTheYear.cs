@@ -45,28 +45,28 @@ namespace SantaPuppet.Songs
             //song.Cues.Add(sceneTest);
 
             CueModel scene0 = new CueModel();
-            scene0.CueTime = 5;
+            scene0.CueTime = 1;
             scene0.CueTimeMin = 0;
-            scene0.CueAction = () => lites.BLackOut();
+            scene0.CueAction = () => lites.Back_Color("Black",true,0);
             scene0.CueName = "Black Out - Its The Most Wonderful Time Of The Year";
             song.Cues.Add(scene0);
 
-            CueModel curtin10 = new CueModel();
-            curtin10.CueTime = 7;
-            curtin10.CueTimeMin = 0;
-            curtin10.CueName = "Curtin Open";
-            curtin10.CueAction = () => cur.OpenClose(true, 10);
-            song.Cues.Add(curtin10);
+            CueModel scene00 = new CueModel();
+            scene00.CueTime = 4;
+            scene00.CueTimeMin = 0;
+            scene00.CueAction = () => lites.DownStage(0, false, true, 0.0, 0.0, 0.0);
+            scene00.CueName = "Fade up foot lights";
+            song.Cues.Add(scene00);
 
             CueModel scene1 = new CueModel();
-            scene1.CueTime = 9;
+            scene1.CueTime = 6;
             scene1.CueTimeMin = 0;
             scene1.CueAction = () => lites.Back_Color_Green();
             scene1.CueName = "Backlights Green Color";
             song.Cues.Add(scene1);
 
             CueModel scene2 = new CueModel();
-            scene2.CueTime = 12;
+            scene2.CueTime = 8;
             scene2.CueTimeMin = 0;
             scene2.CueAction = () => lites.Back_Color_Blue();
             scene2.CueName = "Backlights Blue Color";
@@ -75,17 +75,23 @@ namespace SantaPuppet.Songs
             CueModel scene10 = new CueModel();
             scene10.CueTime = 15;
             scene10.CueTimeMin = 0;
-            scene10.CueAction = () => lites.DownStage(80, true, false, 0.20, 0.0, 0.0);
+            scene10.CueAction = () => lites.DownStage(80, true, false, 1.00, 0.0, 0.0);
             scene10.CueName = "Fade up foot lights";
             song.Cues.Add(scene10);
+
+            CueModel curtin10 = new CueModel();
+            curtin10.CueTime = 5000;
+            curtin10.CueTimeMin = 0;
+            curtin10.CueName = "Curtin Open";
+            curtin10.CueAction = () => cur.OpenClose(true, 2);
+            song.Cues.Add(curtin10);
 
             CueModel scene11 = new CueModel();
             scene11.CueTime = 6107;
             scene11.CueTimeMin = 0;
-            scene11.CueAction = () => lites.DownStage(20, true, true, 0.25, 0.0, 0.00);
+            scene11.CueAction = () => lites.DownStage(20, true, true, 1.00, 0.0, 0.00);
             scene11.CueName = "Fade up Key Lights";
             song.Cues.Add(scene11);
-
 
             CueModel scene15 = new CueModel();
             scene15.CueTime = 10866;
@@ -307,14 +313,14 @@ namespace SantaPuppet.Songs
             CueModel scene44 = new CueModel();
             scene44.CueTime = 40700;
             scene44.CueTimeMin = 1;
-            scene44.CueAction = () => lites.DownStage(10, true, true, 0.25, 0.0, 0.0);
+            scene44.CueAction = () => lites.DownStage(10, true, true, 1.00, 0.0, 0.0);
             scene44.CueName = "All";
             song.Cues.Add(scene44);
 
             CueModel scene45 = new CueModel();
             scene45.CueTime = 40750;
             scene45.CueTimeMin = 1;
-            scene45.CueAction = () => lites.DownStage(10, true, false, 0.20, 0.0, 0.0);
+            scene45.CueAction = () => lites.DownStage(10, true, false, 1.00, 0.0, 0.0);
             scene45.CueName = "All";
             song.Cues.Add(scene45);
 
@@ -388,6 +394,13 @@ namespace SantaPuppet.Songs
             scene55.CueName = "Sparkle Fast";
             song.Cues.Add(scene55);
 
+            CueModel curtin20 = new CueModel();
+            curtin20.CueTime = 25435;
+            curtin20.CueTimeMin = 2;
+            curtin20.CueName = "Curtin Close";
+            curtin20.CueAction = () => cur.OpenClose(false, 10);
+            song.Cues.Add(curtin20);
+
             CueModel scene56 = new CueModel();
             scene56.CueTime = 26736;
             scene56.CueTimeMin = 2;
@@ -438,24 +451,17 @@ namespace SantaPuppet.Songs
             song.Cues.Add(scene62);
 
 
-
-
-            CueModel curtin20 = new CueModel();
-            curtin20.CueTime = 27435;
-            curtin20.CueTimeMin = 2;
-            curtin20.CueName = "Curtin Close";
-            curtin20.CueAction = () => cur.OpenClose(false, 10);
-            song.Cues.Add(curtin20);
+  
 
 
 
 
-            CueModel scene999 = new CueModel();
-            scene999.CueTime = 28921;
-            scene999.CueTimeMin = 2;
-            scene999.CueAction = () => lites.BLackOut();
-            scene999.CueName = "Black Out";
-            song.Cues.Add(scene999);
+            //CueModel scene999 = new CueModel();
+            //scene999.CueTime = 28921;
+            //scene999.CueTimeMin = 2;
+            //scene999.CueAction = () => lites.BLackOut();
+            //scene999.CueName = "Black Out";
+            //song.Cues.Add(scene999);
 
             return song;
         }

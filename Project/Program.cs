@@ -8,20 +8,22 @@ class Program
     public static GpioController _controller = new GpioController();
 
 
-    public Program()
-    {
-        Console.WriteLine("Program constructor.");
-    }
+    //public Program()
+    //{
+    //    Console.WriteLine("Program constructor.");
+    //}
 
 
     static void Main(string[] args)
     {
-        Console.WriteLine("Santa Puppet is Running");
+        Console.WriteLine("Santa Puppet is Running");  
 
         Lights.OpenPins(_controller);
         Motors.OpenPins(_controller);
         Inputs.OpenPins(_controller);
 
+        //CurtinCues cur = new CurtinCues(_controller);
+        //cur.OpenClose(false, 2);
 
         Songs.ItsTheMostWonderfulTimeOfTheYear song01 = new Songs.ItsTheMostWonderfulTimeOfTheYear(_controller);
         Audio.CueSong(song01.play());
@@ -31,8 +33,8 @@ class Program
         Thread blinkPlayBtn = new Thread(() => lc.PlayBtnBlink());
         blinkPlayBtn.Start();
 
-        var stats8 = PinValue.Low;
-        var stats9 = PinValue.Low;
+        //var stats8 = PinValue.Low;
+        //var stats9 = PinValue.Low;
 
 
         while (true)
@@ -71,18 +73,18 @@ class Program
                 }
             }
 
-            if (_controller.Read(Inputs.CurtinStageLeftStopOpen) != stats8)
-            {
-                stats8 = _controller.Read(Inputs.CurtinStageLeftStopOpen);
-                Console.WriteLine("Input Pin 8 Pushed = " + stats8);
-                Thread.Sleep(2500);
-            }
-            if (_controller.Read(Inputs.CurtinStageRightStopClosed) != stats9)
-            {
-                stats9 = _controller.Read(Inputs.CurtinStageRightStopClosed);
-                Console.WriteLine("Input Pin 9 Pushed = " + stats9);
-                Thread.Sleep(2500);
-            }
+            //if (_controller.Read(Inputs.CurtinStageLeftStopOpen) != stats8)
+            //{
+            //    stats8 = _controller.Read(Inputs.CurtinStageLeftStopOpen);
+            //    Console.WriteLine("Input Pin 8 Pushed = " + stats8);
+            //    Thread.Sleep(2500);
+            //}
+            //if (_controller.Read(Inputs.CurtinStageRightStopClosed) != stats9)
+            //{
+            //    stats9 = _controller.Read(Inputs.CurtinStageRightStopClosed);
+            //    Console.WriteLine("Input Pin 9 Pushed = " + stats9);
+            //    Thread.Sleep(2500);
+            //}
 
 
         }

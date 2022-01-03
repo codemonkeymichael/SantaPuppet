@@ -82,16 +82,6 @@ public class LightCues
         //}
     }
 
-    public void BLackOut()
-    {
-        foreach (int light in Lights.Backlights)
-        {
-            _controller.Write(light, PinValue.Low);
-        }
-        DownStage(0, false, true, 0.0, 0.0, 0.0);
-        DownStage(0, false, false, 0.0, 0.0, 0.0);
-    }
-
     public void Back_StrobeAll_Fast()
     {
         Back_StrobeAll(300);
@@ -600,6 +590,7 @@ public class LightCues
     /// <param name="start">double 0.0 = is off, 0.5 is half </param>
     public void DownStage(int speed, bool up, bool keyLights, double max, double min, double start)
     {
+        //Console.WriteLine("DownStage()");
         int keyLites = 1;
         if (keyLights) keyLites = 0;
         //Console.WriteLine("DownStageLights speed=" + s.ToString() + 

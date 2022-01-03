@@ -16,11 +16,11 @@ internal class Audio
     /// </summary>
     /// <param name="s"></param>
     public static void CueSong(SongModel s)
-    {       
+    {
         _song = s;
 
         var songPath = AppDomain.CurrentDomain.BaseDirectory + "audio/" + _song.SongPath;
-        Console.WriteLine("songPath " + songPath);
+        //Console.WriteLine("songPath " + songPath);
 
         //VLC Player Init
         Core.Initialize();
@@ -34,7 +34,7 @@ internal class Audio
         //_player.Play();
         //Reset for a new song
         _currentCue = 0;
-        Console.WriteLine("CueSong(SongModel s) " + s.Title);
+        //Console.WriteLine("CueSong(SongModel s) " + s.Title);
     }
 
     public static void PlaySong()
@@ -42,19 +42,26 @@ internal class Audio
 
         _player.Play();
         //Reset for a new song
-        _currentCue = 0;
+        // _currentCue = 0;
         //Console.WriteLine("PlaySong()");
 
     }
 
     private static void Player_TimeChanged(object? sender, MediaPlayerTimeChangedEventArgs e)
     {
-        //Console.WriteLine("Player_TimeChanged(object? sender, MediaPlayerTimeChangedEventArgs e)");
         //This corrects the timer interval as the audio plays
-        int cueTime = _song.Cues[_currentCue].CueTime + (_song.Cues[_currentCue].CueTimeMin * 60000);
-        double newInterval = cueTime - e.Time; //Compair the cue time with where the song is  
-        if (newInterval < 2) newInterval = 2; //If in the diffrence is less than 2 millsecons make it 2.
-        _timer.Interval = newInterval;
+        //if (_currentCue < _song.Cues.Count)
+        //{
+        //    int cueTime = _song.Cues[_currentCue].CueTime + (_song.Cues[_currentCue].CueTimeMin * 60000);
+        //    double newInterval = cueTime - e.Time; //Compair the cue time with where the song is  
+        //    Console.WriteLine("Player_TimeChanged()" +
+        //    " _currentCue=" + _currentCue +
+        //    " _song.Cues.Count=" + _song.Cues.Count +
+        //    " cue time=" + cueTime +
+        //    " new timer interval=" + newInterval);
+        //    if (newInterval > 0) _timer.Interval = newInterval;
+
+        //}
     }
 
     public static void StopSong()
@@ -77,23 +84,25 @@ internal class Audio
     }
     private static void OnTimedEvent(Object source, ElapsedEventArgs e)
     {
-        //Console.WriteLine("OnTimedEvent");
         int cueTime = _song.Cues[_currentCue].CueTime + (_song.Cues[_currentCue].CueTimeMin * 60000);
         Console.WriteLine("Cue " + _currentCue +
             " of " + _song.Cues.Count +
             "  Time " + cueTime +
             "  CueName " + _song.Cues[_currentCue].CueName);
-        Thread t = new Thread(() => _song.Cues[_currentCue].CueAction.Invoke());
+
+        int num = _currentCue; //I don't why I have to do this???? It works.
+        Thread t = new Thread(() => _song.Cues[num].CueAction.Invoke());
         t.Name = _song.Cues[_currentCue].CueName;
         t.Start();
 
+        _currentCue++;
         if (_currentCue < _song.Cues.Count)
         {
-            int nextCueTime = _song.Cues[_currentCue + 1].CueTime + (_song.Cues[_currentCue + 1].CueTimeMin * 60000);
+            int nextCueTime = _song.Cues[_currentCue].CueTime + (_song.Cues[_currentCue].CueTimeMin * 60000);
             int newInterval = nextCueTime - cueTime;
             _timer.Interval = newInterval;
         }
-        _currentCue++;
+
     }
 
     private static void OnPlaybackFinished(object? sender, EventArgs e)

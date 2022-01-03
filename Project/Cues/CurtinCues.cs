@@ -4,7 +4,7 @@ public class CurtinCues
 {
     private static GpioController _controller;
     private static int[] _curtinMotor;
-    private const int maxSteps = 500;
+    private const int maxSteps = 1000;
     private static int maxStepCounter { get; set; }
 
     public CurtinCues(GpioController controller)
@@ -21,12 +21,20 @@ public class CurtinCues
     /// <param name="speed"></param>
     public void OpenClose(bool open = true, int speed = 2)
     {
-
+        //Console.WriteLine("CurtinCues OpenClose open = " + open);
 
         if (open) Array.Reverse(_curtinMotor);
+
+        //foreach (var c in _curtinMotor)
+        //{
+        //    Console.WriteLine(c);
+        //}
+
         maxStepCounter = 0;
         int step = 0; //Four steps 0 1 2 3
-                      //Console.WriteLine("1 Curtin maxStepCounter=" + maxStepCounter + " maxSteps=" + maxSteps + " speed=" + speed);
+
+        //Console.WriteLine("Curtin maxStepCounter=" + maxStepCounter + " maxSteps=" + maxSteps + " speed=" + speed);
+
         while (true)
         {
 
@@ -37,11 +45,10 @@ public class CurtinCues
                     !open && _controller.Read(Inputs.CurtinStageRightStopClosed) == PinValue.Low)
 
                 {
-                    //Console.WriteLine("2 Curtin Break maxStepCounter=" + maxStepCounter + " positionStatus=" + positionStatus + " speed=" + speed);
+                    //Console.WriteLine("Curtin Break maxStepCounter=" + maxStepCounter + " _curtinMotor[step]=" + _curtinMotor[step] + " speed=" + speed);
 
                     int motorSteps = step;
                     _controller.Write(_curtinMotor[motorSteps], PinValue.High);
-
                     motorSteps++;
                     if (motorSteps > 3) motorSteps = 0;
                     _controller.Write(_curtinMotor[motorSteps], PinValue.High);
@@ -72,7 +79,7 @@ public class CurtinCues
         if (open) Array.Reverse(_curtinMotor);
         foreach (int motor in _curtinMotor)
         {
-            //Console.WriteLine("Curtin Low.");
+            //Console.WriteLine("Turn off all curtin motors.");
             _controller.Write(motor, PinValue.Low);
         }
     }
