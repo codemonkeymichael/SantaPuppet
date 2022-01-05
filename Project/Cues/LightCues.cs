@@ -16,10 +16,6 @@ public class LightCues
         _controller = controller;
     }
 
-
-
-   
-
     public void Back_StrobeAll_Fast()
     {
         Back_StrobeAll(300);
@@ -567,6 +563,7 @@ public class LightCues
 
     public void PlayBtnBlink()
     {
+        
         var onStatus = false;
         while (true)
         {
@@ -586,14 +583,18 @@ public class LightCues
             }
             else
             {
+                
                 _controller.Write(Lights.PlayBtnRed, PinValue.Low);
                 if (onStatus)
                 {
+                    Console.WriteLine("Play Btn blink green off");
                     _controller.Write(Lights.PlayBtnGreen, PinValue.Low);
                     onStatus = false;
                 }
                 else
                 {
+                    Console.WriteLine("Play Btn blink green on Is Pin Open ="  + _controller.IsPinOpen(Lights.PlayBtnGreen));
+
                     _controller.Write(Lights.PlayBtnGreen, PinValue.High);
                     onStatus = true;
                 }

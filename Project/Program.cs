@@ -5,34 +5,45 @@ namespace SantaPuppet;
 class Program
 {
     public static bool songPlaying = false;
-    public static GpioController _controller = new GpioController();
+    public static GpioController _piGPIOController = new GpioController();
+    private static I2cConnectionSettings connectionSettings = new I2cConnectionSettings(1, 0x20);
+    private static I2cDevice device = I2cDevice.Create(connectionSettings);
+    private static Mcp23017 mcp23017 = new Mcp23017(device);
+    public static GpioController _mcp20GPIOController = new GpioController(PinNumberingScheme.Logical, mcp23017);
 
 
-    //public Program()
-    //{
-    //    Console.WriteLine("Program constructor.");
-    //}
+    public Program()
+    {
+        Console.WriteLine("Program constructor.");
+        
+
+        //mcp23017.WriteByte(Register.IODIR, 0x00, Port.PortA);
+        //mcp23017.WriteByte(Register.IODIR, 0x00, Port.PortB);
+
+    }
 
 
     static void Main(string[] args)
     {
         Console.WriteLine("Santa Puppet is Running");  
 
-        Lights.OpenPins(_controller);
-        Motors.OpenPins(_controller);
-        Inputs.OpenPins(_controller);
+        Lights.OpenPins(_piGPIOController);
+        Motors.OpenPins(_piGPIOController, _mcp20GPIOController);
+        Inputs.OpenPins(_piGPIOController);
 
-        AnimationCues thing = new AnimationCues();
-        thing.TestI2c();
+        //AnimationCues thing = new AnimationCues();
+        //thing.TestI2c();
 
         //CurtinCues cur = new CurtinCues(_controller);
         //cur.OpenClose(false, 2);
 
-        Songs.ItsTheMostWonderfulTimeOfTheYear song01 = new Songs.ItsTheMostWonderfulTimeOfTheYear(_controller);
-        Audio.CueSong(song01.play());
+        Songs.ItsTheMostWonderfulTimeOfTheYear song01 = new Songs.ItsTheMostWonderfulTimeOfTheYear(_piGPIOController, _mcp20GPIOController);
+ 
+
+        Audio.CueSong(song01.cueStack());
 
         //Blink the play btn
-        LightCues lc = new LightCues(_controller);
+        LightCues lc = new LightCues(_piGPIOController);
         Thread blinkPlayBtn = new Thread(() => lc.PlayBtnBlink());
         blinkPlayBtn.Start();
 
@@ -43,7 +54,7 @@ class Program
         while (true)
         {
 
-            if (_controller.Read(Inputs.PlayButton) == PinValue.High)
+            if (_piGPIOController.Read(Inputs.PlayButton) == PinValue.High)
             {
                 if (songPlaying)
                 {
@@ -51,7 +62,7 @@ class Program
                     //lc.PlayBtnGreen();
                     Audio.StopSong();
                     //Wait for playbutton to be released
-                    while (_controller.Read(Inputs.PlayButton) == PinValue.High)
+                    while (_piGPIOController.Read(Inputs.PlayButton) == PinValue.High)
                     {
                         Thread.Sleep(25);
                     }
@@ -66,7 +77,7 @@ class Program
                     Audio.PlaySong();
 
                     //Wait for playbutton to be released
-                    while (_controller.Read(Inputs.PlayButton) == PinValue.High)
+                    while (_piGPIOController.Read(Inputs.PlayButton) == PinValue.High)
                     {
                         Thread.Sleep(25);
                     }

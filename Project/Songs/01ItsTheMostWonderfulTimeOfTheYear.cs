@@ -14,11 +14,13 @@ namespace SantaPuppet.Songs
     public class ItsTheMostWonderfulTimeOfTheYear
     {
 
-        public static GpioController _controller;
-
-        public ItsTheMostWonderfulTimeOfTheYear(GpioController controller)
+        public static GpioController _piGPIOController;
+        public static GpioController _mcp20GPIOController;
+        //_piGPIOController, _mcp20GPIOController
+        public ItsTheMostWonderfulTimeOfTheYear(GpioController piGPIOController, GpioController mcp20GPIOController)
         {
-            _controller = controller;
+            _piGPIOController = piGPIOController;
+            _mcp20GPIOController = mcp20GPIOController;
         }
 
         public SongModel stop()
@@ -26,17 +28,20 @@ namespace SantaPuppet.Songs
             SongModel song = new SongModel();
             return song;
         }
-        public SongModel play()
-        {
+        public SongModel cueStack()
+        {         
+
             //Build the Song
             SongModel song = new SongModel();
             song.Title = "Its The Most Wonderful Time Of The Year";
             song.SongPath = "01ItsTheMostWonderfulTimeOfTheYear.wav";
             song.Cues = new List<CueModel>();
 
-            LightCues lites = new LightCues(_controller);
-            CurtinCues cur = new CurtinCues(_controller);
-            //AnimationCues ani = new AnimationCues(_controller);
+            LightCues lites = new LightCues(_piGPIOController);
+            CurtinCues cur = new CurtinCues(_piGPIOController);
+            AnimationCues ani = new AnimationCues(_piGPIOController, _mcp20GPIOController);
+
+
 
             //CueModel sceneTest = new CueModel();
             //sceneTest.CueTime = 1;
@@ -79,6 +84,17 @@ namespace SantaPuppet.Songs
             scene10.CueName = "Fade up foot lights";
             song.Cues.Add(scene10);
 
+
+
+            CueModel anim1 = new CueModel();
+            anim1.CueTime = 20;
+            anim1.CueTimeMin = 0;
+            anim1.CueAction = () => ani.Twist(true, 2);
+            anim1.CueName = "Turn Right";
+            song.Cues.Add(anim1);
+
+
+
             CueModel curtin10 = new CueModel();
             curtin10.CueTime = 5000;
             curtin10.CueTimeMin = 0;
@@ -99,6 +115,19 @@ namespace SantaPuppet.Songs
             scene15.CueAction = () => lites.Back_Color_Red_Dur(350);
             scene15.CueName = "Ding";
             song.Cues.Add(scene15);
+
+
+
+
+            CueModel anim2 = new CueModel();
+            anim2.CueTime = 11000;
+            anim2.CueTimeMin = 0;
+            anim2.CueAction = () => ani.Twist(false, 2);
+            anim2.CueName = "Turn Left";
+            song.Cues.Add(anim2);
+
+
+
 
             CueModel scene16 = new CueModel();
             scene16.CueTime = 11646;

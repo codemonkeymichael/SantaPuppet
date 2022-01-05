@@ -18,6 +18,8 @@ internal class Audio
     public static void CueSong(SongModel s)
     {
         _song = s;
+ 
+        //TODO: sort _song by time
 
         var songPath = AppDomain.CurrentDomain.BaseDirectory + "audio/" + _song.SongPath;
         //Console.WriteLine("songPath " + songPath);
