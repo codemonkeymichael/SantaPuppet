@@ -89,7 +89,7 @@ namespace SantaPuppet.Songs
             CueModel anim1 = new CueModel();
             anim1.CueTime = 20;
             anim1.CueTimeMin = 0;
-            anim1.CueAction = () => ani.Twist(true, 2);
+            anim1.CueAction = () => ani.Twist(true,50, 2);
             anim1.CueName = "Turn Right";
             song.Cues.Add(anim1);
 
@@ -122,7 +122,7 @@ namespace SantaPuppet.Songs
             CueModel anim2 = new CueModel();
             anim2.CueTime = 11000;
             anim2.CueTimeMin = 0;
-            anim2.CueAction = () => ani.Twist(false, 2);
+            anim2.CueAction = () => ani.Twist(false, 50, 6);
             anim2.CueName = "Turn Left";
             song.Cues.Add(anim2);
 

@@ -17,20 +17,21 @@ public class AnimationCues
 
 
 
-    public void Twist(bool right = true, int speed = 10 )
+    public void Twist(bool right = true, int steps = 380, int speed = 10 )
     {
         Console.WriteLine("Test MCP23017 I2C");
 
         int step = 0; //Four steps 0 1 2 3
-        int max = 380;
+        int max = 380; //362 is the whole range of motion
         int maxCounter = 0;
 
         if (right) Array.Reverse(_shouldersMotor);
 
         while (true)
         {
-            if (maxCounter < max)
+            if (maxCounter < max && maxCounter < steps)
             {
+
                 if (_piGPIOController.Read(Inputs.SantaTwistStop) == PinValue.Low || maxCounter < 5) //max < 5 let it off the input stop 
                 {
                     int motorSteps = step;
@@ -52,20 +53,6 @@ public class AnimationCues
                 else
                 {
                     Console.WriteLine("Santa Twist Stop Hit");
-                    //Back it up one step so it's not be shorting the stop input pin.
-                    //step--;
-                    //if (step < 0) step = 4;
-                    //int motorSteps = step;
-                    //_mcp20GPIOController.Write(_shouldersMotor[motorSteps], PinValue.High);
-                    //motorSteps++;
-                    //if (motorSteps > 3) motorSteps = 0;
-                    //_mcp20GPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
-                    //motorSteps++;
-                    //if (motorSteps > 3) motorSteps = 0;
-                    //_mcp20GPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
-                    //motorSteps++;
-                    //if (motorSteps > 3) motorSteps = 0;
-                    //_mcp20GPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
                     break;
                 }
             }
