@@ -13,10 +13,9 @@ namespace SantaPuppet.Songs
     /// </summary>
     public class ItsTheMostWonderfulTimeOfTheYear
     {
-
         public static GpioController _piGPIOController;
         public static GpioController _mcp20GPIOController;
-        //_piGPIOController, _mcp20GPIOController
+
         public ItsTheMostWonderfulTimeOfTheYear(GpioController piGPIOController, GpioController mcp20GPIOController)
         {
             _piGPIOController = piGPIOController;
@@ -86,12 +85,17 @@ namespace SantaPuppet.Songs
 
 
 
-            CueModel anim1 = new CueModel();
-            anim1.CueTime = 20;
-            anim1.CueTimeMin = 0;
-            anim1.CueAction = () => ani.Twist(true,50, 2);
-            anim1.CueName = "Turn Right";
-            song.Cues.Add(anim1);
+
+
+            CueModel anim10 = new CueModel();
+            anim10.CueTime = 20;
+            anim10.CueTimeMin = 0;
+            anim10.CueAction = () => ani.TwistBackForth(20,100,2);
+            anim10.CueName = "Twist Back and Forth";
+            song.Cues.Add(anim10);
+
+
+
 
 
 
@@ -119,12 +123,12 @@ namespace SantaPuppet.Songs
 
 
 
-            CueModel anim2 = new CueModel();
-            anim2.CueTime = 11000;
-            anim2.CueTimeMin = 0;
-            anim2.CueAction = () => ani.Twist(false, 50, 6);
-            anim2.CueName = "Turn Left";
-            song.Cues.Add(anim2);
+            //CueModel anim2 = new CueModel();
+            //anim2.CueTime = 11000;
+            //anim2.CueTimeMin = 0;
+            //anim2.CueAction = () => ani.Twist(false, 380, 6);
+            //anim2.CueName = "Turn Left";
+            //song.Cues.Add(anim2);
 
 
 

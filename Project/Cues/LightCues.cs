@@ -587,14 +587,13 @@ public class LightCues
                 _controller.Write(Lights.PlayBtnRed, PinValue.Low);
                 if (onStatus)
                 {
-                    Console.WriteLine("Play Btn blink green off");
+                    //Console.WriteLine("Play Btn blink green off");
                     _controller.Write(Lights.PlayBtnGreen, PinValue.Low);
                     onStatus = false;
                 }
                 else
                 {
-                    Console.WriteLine("Play Btn blink green on Is Pin Open ="  + _controller.IsPinOpen(Lights.PlayBtnGreen));
-
+                    //Console.WriteLine("Play Btn blink green on Is Pin Open ="  + _controller.IsPinOpen(Lights.PlayBtnGreen));
                     _controller.Write(Lights.PlayBtnGreen, PinValue.High);
                     onStatus = true;
                 }

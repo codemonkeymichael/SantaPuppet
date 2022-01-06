@@ -18,8 +18,14 @@ internal class Audio
     public static void CueSong(SongModel s)
     {
         _song = s;
- 
+
         //TODO: sort _song by time
+        //var result = from sc in _song.Cues
+        //             orderby sc.CueTimeMin ascending, sc.CueTime ascending
+        //             select s;
+
+        //_song.Cues.Clear();
+        //_song.Cues = (List<CueModel>)result;
 
         var songPath = AppDomain.CurrentDomain.BaseDirectory + "audio/" + _song.SongPath;
         //Console.WriteLine("songPath " + songPath);
@@ -31,9 +37,7 @@ internal class Audio
         _player = new MediaPlayer(media);
         _player.Playing += OnPlaybackStart;
         _player.EndReached += OnPlaybackFinished;
-        _player.TimeChanged += Player_TimeChanged; //Keep cues in sync with the audio 
-        //Thread.Sleep(1000); //Time for the player to buffer up the file
-        //_player.Play();
+        _player.TimeChanged += Player_TimeChanged; //Keep cues in sync with the audio    
         //Reset for a new song
         _currentCue = 0;
         //Console.WriteLine("CueSong(SongModel s) " + s.Title);
@@ -41,12 +45,8 @@ internal class Audio
 
     public static void PlaySong()
     {
-
         _player.Play();
-        //Reset for a new song
-        // _currentCue = 0;
         //Console.WriteLine("PlaySong()");
-
     }
 
     private static void Player_TimeChanged(object? sender, MediaPlayerTimeChangedEventArgs e)
@@ -109,7 +109,7 @@ internal class Audio
 
     private static void OnPlaybackFinished(object? sender, EventArgs e)
     {
-        Console.WriteLine("OnPlaybackFinished(object? sender, EventArgs e)");
+        Console.WriteLine("Playback Finished");
         Program.songPlaying = false;
         _timer.Stop();
         _timer.Dispose();

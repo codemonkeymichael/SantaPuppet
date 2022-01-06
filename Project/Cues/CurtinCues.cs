@@ -7,11 +7,11 @@ public class CurtinCues
     private const int maxSteps = 1000;
     private static int maxStepCounter { get; set; }
 
-    public CurtinCues(GpioController controller)
+    public CurtinCues(GpioController piGPIOController)
     {
         //Console.WriteLine("Curtin Cues Constructors");
         _curtinMotor = Motors.curtinMotor;
-        _controller = controller;
+        _controller = piGPIOController;
     }
 
     /// <summary>

@@ -23,13 +23,18 @@ class Program
     }
 
 
-    static void Main(string[] args)
+    public static void Main(string[] args)
     {
-        Console.WriteLine("Santa Puppet is Running");  
+        Console.WriteLine("Santa Puppet is Running");
 
+        Inputs.OpenPins(_piGPIOController);
         Lights.OpenPins(_piGPIOController);
         Motors.OpenPins(_piGPIOController, _mcp20GPIOController);
-        Inputs.OpenPins(_piGPIOController);
+      
+
+   
+
+      
 
         //AnimationCues thing = new AnimationCues();
         //thing.TestI2c();

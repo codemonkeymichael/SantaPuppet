@@ -144,15 +144,20 @@ public class Motors
     {
         piGPIOController.OpenPin(SantaTalk, PinMode.Output);
 
+        CurtinCues cc = new CurtinCues(piGPIOController);
         foreach (int motor in curtinMotor)
         {
             piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
         }
+        cc.OpenClose(false, 2);
 
+        AnimationCues ac = new AnimationCues(piGPIOController, mcp20GPIOController);
         foreach (int motor in shouldersMotor)
         {
             mcp20GPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);           
-        }
+        }       
+        ac.TwistCenter();
+
     }
 }
 
