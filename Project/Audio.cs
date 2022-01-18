@@ -20,9 +20,9 @@ internal class Audio
         _song = s;
 
         //TODO: sort _song by time
-        //var result = from sc in _song.Cues
-        //             orderby sc.CueTimeMin ascending, sc.CueTime ascending
-        //             select s;
+        var result = from sc in _song.Cues
+                     orderby sc.CueTimeMin ascending, sc.CueTime ascending
+                     select s;
 
         //_song.Cues.Clear();
         //_song.Cues = (List<CueModel>)result;
@@ -92,7 +92,7 @@ internal class Audio
             "  Time " + cueTime +
             "  CueName " + _song.Cues[_currentCue].CueName);
 
-        int num = _currentCue; //I don't why I have to do this???? It works.
+        int num = _currentCue; //I don't know why I have to do this???? It works.
         Thread t = new Thread(() => _song.Cues[num].CueAction.Invoke());
         t.Name = _song.Cues[_currentCue].CueName;
         t.Start();

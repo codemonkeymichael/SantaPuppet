@@ -121,24 +121,36 @@ public class Motors
     /// </summary>
     public static int[] shouldersMotor { get; } = new int[4] { 0, 1, 2, 3 };
 
+    /// <summary>
+    /// MCP23017 0x20
+    /// GPIO-A4.Motor2 Feet (Red)
+    /// GPIO-A5.Motor2 Feet (Green)
+    /// GPIO-A6.Motor2 Feet (Blue)
+    /// GPIO-A7.Motor2 Feet (Yellow)
+    /// </summary>
+    public static int[] feetMotor { get; } = new int[4] { 4, 5, 6, 7 };
 
-    //GPIO-A4.Motor2 Left Arm
-    //GPIO-A5.Motor2 Left Arm
-    //GPIO-A6.Motor2 Left Arm
-    //GPIO-A7.Motor2 Left Arm
+    /// <summary>
+    /// MCP23017 0x20
+    /// GPIO-B0.Motor3 Left Arm (Red)
+    /// GPIO-B1.Motor3 Left Arm (Green)
+    /// GPIO-B2.Motor3 Left Arm (Blue)
+    /// GPIO-B3.Motor3 Left Arm (Yellow)
+    /// </summary>
+    public static int[] leftArmMotor { get; } = new int[4] { 8, 9, 10, 11 };
+
+
+    /// <summary>
+    /// MCP23017 0x20
+    /// GPIO-B4.Motor4 Right Arm (Red)
+    /// GPIO-B5.Motor4 Right Arm (Green)
+    /// GPIO-B6.Motor4 Right Arm (Blue)
+    /// GPIO-B7.Motor4 Right Arm (Yellow)
+    /// </summary>
+    public static int[] rightArmMotor { get; } = new int[4] { 12, 13, 14, 15 };
 
 
 
-    //GPIO-B0.Motor3 Right Arm
-    //GPIO-B1.Motor3 Right Arm
-    //GPIO-B2.Motor3 Right Arm
-    //GPIO-B3.Motor3 Right Arm
-
-
-    //GPIO-B4.Motor4 Feet
-    //GPIO-B5.Motor4 Feet
-    //GPIO-B6.Motor4 Feet
-    //GPIO-B7.Motor4 Feet
 
     public static void OpenPins(GpioController piGPIOController, GpioController mcp20GPIOController)
     {
@@ -154,9 +166,25 @@ public class Motors
         AnimationCues ac = new AnimationCues(piGPIOController, mcp20GPIOController);
         foreach (int motor in shouldersMotor)
         {
-            mcp20GPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);           
-        }       
+            mcp20GPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
+        }
         ac.TwistCenter();
+
+        foreach (int motor in feetMotor)
+        {
+            mcp20GPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
+        }
+        //TODO: Center the feet motor
+
+        foreach (int motor in leftArmMotor)
+        {
+            mcp20GPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
+        }
+        //TODO: Center the left arm motor
+        foreach (int motor in rightArmMotor)
+        {
+            mcp20GPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
+        }
 
     }
 }

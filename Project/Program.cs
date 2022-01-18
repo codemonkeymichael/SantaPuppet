@@ -15,11 +15,6 @@ class Program
     public Program()
     {
         Console.WriteLine("Program constructor.");
-        
-
-        //mcp23017.WriteByte(Register.IODIR, 0x00, Port.PortA);
-        //mcp23017.WriteByte(Register.IODIR, 0x00, Port.PortB);
-
     }
 
 
@@ -30,20 +25,9 @@ class Program
         Inputs.OpenPins(_piGPIOController);
         Lights.OpenPins(_piGPIOController);
         Motors.OpenPins(_piGPIOController, _mcp20GPIOController);
-      
 
-   
-
-      
-
-        //AnimationCues thing = new AnimationCues();
-        //thing.TestI2c();
-
-        //CurtinCues cur = new CurtinCues(_controller);
-        //cur.OpenClose(false, 2);
 
         Songs.ItsTheMostWonderfulTimeOfTheYear song01 = new Songs.ItsTheMostWonderfulTimeOfTheYear(_piGPIOController, _mcp20GPIOController);
- 
 
         Audio.CueSong(song01.cueStack());
 
@@ -51,10 +35,6 @@ class Program
         LightCues lc = new LightCues(_piGPIOController);
         Thread blinkPlayBtn = new Thread(() => lc.PlayBtnBlink());
         blinkPlayBtn.Start();
-
-        //var stats8 = PinValue.Low;
-        //var stats9 = PinValue.Low;
-
 
         while (true)
         {
@@ -78,7 +58,7 @@ class Program
                 {
                     Console.WriteLine("Button pushed play song");
                     songPlaying = true;
-             
+
                     Audio.PlaySong();
 
                     //Wait for playbutton to be released
@@ -92,40 +72,17 @@ class Program
                 }
             }
 
-            //if (_controller.Read(Inputs.CurtinStageLeftStopOpen) != stats8)
-            //{
-            //    stats8 = _controller.Read(Inputs.CurtinStageLeftStopOpen);
-            //    Console.WriteLine("Input Pin 8 Pushed = " + stats8);
-            //    Thread.Sleep(2500);
-            //}
-            //if (_controller.Read(Inputs.CurtinStageRightStopClosed) != stats9)
-            //{
-            //    stats9 = _controller.Read(Inputs.CurtinStageRightStopClosed);
-            //    Console.WriteLine("Input Pin 9 Pushed = " + stats9);
-            //    Thread.Sleep(2500);
-            //}
-
 
         }
-
-        //TODO: Push to start and feedback
-
-
-        //TODO: Push to stop and feedback
-
-        //TODO: Play song and store it what has played
-
-
-
-
-        static void CurrentDomain_ProcessExit(object sender, EventArgs e)
-        {
-            //TODO: Make this work
-            //Close a pins and stop playing music
-            Console.WriteLine("I quit!");
-        }
-
 
     }
+
+    static void CurrentDomain_ProcessExit(object sender, EventArgs e)
+    {
+        //TODO: Make this work
+        //Close a pins and stop playing music
+        Console.WriteLine("I quit!");
+    }
+
 
 }

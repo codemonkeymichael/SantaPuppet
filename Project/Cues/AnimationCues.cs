@@ -5,6 +5,9 @@ public class AnimationCues
     private static GpioController _mcp20GPIOController;
     private static GpioController _piGPIOController;
     private static int[] _shouldersMotor;
+    private static int[] _feetMotor;
+    private static int[] _leftArmMotor;
+    private static int[] _rightArmMotor;
 
 
     public AnimationCues(GpioController piGPIOController, GpioController mcp20GPIOController)
@@ -13,6 +16,10 @@ public class AnimationCues
         _mcp20GPIOController = mcp20GPIOController;
         _piGPIOController = piGPIOController;
         _shouldersMotor = Motors.shouldersMotor;
+        _feetMotor = Motors.feetMotor;
+        _leftArmMotor = Motors.leftArmMotor;
+        _rightArmMotor = Motors.rightArmMotor;
+
     }
 
     public void TwistCenter()
@@ -155,61 +162,173 @@ public class AnimationCues
 
     }
 
-    public void RightArm(int speed = 2)
+    public void Feet(bool right = true, int steps = 380, int speed = 10)
     {
+        Console.WriteLine("Feet");
 
-        //if (open) Array.Reverse(_curtinMotor);
-        //maxStepCounter = 0;
-        //int step = 0; //Four steps 0 1 2 3
-        ////Console.WriteLine("1 Curtin maxStepCounter=" + maxStepCounter + " maxSteps=" + maxSteps + " speed=" + speed);
-        //while (true)
-        //{
+        int step = 0; //Four steps 0 1 2 3
+        int max = 200; //362 is the whole range of motion
+        int maxCounter = 0;
 
-        //    if (maxStepCounter < maxSteps )
-        //    {
-        //        if (open && _controller.Read(Inputs.CurtinStageLeftStopOpen) == PinValue.Low
-        //            || 
-        //            !open && _controller.Read(Inputs.CurtinStageRightStopClosed) == PinValue.Low)
+        if (right) Array.Reverse(_feetMotor);
 
-        //           {
-        //            //Console.WriteLine("2 Curtin Break maxStepCounter=" + maxStepCounter + " positionStatus=" + positionStatus + " speed=" + speed);
+        while (true)
+        {
+            if (maxCounter < max && maxCounter < steps)
+            {
 
-        //            int motorSteps = step;
-        //            _controller.Write(_curtinMotor[motorSteps], PinValue.High);
+                //if (_piGPIOController.Read(Inputs.SantaTwistStop) == PinValue.Low || maxCounter < 2) //max < 2 let it off the input stop 
+                //{
+                int motorSteps = step;
+                    _mcp20GPIOController.Write(_feetMotor[motorSteps], PinValue.High);
+                    motorSteps++;
+                    if (motorSteps > 3) motorSteps = 0;
+                    _mcp20GPIOController.Write(_feetMotor[motorSteps], PinValue.Low);
+                    motorSteps++;
+                    if (motorSteps > 3) motorSteps = 0;
+                    _mcp20GPIOController.Write(_feetMotor[motorSteps], PinValue.Low);
+                    motorSteps++;
+                    if (motorSteps > 3) motorSteps = 0;
+                    _mcp20GPIOController.Write(_feetMotor[motorSteps], PinValue.Low);
+                    step++;
+                    if (step > 3) step = 0;
+                    Thread.Sleep(speed);
+                    maxCounter++;
+                //}
+                //else
+                //{
+                //    Console.WriteLine("Santa Twist Stop Hit");
+                //    break;
+                //}
+            }
+            else
+            {
+                Console.WriteLine("Santa Feet Max Counter Stop. Something went wrong with the stop input.");
+                break;
+            }
+        }
 
-        //            motorSteps++;
-        //            if (motorSteps > 3) motorSteps = 0;
-        //            _controller.Write(_curtinMotor[motorSteps], PinValue.High);
-        //            motorSteps++;
-        //            if (motorSteps > 3) motorSteps = 0;
-        //            _controller.Write(_curtinMotor[motorSteps], PinValue.Low);
-        //            motorSteps++;
-        //            if (motorSteps > 3) motorSteps = 0;
-        //            _controller.Write(_curtinMotor[motorSteps], PinValue.Low);
-        //            step++;
-        //            if (step > 3) step = 0;
-        //            Thread.Sleep(speed);
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine("Curtin hit the stop. Open = " + open);
-        //            break;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("Curtin over ran the max number of steps. Something must be wrong with the stop input GPIO.");
-        //        break;
-        //    }
-        //    maxStepCounter++;
 
-        //}
-        //if (open) Array.Reverse(_curtinMotor);
-        //foreach (int motor in _curtinMotor)
-        //{
-        //    //Console.WriteLine("Curtin Low.");
-        //    _controller.Write(motor, PinValue.Low);
-        //}
+        foreach (var motor in _feetMotor)
+        {
+            _mcp20GPIOController.Write(motor, PinValue.Low);
+        }
+        if (right) Array.Reverse(_feetMotor);
+
+
     }
+
+    public void LeftArm(bool right = true, int steps = 380, int speed = 10)
+    {
+        Console.WriteLine("LeftArm");
+
+        int step = 0; //Four steps 0 1 2 3
+        int max = 200; //362 is the whole range of motion
+        int maxCounter = 0;
+
+        if (right) Array.Reverse(_leftArmMotor);
+
+        while (true)
+        {
+            if (maxCounter < max && maxCounter < steps)
+            {
+
+                //if (_piGPIOController.Read(Inputs.SantaTwistStop) == PinValue.Low || maxCounter < 2) //max < 2 let it off the input stop 
+                //{
+                int motorSteps = step;
+                _mcp20GPIOController.Write(_leftArmMotor[motorSteps], PinValue.High);
+                motorSteps++;
+                if (motorSteps > 3) motorSteps = 0;
+                _mcp20GPIOController.Write(_leftArmMotor[motorSteps], PinValue.Low);
+                motorSteps++;
+                if (motorSteps > 3) motorSteps = 0;
+                _mcp20GPIOController.Write(_leftArmMotor[motorSteps], PinValue.Low);
+                motorSteps++;
+                if (motorSteps > 3) motorSteps = 0;
+                _mcp20GPIOController.Write(_leftArmMotor[motorSteps], PinValue.Low);
+                step++;
+                if (step > 3) step = 0;
+                Thread.Sleep(speed);
+                maxCounter++;
+                //}
+                //else
+                //{
+                //    Console.WriteLine("Santa Twist Stop Hit");
+                //    break;
+                //}
+            }
+            else
+            {
+                Console.WriteLine("Santa Left Arm Max Counter Stop. Something went wrong with the stop input.");
+                break;
+            }
+        }
+
+
+        foreach (var motor in _leftArmMotor)
+        {
+            _mcp20GPIOController.Write(motor, PinValue.Low);
+        }
+        if (right) Array.Reverse(_leftArmMotor);
+
+
+    }
+
+    public void RightArm(bool right = true, int steps = 380, int speed = 10)
+    {
+        Console.WriteLine("RightArm");
+
+        int step = 0; //Four steps 0 1 2 3
+        int max = 200; //362 is the whole range of motion
+        int maxCounter = 0;
+
+        if (right) Array.Reverse(_rightArmMotor);
+
+        while (true)
+        {
+            if (maxCounter < max && maxCounter < steps)
+            {
+
+                //if (_piGPIOController.Read(Inputs.SantaTwistStop) == PinValue.Low || maxCounter < 2) //max < 2 let it off the input stop 
+                //{
+                int motorSteps = step;
+                _mcp20GPIOController.Write(_rightArmMotor[motorSteps], PinValue.High);
+                motorSteps++;
+                if (motorSteps > 3) motorSteps = 0;
+                _mcp20GPIOController.Write(_rightArmMotor[motorSteps], PinValue.Low);
+                motorSteps++;
+                if (motorSteps > 3) motorSteps = 0;
+                _mcp20GPIOController.Write(_rightArmMotor[motorSteps], PinValue.Low);
+                motorSteps++;
+                if (motorSteps > 3) motorSteps = 0;
+                _mcp20GPIOController.Write(_rightArmMotor[motorSteps], PinValue.Low);
+                step++;
+                if (step > 3) step = 0;
+                Thread.Sleep(speed);
+                maxCounter++;
+                //}
+                //else
+                //{
+                //    Console.WriteLine("Santa Twist Stop Hit");
+                //    break;
+                //}
+            }
+            else
+            {
+                Console.WriteLine("Santa Right Arm Max Counter Stop. Something went wrong with the stop input.");
+                break;
+            }
+        }
+
+
+        foreach (var motor in _rightArmMotor)
+        {
+            _mcp20GPIOController.Write(motor, PinValue.Low);
+        }
+        if (right) Array.Reverse(_rightArmMotor);
+
+
+    }
+
 }
 
