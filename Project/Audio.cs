@@ -92,6 +92,8 @@ internal class Audio
             "  Time " + cueTime +
             "  CueName " + _song.Cues[_currentCue].CueName);
 
+        //int num = _currentCue;
+        //_song.Cues[num].CueAction.Invoke();
         int num = _currentCue; //I don't know why I have to do this???? It works.
         Thread t = new Thread(() => _song.Cues[num].CueAction.Invoke());
         t.Name = _song.Cues[_currentCue].CueName;

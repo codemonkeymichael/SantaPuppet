@@ -80,12 +80,12 @@ public class Lights
     public static void OpenPins(GpioController controller)
     {
         //Button Lights
-        controller.OpenPin(PlayBtnRed, PinMode.Output);
-        controller.OpenPin(PlayBtnGreen, PinMode.Output);
+        controller.OpenPin(PlayBtnRed, PinMode.Output, PinValue.Low);
+        controller.OpenPin(PlayBtnGreen, PinMode.Output, PinValue.Low);
         //Stage Back Lights
         foreach (var pin in Backlights)
         {
-            controller.OpenPin(pin, PinMode.Output);
+            controller.OpenPin(pin, PinMode.Output, PinValue.Low);
         }
 
     }
@@ -161,14 +161,14 @@ public class Motors
         {
             piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
         }
-        cc.OpenClose(false, 2);
+        //cc.OpenClose(false, 2);
 
-        AnimationCues ac = new AnimationCues(piGPIOController, mcp20GPIOController);
+        //AnimationCues ac = new AnimationCues(piGPIOController, mcp20GPIOController);
         foreach (int motor in shouldersMotor)
         {
             mcp20GPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
         }
-        ac.TwistCenter();
+        //ac.TwistCenter();
 
         foreach (int motor in feetMotor)
         {
