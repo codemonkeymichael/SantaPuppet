@@ -22,9 +22,9 @@ class Program
     {
         Console.WriteLine("Santa Puppet is Running");
 
-        Inputs.OpenPins(_piGPIOController);
-        Lights.OpenPins(_piGPIOController);
-        Motors.OpenPins(_piGPIOController, _mcp20GPIOController);
+        Inputs.OpenPins(_mcp20GPIOController);
+        Lights.OpenPins(_piGPIOController, _mcp20GPIOController);
+        Motors.OpenPins(_piGPIOController);
 
 
         Songs.ItsTheMostWonderfulTimeOfTheYear song01 = new Songs.ItsTheMostWonderfulTimeOfTheYear(_piGPIOController, _mcp20GPIOController);

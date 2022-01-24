@@ -89,7 +89,7 @@ public class Lights
     public static void OpenPins(GpioController piGPIOController, GpioController mcp20GPIOController)
     {
         //Button Lights
-        piGPIOController.OpenPin(PlayBtnRed, PinMode.Output, PinValue.Low);
+        //mcp20GPIOController.OpenPin(PlayBtnRed, PinMode.Output, PinValue.Low);
 
         piGPIOController.OpenPin(PlayBtnGreen, PinMode.Output, PinValue.Low);
 

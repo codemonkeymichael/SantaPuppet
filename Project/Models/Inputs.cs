@@ -3,54 +3,54 @@
 public class Inputs
 {
     /// <summary>
-    /// GPIO-4. Left Arm Stops(Red)
+    /// MCP-GPIO-B0-9. Left Arm Stops (red wire)
     /// </summary>
-    public static int SantaLeftArmStop { get; } = 4;
+    public static int SantaLeftArmStop { get; } = 9;
 
     /// <summary>
-    /// GPIO-10. Right Arm Stops(Green)
+    /// MCP-GPIO-B1-10. Right Arm Stops (green wire)
     /// </summary>
     public static int SantaRightArmStop { get; } = 10;
 
     /// <summary>
-    /// GPIO-11. Feet Stops(Blue)
+    /// MCP-GPIO-B2-11. Feet Stops (blue wire)
     /// </summary>
     public static int SantaFeetStop { get; } = 11;
 
     /// <summary>
-    /// GPIO-17. Twist Stops(Black)
+    /// MCP-GPIO-B3-12. Twist Stops (black wire)
     /// </summary>
-    public static int SantaTwistStop { get; } = 17;
+    public static int SantaTwistStop { get; } = 12;
 
 
     /// <summary>
-    /// GPIO-8. Curtin Stage Left Stop(Open) (Yellow)
+    /// MCP-GPIO-B4-13. Curtin Stage Left Stop (Open) (yellow wire)
     /// </summary>
-    public static int CurtinStageLeftStopOpen { get; } = 8;
+    public static int CurtinStageLeftStopOpen { get; } = 13;
 
     /// <summary>
-    /// GPIO-9. Curtin Stage Right Stop(Close) (Green) 
+    /// MCP-GPIO-B5-14. Curtin Stage Right Stop (Close) (green wire) 
     /// </summary>
-    public static int CurtinStageRightStopClosed { get; } = 9;
+    public static int CurtinStageRightStopClosed { get; } = 14;
 
 
     /// <summary>
-    /// GPIO-26. Play button (Blue)
+    /// MCP-GPIO-B6-15. Play button (blue wire)
     /// </summary>
-    public static int PlayButton { get; } = 26;
+    public static int PlayButton { get; } = 15;
 
     /// <summary>
     /// Open all the input pins
     /// </summary>
     /// <param name="controller"></param>
-    public static void OpenPins(GpioController controller)
+    public static void OpenPins(GpioController mcp20GPIOController)
     {
-        controller.OpenPin(SantaLeftArmStop, PinMode.Input);
-        controller.OpenPin(SantaRightArmStop, PinMode.Input);
-        controller.OpenPin(SantaFeetStop, PinMode.Input);
-        controller.OpenPin(SantaTwistStop, PinMode.Input);
-        controller.OpenPin(PlayButton, PinMode.Input);
-        controller.OpenPin(CurtinStageLeftStopOpen, PinMode.Input);
-        controller.OpenPin(CurtinStageRightStopClosed, PinMode.Input);
+        mcp20GPIOController.OpenPin(SantaLeftArmStop, PinMode.Input);
+        mcp20GPIOController.OpenPin(SantaRightArmStop, PinMode.Input);
+        mcp20GPIOController.OpenPin(SantaFeetStop, PinMode.Input);
+        mcp20GPIOController.OpenPin(SantaTwistStop, PinMode.Input);
+        mcp20GPIOController.OpenPin(PlayButton, PinMode.Input);
+        mcp20GPIOController.OpenPin(CurtinStageLeftStopOpen, PinMode.Input);
+        mcp20GPIOController.OpenPin(CurtinStageRightStopClosed, PinMode.Input);
     }
 }
