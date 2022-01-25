@@ -4,7 +4,6 @@ namespace SantaPuppet.Cues;
 
 public class AnimationCues
 {
-    private static GpioController _mcp20GPIOController;
     private static GpioController _piGPIOController;
     private static int[] _shouldersMotor;
     private static int[] _feetMotor;
@@ -15,10 +14,9 @@ public class AnimationCues
 
 
 
-    public AnimationCues(GpioController piGPIOController, GpioController mcp20GPIOController)
+    public AnimationCues(GpioController piGPIOController)
     {
-        Console.WriteLine("Animation Cues Constructors");
-        _mcp20GPIOController = mcp20GPIOController;
+        Console.WriteLine("Animation Cues Constructors");   
         _piGPIOController = piGPIOController; //Inputs for the stops
         _shouldersMotor = Motors.shouldersMotor;
         _feetMotor = Motors.feetMotor;
@@ -41,11 +39,11 @@ public class AnimationCues
                 int motorSteps = job.CurrentPosition;
                 motorSteps--;    
                 if (motorSteps < 0) motorSteps = 3;
-                _mcp20GPIOController.Write(job.PinArray[motorSteps], PinValue.Low);
+                _piGPIOController.Write(job.PinArray[motorSteps], PinValue.Low);
             }
             else
             {
-                _mcp20GPIOController.Write(job.PinArray[job.CurrentPosition], PinValue.High);
+                _piGPIOController.Write(job.PinArray[job.CurrentPosition], PinValue.High);
             }
             //Thread.Sleep(1);
         }
@@ -58,7 +56,7 @@ public class AnimationCues
 
             //TODO: Build a job and run it
         
-            _mcp20GPIOController.Write(pin, PinValue.Low);
+            _piGPIOController.Write(pin, PinValue.Low);
          
         }
     }
@@ -79,16 +77,16 @@ public class AnimationCues
                 if (_piGPIOController.Read(Inputs.SantaTwistStop) == PinValue.Low || maxCounter < 2) //max < 2 let it off the input stop 
                 {
                     int motorSteps = step;
-                    _mcp20GPIOController.Write(_shouldersMotor[motorSteps], PinValue.High);
+                    _piGPIOController.Write(_shouldersMotor[motorSteps], PinValue.High);
                     motorSteps++;
                     if (motorSteps > 3) motorSteps = 0;
-                    _mcp20GPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
+                    _piGPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
                     motorSteps++;
                     if (motorSteps > 3) motorSteps = 0;
-                    _mcp20GPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
+                    _piGPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
                     motorSteps++;
                     if (motorSteps > 3) motorSteps = 0;
-                    _mcp20GPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
+                    _piGPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
                     step++;
                     if (step > 3) step = 0;
                     Thread.Sleep(3);
@@ -112,26 +110,23 @@ public class AnimationCues
         for (int i = 0; i < stepsToCenter; i++)
         {
             int motorSteps = step;
-            _mcp20GPIOController.Write(_shouldersMotor[motorSteps], PinValue.High);
+            _piGPIOController.Write(_shouldersMotor[motorSteps], PinValue.High);
             motorSteps++;
             if (motorSteps > 3) motorSteps = 0;
-            _mcp20GPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
+            _piGPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
             motorSteps++;
             if (motorSteps > 3) motorSteps = 0;
-            _mcp20GPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
+            _piGPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
             motorSteps++;
             if (motorSteps > 3) motorSteps = 0;
-            _mcp20GPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
+            _piGPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
             step++;
             if (step > 3) step = 0;
             Thread.Sleep(3);
             maxCounter++;
         }
         Array.Reverse(_shouldersMotor);
-        foreach (var motor in _shouldersMotor)
-        {
-            _mcp20GPIOController.Write(motor, PinValue.Low);
-        }
+ 
     }
 
     public void TwistBackForth(int repeat = 6, int steps = 200, int speed = 2)
@@ -200,16 +195,16 @@ public class AnimationCues
         //        if (_piGPIOController.Read(Inputs.SantaTwistStop) == PinValue.Low || maxCounter < 2) //max < 2 let it off the input stop 
         //        {
         //            int motorSteps = step;
-        //            _mcp20GPIOController.Write(_shouldersMotor[motorSteps], PinValue.High);
+        //            _piGPIOController.Write(_shouldersMotor[motorSteps], PinValue.High);
         //            motorSteps++;
         //            if (motorSteps > 3) motorSteps = 0;
-        //            _mcp20GPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
+        //            _piGPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
         //            motorSteps++;
         //            if (motorSteps > 3) motorSteps = 0;
-        //            _mcp20GPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
+        //            _piGPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
         //            motorSteps++;
         //            if (motorSteps > 3) motorSteps = 0;
-        //            _mcp20GPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
+        //            _piGPIOController.Write(_shouldersMotor[motorSteps], PinValue.Low);
         //            step++;
         //            if (step > 3) step = 0;
         //            Thread.Sleep(speed);
@@ -229,10 +224,6 @@ public class AnimationCues
         //}
 
 
-        //foreach (var motor in _shouldersMotor)
-        //{
-        //    _mcp20GPIOController.Write(motor, PinValue.Low);
-        //}
         //if (right) Array.Reverse(_shouldersMotor);
 
 
@@ -281,7 +272,7 @@ public class AnimationCues
 
         //foreach (var motor in _feetMotor)
         //{
-        //    _mcp20GPIOController.Write(motor, PinValue.Low);
+        //    _piGPIOController.Write(motor, PinValue.Low);
         //}
         if (right) Array.Reverse(_feetMotor);
 
@@ -300,16 +291,16 @@ public class AnimationCues
         //        //if (_piGPIOController.Read(Inputs.SantaTwistStop) == PinValue.Low || maxCounter < 2) //max < 2 let it off the input stop 
         //        //{
         //        int motorSteps = step;
-        //            _mcp20GPIOController.Write(_feetMotor[motorSteps], PinValue.High);
+        //            _piGPIOController.Write(_feetMotor[motorSteps], PinValue.High);
         //            motorSteps++;
         //            if (motorSteps > 3) motorSteps = 0;
-        //            _mcp20GPIOController.Write(_feetMotor[motorSteps], PinValue.Low);
+        //            _piGPIOController.Write(_feetMotor[motorSteps], PinValue.Low);
         //            motorSteps++;
         //            if (motorSteps > 3) motorSteps = 0;
-        //            _mcp20GPIOController.Write(_feetMotor[motorSteps], PinValue.Low);
+        //            _piGPIOController.Write(_feetMotor[motorSteps], PinValue.Low);
         //            motorSteps++;
         //            if (motorSteps > 3) motorSteps = 0;
-        //            _mcp20GPIOController.Write(_feetMotor[motorSteps], PinValue.Low);
+        //            _piGPIOController.Write(_feetMotor[motorSteps], PinValue.Low);
         //            step++;
         //            if (step > 3) step = 0;
         //            Thread.Sleep(speed);
@@ -329,10 +320,7 @@ public class AnimationCues
         //}
 
 
-        //foreach (var motor in _feetMotor)
-        //{
-        //    _mcp20GPIOController.Write(motor, PinValue.Low);
-        //}
+       
         //if (right) Array.Reverse(_feetMotor);
 
 
@@ -377,7 +365,7 @@ public class AnimationCues
 
         foreach (var motor in _leftArmMotor)
         {
-            _mcp20GPIOController.Write(motor, PinValue.Low);
+            _piGPIOController.Write(motor, PinValue.Low);
         }
         if (right) Array.Reverse(_leftArmMotor);
 
@@ -395,16 +383,16 @@ public class AnimationCues
         //        //if (_piGPIOController.Read(Inputs.SantaTwistStop) == PinValue.Low || maxCounter < 2) //max < 2 let it off the input stop 
         //        //{
         //        int motorSteps = step;
-        //        _mcp20GPIOController.Write(_leftArmMotor[motorSteps], PinValue.High);
+        //        _piGPIOController.Write(_leftArmMotor[motorSteps], PinValue.High);
         //        motorSteps++;
         //        if (motorSteps > 3) motorSteps = 0;
-        //        _mcp20GPIOController.Write(_leftArmMotor[motorSteps], PinValue.Low);
+        //        _piGPIOController.Write(_leftArmMotor[motorSteps], PinValue.Low);
         //        motorSteps++;
         //        if (motorSteps > 3) motorSteps = 0;
-        //        _mcp20GPIOController.Write(_leftArmMotor[motorSteps], PinValue.Low);
+        //        _piGPIOController.Write(_leftArmMotor[motorSteps], PinValue.Low);
         //        motorSteps++;
         //        if (motorSteps > 3) motorSteps = 0;
-        //        _mcp20GPIOController.Write(_leftArmMotor[motorSteps], PinValue.Low);
+        //        _piGPIOController.Write(_leftArmMotor[motorSteps], PinValue.Low);
         //        step++;
         //        if (step > 3) step = 0;
         //        Thread.Sleep(speed);
@@ -424,10 +412,6 @@ public class AnimationCues
         //}
 
 
-        //foreach (var motor in _leftArmMotor)
-        //{
-        //    _mcp20GPIOController.Write(motor, PinValue.Low);
-        //}
         //if (right) Array.Reverse(_leftArmMotor);
 
 
@@ -472,7 +456,7 @@ public class AnimationCues
 
         foreach (var motor in _rightArmMotor)
         {
-            _mcp20GPIOController.Write(motor, PinValue.Low);
+            _piGPIOController.Write(motor, PinValue.Low);
         }
         if (right) Array.Reverse(_rightArmMotor);
 
@@ -484,16 +468,16 @@ public class AnimationCues
         //        //if (_piGPIOController.Read(Inputs.SantaTwistStop) == PinValue.Low || maxCounter < 2) //max < 2 let it off the input stop 
         //        //{
         //        int motorSteps = step;
-        //        _mcp20GPIOController.Write(_rightArmMotor[motorSteps], PinValue.High);
+        //        _piGPIOController.Write(_rightArmMotor[motorSteps], PinValue.High);
         //        motorSteps++;
         //        if (motorSteps > 3) motorSteps = 0;
-        //        _mcp20GPIOController.Write(_rightArmMotor[motorSteps], PinValue.Low);
+        //        _piGPIOController.Write(_rightArmMotor[motorSteps], PinValue.Low);
         //        motorSteps++;
         //        if (motorSteps > 3) motorSteps = 0;
-        //        _mcp20GPIOController.Write(_rightArmMotor[motorSteps], PinValue.Low);
+        //        _piGPIOController.Write(_rightArmMotor[motorSteps], PinValue.Low);
         //        motorSteps++;
         //        if (motorSteps > 3) motorSteps = 0;
-        //        _mcp20GPIOController.Write(_rightArmMotor[motorSteps], PinValue.Low);
+        //        _piGPIOController.Write(_rightArmMotor[motorSteps], PinValue.Low);
         //        step++;
         //        if (step > 3) step = 0;
         //        Thread.Sleep(speed);
@@ -512,12 +496,6 @@ public class AnimationCues
         //    }
         //}
 
-
-        //foreach (var motor in _rightArmMotor)
-        //{
-        //    _mcp20GPIOController.Write(motor, PinValue.Low);
-        //}
         //if (right) Array.Reverse(_rightArmMotor);
-
     }
 }

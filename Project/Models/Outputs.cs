@@ -90,7 +90,6 @@ public class Lights
     {
         //Button Lights
         //mcp20GPIOController.OpenPin(PlayBtnRed, PinMode.Output, PinValue.Low);
-
         piGPIOController.OpenPin(PlayBtnGreen, PinMode.Output, PinValue.Low);
 
         //Stage Back Lights

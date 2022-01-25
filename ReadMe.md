@@ -2,8 +2,6 @@
 GPIOs   
 https://cdn.sparkfun.com/assets/learn_tutorials/4/2/4/header_pinout.jpg    
    
-Inputs:
-https://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/robot/buttons_and_switches/  
 
 GPIO-14. Play Btn Feedback LED Green     
      
@@ -54,7 +52,9 @@ GPIO-A5. Back Right Green LED
 GPIO-A6. Back Right Blue LED    
 GPIO-A7. Back Right Yellow LED      
      
-Inputs:   
+Inputs:
+https://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/robot/buttons_and_switches/  
+  
 GPIO-B0. Left Arm Stops (red wire)       
 GPIO-B1. Right Arm Stops (white wire)     
 GPIO-B2. Feet Stops (blue Red wire)     

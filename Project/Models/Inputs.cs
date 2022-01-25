@@ -42,7 +42,7 @@ public class Inputs
     /// <summary>
     /// Open all the input pins
     /// </summary>
-    /// <param name="controller"></param>
+    /// <param name="mcp20GPIOController"></param>
     public static void OpenPins(GpioController mcp20GPIOController)
     {
         mcp20GPIOController.OpenPin(SantaLeftArmStop, PinMode.Input);

@@ -39,15 +39,16 @@ class Program
         while (true)
         {
 
-            if (_piGPIOController.Read(Inputs.PlayButton) == PinValue.High)
+            if (_mcp20GPIOController.Read(Inputs.PlayButton) == PinValue.High)
             {
                 if (songPlaying)
                 {
+                    //Stop a song
                     songPlaying = false;
                     //lc.PlayBtnGreen();
                     Audio.StopSong();
                     //Wait for playbutton to be released
-                    while (_piGPIOController.Read(Inputs.PlayButton) == PinValue.High)
+                    while (_mcp20GPIOController.Read(Inputs.PlayButton) == PinValue.High)
                     {
                         Thread.Sleep(25);
                     }
