@@ -21,7 +21,7 @@ public class Lights
 
 
     /// <summary>
-    /// GPIO-B7-16. Play Btn Feedback LED Red
+    /// MCP-GPIO-B7. Play Btn Feedback LED Red
     /// </summary>
     public static int PlayBtnRed { get; } = 15;
 
@@ -35,44 +35,44 @@ public class Lights
 
     /// <summary>
     /// Backlight Truss
-    /// MCP-GPIO-A0-1. Back Left Red (red wire)
+    /// MCP-GPIO-A0. Back Left Red (red wire)
     /// </summary>
-    public static int BackStageRightRed { get; } = 1;
+    public static int BackStageRightRed { get; } = 0;
 
     /// <summary>
-    /// MCP-GPIO-A1-2. Back Left Green (green wire)
+    /// MCP-GPIO-A1. Back Left Green (green wire)
     /// </summary>
-    public static int BackStageRightGreen { get; } = 2;
+    public static int BackStageRightGreen { get; } = 1;
 
     /// <summary>
     /// MCP-GPIO-A2. Back Left Blue (blue wire)
     /// </summary>
-    public static int BackStageRightBlue { get; } = 3;
+    public static int BackStageRightBlue { get; } = 2;
 
     /// <summary>
     /// MCP-GPIO-A3. Back Left Yellow (yellow Pass)
     /// </summary> 
-    public static int BackStageRightYellow { get; } = 4;
+    public static int BackStageRightYellow { get; } = 3;
 
     /// <summary>
     /// MCP-GPIO-A4. Back Right Red (red wire)
     /// </summary>
-    public static int BackStageLeftRed { get; } = 5;
+    public static int BackStageLeftRed { get; } = 4;
 
     /// <summary>
     /// MCP-GPIO-A5. Back Right Green (green wire)
     /// </summary>
-    public static int BackStageLeftGreen { get; } = 6;
+    public static int BackStageLeftGreen { get; } = 5;
 
     /// <summary>
     /// MCP-GPIO-A6. Back Right Blue (blue wire)
     /// </summary>
-    public static int BackStageLeftBlue { get; } = 7;
+    public static int BackStageLeftBlue { get; } = 6;
 
     /// <summary>
     /// MCP-GPIO-A7. Back Right Yellow(yellow wire)
     /// </summary>
-    public static int BackStageLeftYellow { get; } = 8;
+    public static int BackStageLeftYellow { get; } = 7;
 
     public static int[] Backlights { get; } = new int[8]
     {
@@ -88,8 +88,9 @@ public class Lights
 
     public static void OpenPins(GpioController piGPIOController, GpioController mcp20GPIOController)
     {
+        Console.WriteLine("OpenPins()");
         //Button Lights
-        //mcp20GPIOController.OpenPin(PlayBtnRed, PinMode.Output, PinValue.Low);
+        mcp20GPIOController.OpenPin(PlayBtnRed, PinMode.Output, PinValue.Low);
         piGPIOController.OpenPin(PlayBtnGreen, PinMode.Output, PinValue.Low);
 
         //Stage Back Lights
@@ -97,6 +98,7 @@ public class Lights
         {
             mcp20GPIOController.OpenPin(pin, PinMode.Output, PinValue.Low);
         }
+        Console.WriteLine(mcp20GPIOController.IsPinOpen(0));
 
     }
 }

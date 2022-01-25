@@ -3,41 +3,41 @@
 public class Inputs
 {
     /// <summary>
-    /// MCP-GPIO-B0-9. Left Arm Stops (red wire)
+    /// MCP-GPIO-B0. Left Arm Stops (red wire)
     /// </summary>
-    public static int SantaLeftArmStop { get; } = 9;
+    public static int SantaLeftArmStop { get; } = 8;
 
     /// <summary>
-    /// MCP-GPIO-B1-10. Right Arm Stops (green wire)
+    /// MCP-GPIO-B1. Right Arm Stops (green wire)
     /// </summary>
-    public static int SantaRightArmStop { get; } = 10;
+    public static int SantaRightArmStop { get; } = 9;
 
     /// <summary>
-    /// MCP-GPIO-B2-11. Feet Stops (blue wire)
+    /// MCP-GPIO-B2. Feet Stops (blue wire)
     /// </summary>
-    public static int SantaFeetStop { get; } = 11;
+    public static int SantaFeetStop { get; } = 10;
 
     /// <summary>
-    /// MCP-GPIO-B3-12. Twist Stops (black wire)
+    /// MCP-GPIO-B3. Twist Stops (black wire)
     /// </summary>
-    public static int SantaTwistStop { get; } = 12;
+    public static int SantaTwistStop { get; } = 11;
 
 
     /// <summary>
-    /// MCP-GPIO-B4-13. Curtin Stage Left Stop (Open) (yellow wire)
+    /// MCP-GPIO-B4. Curtin Stage Left Stop (Open) (yellow wire)
     /// </summary>
-    public static int CurtinStageLeftStopOpen { get; } = 13;
+    public static int CurtinStageLeftStopOpen { get; } = 12;
 
     /// <summary>
     /// MCP-GPIO-B5-14. Curtin Stage Right Stop (Close) (green wire) 
     /// </summary>
-    public static int CurtinStageRightStopClosed { get; } = 14;
+    public static int CurtinStageRightStopClosed { get; } = 13;
 
 
     /// <summary>
-    /// MCP-GPIO-B6-15. Play button (blue wire)
+    /// MCP-GPIO-B6. Play button (blue wire)
     /// </summary>
-    public static int PlayButton { get; } = 15;
+    public static int PlayButton { get; } = 14;
 
     /// <summary>
     /// Open all the input pins

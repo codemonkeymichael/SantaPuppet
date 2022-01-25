@@ -38,7 +38,7 @@ namespace SantaPuppet.Songs
 
             LightCues lites = new LightCues(_piGPIOController);
             CurtinCues cur = new CurtinCues(_piGPIOController);
-            AnimationCues ani = new AnimationCues(_piGPIOController, _mcp20GPIOController);
+            AnimationCues ani = new AnimationCues(_piGPIOController);
 
             CueModel scene0 = new CueModel();
             scene0.CueTime = 2;
