@@ -3,15 +3,17 @@
 public class CurtinCues
 {
     private static GpioController _piGPIOController;
+    public static GpioController _mcp20GPIOController;
     private static int[] _curtinMotor;
     private const int maxSteps = 1000;
     private static int maxStepCounter { get; set; }
 
-    public CurtinCues(GpioController piGPIOController)
+    public CurtinCues(GpioController piGPIOController, GpioController mcp20GPIOController)
     {
         //Console.WriteLine("Curtin Cues Constructors");
         _curtinMotor = Motors.curtinMotor;
         _piGPIOController = piGPIOController;
+        _mcp20GPIOController = mcp20GPIOController;
     }
 
     /// <summary>
@@ -40,9 +42,9 @@ public class CurtinCues
 
             if (maxStepCounter < maxSteps)
             {
-                if (open && _piGPIOController.Read(Inputs.CurtinStageLeftStopOpen) == PinValue.Low
+                if (open && _mcp20GPIOController.Read(Inputs.CurtinStageLeftStopOpen) == PinValue.Low
                     ||
-                    !open && _piGPIOController.Read(Inputs.CurtinStageRightStopClosed) == PinValue.Low)
+                    !open && _mcp20GPIOController.Read(Inputs.CurtinStageRightStopClosed) == PinValue.Low)
 
                 {
                     //Console.WriteLine("Curtin Break maxStepCounter=" + maxStepCounter + " _curtinMotor[step]=" + _curtinMotor[step] + " speed=" + speed);

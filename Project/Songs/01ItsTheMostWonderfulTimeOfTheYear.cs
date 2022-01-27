@@ -36,14 +36,14 @@ namespace SantaPuppet.Songs
             song.SongPath = "01ItsTheMostWonderfulTimeOfTheYear.wav";
             song.Cues = new List<CueModel>();
 
-            LightCues lites = new LightCues(_mcp20GPIOController);
-            CurtinCues cur = new CurtinCues(_piGPIOController);
-            AnimationCues ani = new AnimationCues(_piGPIOController);
+            LightCues lites = new LightCues(_piGPIOController, _mcp20GPIOController);
+            CurtinCues cur = new CurtinCues(_piGPIOController, _mcp20GPIOController);
+            //AnimationCues ani = new AnimationCues(_piGPIOController);
 
             CueModel scene0 = new CueModel();
             scene0.CueTime = 2;
             scene0.CueTimeMin = 0;
-            scene0.CueAction = () => lites.Back_Color("Black", true, 0);
+            scene0.CueAction = () => lites.Back_Color(LightCues.Color.Black, true, 0);
             scene0.CueName = "Black Out - Its The Most Wonderful Time Of The Year";
             song.Cues.Add(scene0);
 
@@ -76,46 +76,46 @@ namespace SantaPuppet.Songs
             scene10.CueName = "Fade up foot lights";
             song.Cues.Add(scene10);
 
-            CueModel anim10 = new CueModel();
-            anim10.CueTime = 25;
-            anim10.CueTimeMin = 0;
-            anim10.CueAction = () => ani.TwistBackForth(50, 150, 2);
-            anim10.CueName = "Twist Back and Forth";
-            song.Cues.Add(anim10);
+            //CueModel anim10 = new CueModel();
+            //anim10.CueTime = 25;
+            //anim10.CueTimeMin = 0;
+            //anim10.CueAction = () => ani.TwistBackForth(50, 150, 2);
+            //anim10.CueName = "Twist Back and Forth";
+            //song.Cues.Add(anim10);
 
 
 
 
 
-            CueModel feetTest = new CueModel();
-            feetTest.CueTime = 30;
-            feetTest.CueAction = () => ani.Feet(false, 250, 2);
-            feetTest.CueName = "Feet Forward";
-            song.Cues.Add(feetTest);
+            //CueModel feetTest = new CueModel();
+            //feetTest.CueTime = 30;
+            //feetTest.CueAction = () => ani.Feet(false, 250, 2);
+            //feetTest.CueName = "Feet Forward";
+            //song.Cues.Add(feetTest);
 
-            CueModel leftArmTest = new CueModel();
-            leftArmTest.CueTime = 550;
-            leftArmTest.CueAction = () => ani.LeftArm(false, 250, 2);
-            leftArmTest.CueName = "Left Arm";
-            song.Cues.Add(leftArmTest);
+            //CueModel leftArmTest = new CueModel();
+            //leftArmTest.CueTime = 550;
+            //leftArmTest.CueAction = () => ani.LeftArm(false, 250, 2);
+            //leftArmTest.CueName = "Left Arm";
+            //song.Cues.Add(leftArmTest);
 
-            CueModel rightArmTest = new CueModel();
-            rightArmTest.CueTime = 1000;
-            rightArmTest.CueAction = () => ani.RightArm(false, 250, 2);
-            rightArmTest.CueName = "Right Arm";
-            song.Cues.Add(rightArmTest);
+            //CueModel rightArmTest = new CueModel();
+            //rightArmTest.CueTime = 1000;
+            //rightArmTest.CueAction = () => ani.RightArm(false, 250, 2);
+            //rightArmTest.CueName = "Right Arm";
+            //song.Cues.Add(rightArmTest);
 
-            CueModel feetTest2 = new CueModel();
-            feetTest2.CueTime = 3050;
-            feetTest2.CueAction = () => ani.Feet(true, 500, 2);
-            feetTest2.CueName = "Feet Backward";
-            song.Cues.Add(feetTest2);
+            //CueModel feetTest2 = new CueModel();
+            //feetTest2.CueTime = 3050;
+            //feetTest2.CueAction = () => ani.Feet(true, 500, 2);
+            //feetTest2.CueName = "Feet Backward";
+            //song.Cues.Add(feetTest2);
 
-            CueModel leftArmTest2 = new CueModel();
-            leftArmTest2.CueTime = 4400;
-            leftArmTest2.CueAction = () => ani.LeftArm(true, 500, 2);
-            leftArmTest2.CueName = "Left Arm Back";
-            song.Cues.Add(leftArmTest2);
+            //CueModel leftArmTest2 = new CueModel();
+            //leftArmTest2.CueTime = 4400;
+            //leftArmTest2.CueAction = () => ani.LeftArm(true, 500, 2);
+            //leftArmTest2.CueName = "Left Arm Back";
+            //song.Cues.Add(leftArmTest2);
 
 
 
@@ -134,11 +134,11 @@ namespace SantaPuppet.Songs
 
 
 
-            CueModel rightArmTest2 = new CueModel();
-            rightArmTest2.CueTime = 5800;
-            rightArmTest2.CueAction = () => ani.RightArm(true, 500, 2);
-            rightArmTest2.CueName = "Right Arm";
-            song.Cues.Add(rightArmTest2);
+            //CueModel rightArmTest2 = new CueModel();
+            //rightArmTest2.CueTime = 5800;
+            //rightArmTest2.CueAction = () => ani.RightArm(true, 500, 2);
+            //rightArmTest2.CueName = "Right Arm";
+            //song.Cues.Add(rightArmTest2);
 
 
 
@@ -158,41 +158,41 @@ namespace SantaPuppet.Songs
 
 
 
-            CueModel feetTest3 = new CueModel();
-            feetTest3.CueTime = 6800;
-            feetTest3.CueAction = () => ani.Feet(false, 250, 2);
-            feetTest3.CueName = "Feet Forward";
-            song.Cues.Add(feetTest3);
+            //CueModel feetTest3 = new CueModel();
+            //feetTest3.CueTime = 6800;
+            //feetTest3.CueAction = () => ani.Feet(false, 250, 2);
+            //feetTest3.CueName = "Feet Forward";
+            //song.Cues.Add(feetTest3);
 
-            CueModel leftArmTest3 = new CueModel();
-            leftArmTest3.CueTime = 7550;
-            leftArmTest3.CueAction = () => ani.LeftArm(false, 250, 2);
-            leftArmTest3.CueName = "Left Arm";
-            song.Cues.Add(leftArmTest3);
+            //CueModel leftArmTest3 = new CueModel();
+            //leftArmTest3.CueTime = 7550;
+            //leftArmTest3.CueAction = () => ani.LeftArm(false, 250, 2);
+            //leftArmTest3.CueName = "Left Arm";
+            //song.Cues.Add(leftArmTest3);
 
-            CueModel rightArmTest3 = new CueModel();
-            rightArmTest3.CueTime = 8700;
-            rightArmTest3.CueAction = () => ani.RightArm(false, 250, 2);
-            rightArmTest3.CueName = "Right Arm";
-            song.Cues.Add(rightArmTest3);
+            //CueModel rightArmTest3 = new CueModel();
+            //rightArmTest3.CueTime = 8700;
+            //rightArmTest3.CueAction = () => ani.RightArm(false, 250, 2);
+            //rightArmTest3.CueName = "Right Arm";
+            //song.Cues.Add(rightArmTest3);
 
-            CueModel feetTest4 = new CueModel();
-            feetTest4.CueTime = 9800;
-            feetTest4.CueAction = () => ani.Feet(true, 500, 2);
-            feetTest4.CueName = "Feet Backward";
-            song.Cues.Add(feetTest4);
+            //CueModel feetTest4 = new CueModel();
+            //feetTest4.CueTime = 9800;
+            //feetTest4.CueAction = () => ani.Feet(true, 500, 2);
+            //feetTest4.CueName = "Feet Backward";
+            //song.Cues.Add(feetTest4);
 
-            CueModel leftArmTest4 = new CueModel();
-            leftArmTest4.CueTime = 10400;
-            leftArmTest4.CueAction = () => ani.LeftArm(true, 500, 2);
-            leftArmTest4.CueName = "Left Arm Back";
-            song.Cues.Add(leftArmTest4);
+            //CueModel leftArmTest4 = new CueModel();
+            //leftArmTest4.CueTime = 10400;
+            //leftArmTest4.CueAction = () => ani.LeftArm(true, 500, 2);
+            //leftArmTest4.CueName = "Left Arm Back";
+            //song.Cues.Add(leftArmTest4);
 
-            CueModel rightArmTest4 = new CueModel();
-            rightArmTest4.CueTime = 11800;
-            rightArmTest4.CueAction = () => ani.RightArm(true, 500, 2);
-            rightArmTest4.CueName = "Right Arm";
-            song.Cues.Add(rightArmTest4);
+            //CueModel rightArmTest4 = new CueModel();
+            //rightArmTest4.CueTime = 11800;
+            //rightArmTest4.CueAction = () => ani.RightArm(true, 500, 2);
+            //rightArmTest4.CueName = "Right Arm";
+            //song.Cues.Add(rightArmTest4);
 
 
 

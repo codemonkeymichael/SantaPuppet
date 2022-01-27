@@ -9,45 +9,45 @@ public class AnimationCues
     private static int[] _feetMotor;
     private static int[] _leftArmMotor;
     private static int[] _rightArmMotor;
-    //private static ThreadQueue _queue; 
-    private static Queue<QueueModel> _queueList;
+
+
 
 
 
     public AnimationCues(GpioController piGPIOController)
     {
-        Console.WriteLine("Animation Cues Constructors");   
+        //Console.WriteLine("Animation Cues Constructors");   
         _piGPIOController = piGPIOController; //Inputs for the stops
         _shouldersMotor = Motors.shouldersMotor;
         _feetMotor = Motors.feetMotor;
         _leftArmMotor = Motors.leftArmMotor;
         _rightArmMotor = Motors.rightArmMotor;
    
-        _queueList = new Queue<QueueModel>();
+        
 
     }
 
-   private void RunJobs()
-    {
-        //Console.WriteLine(_queueList.Count);
-        while (_queueList.Count > 0)
-        {    
-            var job = _queueList.Dequeue();
+   //private void RunJobs()
+   // {
+   //     //Console.WriteLine(_queueList.Count);
+   //     while (_queueList.Count > 0)
+   //     {    
+   //         var job = _queueList.Dequeue();
             
-            if (job.FullStep)
-            {
-                int motorSteps = job.CurrentPosition;
-                motorSteps--;    
-                if (motorSteps < 0) motorSteps = 3;
-                _piGPIOController.Write(job.PinArray[motorSteps], PinValue.Low);
-            }
-            else
-            {
-                _piGPIOController.Write(job.PinArray[job.CurrentPosition], PinValue.High);
-            }
-            //Thread.Sleep(1);
-        }
-    }
+   //         if (job.FullStep)
+   //         {
+   //             int motorSteps = job.CurrentPosition;
+   //             motorSteps--;    
+   //             if (motorSteps < 0) motorSteps = 3;
+   //             _piGPIOController.Write(job.PinArray[motorSteps], PinValue.Low);
+   //         }
+   //         else
+   //         {
+   //             _piGPIOController.Write(job.PinArray[job.CurrentPosition], PinValue.High);
+   //         }
+   //         //Thread.Sleep(1);
+   //     }
+   // }
 
     private void MotorShutDown(int[] motor)
     {
@@ -146,40 +146,46 @@ public class AnimationCues
     {
         Console.WriteLine("Twist");
 
-        int max = 380; //362 is the whole range of motion
-        if (steps < max) max = steps;
-        int maxCounter = 0;
+        //int max = 380; //362 is the whole range of motion
+        //if (steps < max) max = steps;
+        //int maxCounter = 0;
 
-        if (right) Array.Reverse(_shouldersMotor);
+        //if (right) Array.Reverse(_shouldersMotor);
 
-        var job = new QueueModel();
-        job.PinArray = _shouldersMotor;
-        job.CurrentPosition = 0;
-        job.MotorName = "  Shoulders";
-        job.FullStep = true;
+        //var job = new QueueModel();
+        //job.PinArray = _shouldersMotor;
+        //job.CurrentPosition = 0;
+        //job.MotorName = "  Shoulders";
+        //job.FullStep = true;
 
-        while (true)
-        {
-            //Console.WriteLine("Method " + job.CurrentPosition);
-            _queueList.Enqueue(job);
-            RunJobs();
-            if (job.FullStep)
-            {
-                job.CurrentPosition++;
-                job.FullStep = false;
-            }
-            else
-            {
-                job.FullStep = true;
+        //while (true)
+        //{
+        //    //Console.WriteLine("Method " + job.CurrentPosition);
+        //    _queueList.Enqueue(job);
+        //    RunJobs();
+        //    if (job.FullStep)
+        //    {
+        //        job.CurrentPosition++;
+        //        job.FullStep = false;
+        //    }
+        //    else
+        //    {
+        //        job.FullStep = true;
 
-            }
-            if (job.CurrentPosition > 3) job.CurrentPosition = 0;
-            maxCounter++;
-            if (maxCounter > max) break;
-            Thread.Sleep(speed);
-        }
+        //    }
+        //    if (job.CurrentPosition > 3) job.CurrentPosition = 0;
+        //    maxCounter++;
+        //    if (maxCounter > max) break;
+        //    Thread.Sleep(speed);
+        //}
 
-        if (right) Array.Reverse(_shouldersMotor);
+        //if (right) Array.Reverse(_shouldersMotor);
+
+
+
+
+
+
 
         //int step = 0; //Four steps 0 1 2 3
         //int max = 380; //362 is the whole range of motion
@@ -233,48 +239,7 @@ public class AnimationCues
     {
         //Console.WriteLine("Feet");
 
-        int max = 500; //362 is the whole range of motion
-        if (steps < max) max = steps;
-        int maxCounter = 0;
-
-        if (right) Array.Reverse(_feetMotor);
-
-        var job = new QueueModel();
-        job.PinArray = _feetMotor;
-        job.CurrentPosition = 0;
-        job.MotorName = "  Feet";
-        job.FullStep = true;
-        
-        while (true)
-        {
-            //Console.WriteLine("Method " + job.CurrentPosition);
-            _queueList.Enqueue(job);
-            RunJobs();
-            if (job.FullStep)
-            {
-                job.CurrentPosition++;
-                job.FullStep = false;
-            }
-            else
-            {           
-                job.FullStep = true;
-
-            }
-            if (job.CurrentPosition > 3) job.CurrentPosition = 0;
-            maxCounter++;
-            if (maxCounter > max) break;
-            Thread.Sleep(speed);
-        }
-
-
-        //Don't shut the motor down unill the end
-        //MotorShutDown(Motors.feetMotor);
-
-        //foreach (var motor in _feetMotor)
-        //{
-        //    _piGPIOController.Write(motor, PinValue.Low);
-        //}
-        if (right) Array.Reverse(_feetMotor);
+       
 
 
         //int step = 0; //Four steps 0 1 2 3
@@ -330,44 +295,7 @@ public class AnimationCues
     {
         //Console.WriteLine("LeftArm");
 
-        int max = 500; //362 is the whole range of motion
-        if (steps < max) max = steps;
-        int maxCounter = 0;
-
-        if (right) Array.Reverse(_leftArmMotor);
-
-        var job = new QueueModel();
-        job.PinArray = _leftArmMotor;
-        job.CurrentPosition = 0;
-        job.MotorName = "                         Left Arm";
-        job.FullStep = true;
-
-        while (true)
-        {
-            //Console.WriteLine("Method " + job.CurrentPosition);
-            _queueList.Enqueue(job);
-            RunJobs();
-            if (job.FullStep)
-            {
-                job.CurrentPosition++;
-                job.FullStep = false;
-            }
-            else
-            {
-                job.FullStep = true;
-
-            }
-            if (job.CurrentPosition > 3) job.CurrentPosition = 0;
-            maxCounter++;
-            if (maxCounter > max) break;
-            Thread.Sleep(speed);
-        }
-
-        foreach (var motor in _leftArmMotor)
-        {
-            _piGPIOController.Write(motor, PinValue.Low);
-        }
-        if (right) Array.Reverse(_leftArmMotor);
+       
 
         //int step = 0; //Four steps 0 1 2 3
         //int max = 200; //362 is the whole range of motion
@@ -427,38 +355,7 @@ public class AnimationCues
 
         if (right) Array.Reverse(_rightArmMotor);
 
-        var job = new QueueModel();
-        job.PinArray = _rightArmMotor;
-        job.CurrentPosition = 0;
-        job.MotorName = "            Right Arm";
-        job.FullStep = true;
-
-        while (true)
-        {
-            //Console.WriteLine("Method " + job.CurrentPosition);
-            _queueList.Enqueue(job);
-            RunJobs();
-            if (job.FullStep)
-            {
-                job.CurrentPosition++;
-                job.FullStep = false;
-            }
-            else
-            {
-                job.FullStep = true;
-
-            }
-            if (job.CurrentPosition > 3) job.CurrentPosition = 0;
-            maxCounter++;
-            if (maxCounter > max) break;
-            Thread.Sleep(speed);
-        }
-
-        foreach (var motor in _rightArmMotor)
-        {
-            _piGPIOController.Write(motor, PinValue.Low);
-        }
-        if (right) Array.Reverse(_rightArmMotor);
+       
 
         //while (true)
         //{

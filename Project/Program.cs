@@ -12,6 +12,8 @@ class Program
     public static GpioController _mcp20GPIOController = new GpioController(PinNumberingScheme.Logical, mcp23017);
 
 
+
+
     public Program()
     {
         Console.WriteLine("Program constructor.");
@@ -22,59 +24,63 @@ class Program
     {
         Console.WriteLine("Santa Puppet is Running");
 
-        Inputs.OpenPins(_mcp20GPIOController);
+        //Inputs.OpenPins(_mcp20GPIOController);
         Lights.OpenPins(_piGPIOController, _mcp20GPIOController);
-        Motors.OpenPins(_piGPIOController);
+        //Motors.OpenPins(_piGPIOController);
+
+        LightCues lites = new LightCues(_piGPIOController, _mcp20GPIOController);
+        lites.Back_Color(LightCues.Color.Random, true, 0);
+
+        //Songs.ItsTheMostWonderfulTimeOfTheYear song01 = new Songs.ItsTheMostWonderfulTimeOfTheYear(_piGPIOController, _mcp20GPIOController);
+
+        //Audio.CueSong(song01.cueStack());
+
+        ////Blink the play btn
+        //LightCues lc = new LightCues(_piGPIOController, _mcp20GPIOController);
+        //Thread blinkPlayBtn = new Thread(() => lc.PlayBtnBlink());
+        //blinkPlayBtn.Start();
+
+        //while (true)
+        //{
+        //    //Console.WriteLine("Play Button Status " + _mcp20GPIOController.Read(Inputs.PlayButton));
+        //    //Thread.Sleep(1000);
+
+        //    if (_mcp20GPIOController.Read(Inputs.PlayButton) == PinValue.High)
+        //    {
+        //        if (songPlaying)
+        //        {
+        //            //Stop a song
+        //            songPlaying = false;
+        //            //lc.PlayBtnGreen();
+        //            Audio.StopSong();
+        //            //Wait for playbutton to be released
+        //            while (_mcp20GPIOController.Read(Inputs.PlayButton) == PinValue.High)
+        //            {
+        //                Thread.Sleep(25);
+        //            }
+        //            //Don't respond to a button push for a couple seconds
+        //            Thread.Sleep(2500);
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine("Button pushed play song");
+        //            songPlaying = true;
+
+        //            Audio.PlaySong();
+
+        //            //Wait for playbutton to be released
+        //            while (_mcp20GPIOController.Read(Inputs.PlayButton) == PinValue.High)
+        //            {
+        //                Thread.Sleep(25);
+        //            }
+        //            //Don't respond to a button push for a couple seconds
+        //            Thread.Sleep(2500);
+
+        //        }
+        //    }
 
 
-        Songs.ItsTheMostWonderfulTimeOfTheYear song01 = new Songs.ItsTheMostWonderfulTimeOfTheYear(_piGPIOController, _mcp20GPIOController);
-
-        Audio.CueSong(song01.cueStack());
-
-        //Blink the play btn
-        LightCues lc = new LightCues(_piGPIOController);
-        Thread blinkPlayBtn = new Thread(() => lc.PlayBtnBlink());
-        blinkPlayBtn.Start();
-
-        while (true)
-        {
-
-            if (_mcp20GPIOController.Read(Inputs.PlayButton) == PinValue.High)
-            {
-                if (songPlaying)
-                {
-                    //Stop a song
-                    songPlaying = false;
-                    //lc.PlayBtnGreen();
-                    Audio.StopSong();
-                    //Wait for playbutton to be released
-                    while (_mcp20GPIOController.Read(Inputs.PlayButton) == PinValue.High)
-                    {
-                        Thread.Sleep(25);
-                    }
-                    //Don't respond to a button push for a couple seconds
-                    Thread.Sleep(2500);
-                }
-                else
-                {
-                    Console.WriteLine("Button pushed play song");
-                    songPlaying = true;
-
-                    Audio.PlaySong();
-
-                    //Wait for playbutton to be released
-                    while (_piGPIOController.Read(Inputs.PlayButton) == PinValue.High)
-                    {
-                        Thread.Sleep(25);
-                    }
-                    //Don't respond to a button push for a couple seconds
-                    Thread.Sleep(2500);
-
-                }
-            }
-
-
-        }
+        //}
 
     }
 

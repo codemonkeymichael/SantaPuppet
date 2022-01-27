@@ -8,12 +8,37 @@ namespace SantaPuppet.Cues;
 public class LightCues
 {
     private static GpioController _mcp20GPIOController;
+    private static GpioController _piGPIOController;
+    private static Queue<QueueModel> _queueList;
 
-
-    public LightCues(GpioController mcp20GPIOController)
+    public enum Color
     {
-        //Console.WriteLine("Light Cues Construstor");
+        Red,
+        Green,
+        Blue,
+        Yellow,
+        Black,
+        Random
+    }
+
+
+    public LightCues(GpioController piGPIOController, GpioController mcp20GPIOController)
+    {
+        _piGPIOController = piGPIOController;
         _mcp20GPIOController = mcp20GPIOController;
+        _queueList = new Queue<QueueModel>();
+    }
+
+
+
+    private void RunJobs()
+    {
+        //Console.WriteLine(_queueList.Count);
+       while (_queueList.Count > 0)
+        {
+           var job = _queueList.Dequeue();
+            _mcp20GPIOController.Write(job.Pin, job.PinValue);
+        }
     }
 
     public void Back_StrobeAll_Fast()
@@ -194,6 +219,7 @@ public class LightCues
     }
 
 
+
     /// <summary>
     /// One On
     /// </summary>
@@ -237,8 +263,9 @@ public class LightCues
         Back_1LOn(110, repeat, false, true);
     }
     /// <summary>
-    /// One On
+    /// Speed 75, Bounce true, Split (left and right) true 
     /// </summary>
+    /// <param name="repeat">How mant times to bounce</param>
     public void Back_1LOn_Fast_Bounce_Split(int repeat)
     {
         Back_1LOn(75, repeat, true, true);
@@ -402,43 +429,43 @@ public class LightCues
 
     public void Back_Color_Red()
     {
-        Back_Color("Red", false, 0);
+        Back_Color(Color.Red, false, 0);
     }
     public void Back_Color_Green()
     {
-        Back_Color("Green", false, 0);
+        Back_Color(Color.Green, false, 0);
     }
     public void Back_Color_Blue()
     {
-        Back_Color("Blue", false, 0);
+        Back_Color(Color.Blue, false, 0);
     }
     public void Back_Color_Yellow()
     {
-        Back_Color("Yellow", false, 0);
+        Back_Color(Color.Yellow, false, 0);
     }
-    public void Back_Color_Randon()
+    public void Back_Color_Random()
     {
-        Back_Color("Random", false, 0);
+        Back_Color(Color.Random, false, 0);
     }
     public void Back_Color_Black()
     {
-        Back_Color("Black", false, 0);
+        Back_Color(Color.Black, false, 0);
     }
     public void Back_Color_Red_Dur(int duration)
     {
-        Back_Color("Red", false, duration);
+        Back_Color(Color.Red, false, duration);
     }
     public void Back_Color_Green_Dur(int duration)
     {
-        Back_Color("Green", false, duration);
+        Back_Color(Color.Green, false, duration);
     }
     public void Back_Color_Blue_Dur(int duration)
     {
-        Back_Color("Blue", false, duration);
+        Back_Color(Color.Blue, false, duration);
     }
     public void Back_Color_Yellow_Dur(int duration)
     {
-        Back_Color("Yellow", false, duration);
+        Back_Color(Color.Yellow, false, duration);
     }
 
     /// <summary>
@@ -447,67 +474,79 @@ public class LightCues
     /// <param name="color">Red, Green, Blue, Yellow, Black, Random</param>
     /// <param name="clear">true = Turn off all backligts before turning on the color. </param>
     /// <param name="duration">0 = leave them on </param>
-    public void Back_Color(string color, bool clear, int duration)
+    public void Back_Color(Color color, bool clear, int duration)
     {
-        //Console.WriteLine("Back_Color - Color = " + c);
-        //Console.WriteLine("Back_Color - Clear = " + clr);
+        Console.WriteLine("Back_Color - Color = " + color);
 
-        if (color == "Black" || clear)
+        if (color == Color.Black || clear)
         {
             foreach (var light in Lights.Backlights)
             {
-                _mcp20GPIOController.Write(light, PinValue.Low);
+                var job0 = new QueueModel();
+                job0.Pin = light;
+                job0.PinValue = PinValue.Low;
+                _queueList.Enqueue(job0);
+                RunJobs();
+
             }
         }
 
-        if (color == "Random")
-        {
-            var random = new Random();
-            var list = new List<string> { "Red", "Green", "Blue", "Yellow" };
-            int index = random.Next(list.Count);
-            color = list[index];
+        Color randColor = Color.Black;
+        if (color == Color.Random)
+        {        
+            Array values = Enum.GetValues(typeof(Color));
+            Random random = new Random();
+            while (randColor == Color.Random || randColor == Color.Black)
+            {
+                randColor = (Color)values.GetValue(random.Next(values.Length));
+            }  
         }
-        switch (color)
+
+        int pin1 = 0;
+        int pin2 = 0;
+
+        switch (randColor)
         {
-            case "Red":
-                _mcp20GPIOController.Write(Lights.Backlights[0], PinValue.High);
-                _mcp20GPIOController.Write(Lights.Backlights[4], PinValue.High);
+            case Color.Red:
+                pin1 = 0;
+                pin2 = 4;        
                 break;
-            case "Green":
-                _mcp20GPIOController.Write(Lights.Backlights[1], PinValue.High);
-                _mcp20GPIOController.Write(Lights.Backlights[5], PinValue.High);
+            case Color.Green:
+                pin1 = 1;
+                pin2 = 5;               
                 break;
-            case "Blue":
-                _mcp20GPIOController.Write(Lights.Backlights[2], PinValue.High);
-                _mcp20GPIOController.Write(Lights.Backlights[6], PinValue.High);
+            case Color.Blue:
+                pin1 = 2;
+                pin2 = 6;                
                 break;
-            case "Yellow":
-                _mcp20GPIOController.Write(Lights.Backlights[3], PinValue.High);
-                _mcp20GPIOController.Write(Lights.Backlights[7], PinValue.High);
+            case Color.Yellow:
+                pin1 = 3;
+                pin2 = 7;               
                 break;
         }
+        var job1 = new QueueModel();
+        job1.Pin = pin1;
+        job1.PinValue = PinValue.High;
+        _queueList.Enqueue(job1);
+        RunJobs();
+        var job2 = new QueueModel();
+        job2.Pin = pin2;
+        job2.PinValue = PinValue.High;
+        _queueList.Enqueue(job2);
+        RunJobs();
         if (duration > 0)
         {
             Thread.Sleep(duration);
-            switch (color)
-            {
-                case "Red":
-                    _mcp20GPIOController.Write(Lights.Backlights[0], PinValue.Low);
-                    _mcp20GPIOController.Write(Lights.Backlights[4], PinValue.Low);
-                    break;
-                case "Green":
-                    _mcp20GPIOController.Write(Lights.Backlights[1], PinValue.Low);
-                    _mcp20GPIOController.Write(Lights.Backlights[5], PinValue.Low);
-                    break;
-                case "Blue":
-                    _mcp20GPIOController.Write(Lights.Backlights[2], PinValue.Low);
-                    _mcp20GPIOController.Write(Lights.Backlights[6], PinValue.Low);
-                    break;
-                case "Yellow":
-                    _mcp20GPIOController.Write(Lights.Backlights[3], PinValue.Low);
-                    _mcp20GPIOController.Write(Lights.Backlights[7], PinValue.Low);
-                    break;
-            }
+            var job3 = new QueueModel();
+            job3.Pin = pin1;
+            job3.PinValue = PinValue.High;
+            _queueList.Enqueue(job3);
+            RunJobs();
+            var job4 = new QueueModel();
+            job4.Pin = pin2;
+            job4.PinValue = PinValue.High;
+            _queueList.Enqueue(job4);
+            RunJobs();
         }
     }
 
@@ -563,39 +602,28 @@ public class LightCues
 
     public void PlayBtnBlink()
     {
-        
         var onStatus = false;
+        _mcp20GPIOController.Write(Lights.PlayBtnRed, PinValue.Low);
+        _piGPIOController.Write(Lights.PlayBtnGreen, PinValue.Low);
         while (true)
         {
+            onStatus = !onStatus;
             if (Program.songPlaying)
             {
-                _mcp20GPIOController.Write(Lights.PlayBtnGreen, PinValue.Low);
-                if (onStatus)
-                {
-                    _mcp20GPIOController.Write(Lights.PlayBtnRed, PinValue.Low);
-                    onStatus = false;
-                }
-                else
-                {
-                    _mcp20GPIOController.Write(Lights.PlayBtnRed, PinValue.High);
-                    onStatus = true;
-                }
+                _mcp20GPIOController.Write(Lights.PlayBtnRed, PinValue.High);
+                break;
             }
             else
             {
-                
-                _mcp20GPIOController.Write(Lights.PlayBtnRed, PinValue.Low);
                 if (onStatus)
                 {
                     //Console.WriteLine("Play Btn blink green off");
-                    _mcp20GPIOController.Write(Lights.PlayBtnGreen, PinValue.Low);
-                    onStatus = false;
+                    _piGPIOController.Write(Lights.PlayBtnGreen, PinValue.Low);
                 }
                 else
                 {
                     //Console.WriteLine("Play Btn blink green on Is Pin Open ="  + _mcp20GPIOController.IsPinOpen(Lights.PlayBtnGreen));
-                    _mcp20GPIOController.Write(Lights.PlayBtnGreen, PinValue.High);
-                    onStatus = true;
+                    _piGPIOController.Write(Lights.PlayBtnGreen, PinValue.High);
                 }
             }
             Thread.Sleep(500);

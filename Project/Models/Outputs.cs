@@ -88,7 +88,6 @@ public class Lights
 
     public static void OpenPins(GpioController piGPIOController, GpioController mcp20GPIOController)
     {
-        Console.WriteLine("OpenPins()");
         //Button Lights
         mcp20GPIOController.OpenPin(PlayBtnRed, PinMode.Output, PinValue.Low);
         piGPIOController.OpenPin(PlayBtnGreen, PinMode.Output, PinValue.Low);
@@ -97,9 +96,7 @@ public class Lights
         foreach (var pin in Backlights)
         {
             mcp20GPIOController.OpenPin(pin, PinMode.Output, PinValue.Low);
-        }
-        Console.WriteLine(mcp20GPIOController.IsPinOpen(0));
-
+        }  
     }
 }
 
@@ -119,8 +116,6 @@ public class Motors
     /// PI-GPIO-6.  Motor Curtin 4 (yellow wire)   
     /// </summary>
     public static int[] curtinMotor { get; } = new int[4] { 21, 26, 13, 6 };
-
-
 
 
     /// <summary>
@@ -150,7 +145,6 @@ public class Motors
     /// </summary>
     public static int[] leftArmMotor { get; } = new int[4] { 22, 27, 17, 4 };
 
-
     /// <summary>
     /// MCP23017 0x20
     /// PI-GPIO-23. Motor Right Arm (red wire)
@@ -161,8 +155,6 @@ public class Motors
     public static int[] rightArmMotor { get; } = new int[4] { 23, 24, 25, 8 };
 
 
-
-
     public static void OpenPins(GpioController piGPIOController)
     {
         piGPIOController.OpenPin(SantaTalk, PinMode.Output, PinValue.Low);
@@ -170,7 +162,7 @@ public class Motors
         //CurtinCues cc = new CurtinCues(piGPIOController);
         foreach (int motor in curtinMotor)
         {
-            piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
+            piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);            
         }
         //cc.OpenClose(false, 2);
 
