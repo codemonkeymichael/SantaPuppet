@@ -7,9 +7,7 @@ namespace SantaPuppet.Cues;
 
 public class LightCues
 {
-    private static GpioController _mcp20GPIOController;
     private static GpioController _piGPIOController;
-    private static Queue<QueueModel> _queueList;
 
     public enum Color
     {
@@ -21,24 +19,9 @@ public class LightCues
         Random
     }
 
-
-    public LightCues(GpioController piGPIOController, GpioController mcp20GPIOController)
+    public LightCues(GpioController piGPIOController)
     {
         _piGPIOController = piGPIOController;
-        _mcp20GPIOController = mcp20GPIOController;
-        _queueList = new Queue<QueueModel>();
-    }
-
-
-
-    private void RunJobs()
-    {
-        //Console.WriteLine(_queueList.Count);
-       while (_queueList.Count > 0)
-        {
-           var job = _queueList.Dequeue();
-            _mcp20GPIOController.Write(job.Pin, job.PinValue);
-        }
     }
 
     public void Back_StrobeAll_Fast()
@@ -53,14 +36,22 @@ public class LightCues
     {
         foreach (int light in Lights.Backlights)
         {
-            _mcp20GPIOController.Write(light, PinValue.High);
+            var job = new QueueModel();
+            job.Pin = light;
+            job.PinValue = PinValue.High;
+            Program.queueList.Enqueue(job);
+            Program.RunI2CJobs();
         }
 
         Thread.Sleep(duration);
 
         foreach (int light in Lights.Backlights)
         {
-            _mcp20GPIOController.Write(light, PinValue.Low);
+            var job = new QueueModel();
+            job.Pin = light;
+            job.PinValue = PinValue.Low;
+            Program.queueList.Enqueue(job);
+            Program.RunI2CJobs();
         }
     }
 
@@ -93,24 +84,54 @@ public class LightCues
                 //Left Half
                 var left = rand.Next(0, 4);
                 var right = rand.Next(5, 8);
-                _mcp20GPIOController.Write(Lights.Backlights[left], PinValue.High);
+
+                var job1 = new QueueModel();
+                job1.Pin = Lights.Backlights[left];
+                job1.PinValue = PinValue.High;
+                Program.queueList.Enqueue(job1);
+                Program.RunI2CJobs();
                 addUpSleepTime += duration / 2;
                 Thread.Sleep(duration / 2);
-                _mcp20GPIOController.Write(Lights.Backlights[right], PinValue.High);
+
+                var job2 = new QueueModel();
+                job2.Pin = Lights.Backlights[right];
+                job2.PinValue = PinValue.High;
+                Program.queueList.Enqueue(job2);
+                Program.RunI2CJobs();
                 addUpSleepTime += duration / 2;
                 Thread.Sleep(duration / 2);
-                _mcp20GPIOController.Write(Lights.Backlights[left], PinValue.Low);
+
+                var job3 = new QueueModel();
+                job3.Pin = Lights.Backlights[left];
+                job3.PinValue = PinValue.Low;
+                Program.queueList.Enqueue(job3);
+                Program.RunI2CJobs();
                 addUpSleepTime += duration / 2;
                 Thread.Sleep(duration / 2);
-                _mcp20GPIOController.Write(Lights.Backlights[right], PinValue.Low);
+
+                var job4 = new QueueModel();
+                job4.Pin = Lights.Backlights[right];
+                job4.PinValue = PinValue.Low;
+                Program.queueList.Enqueue(job4);
+                Program.RunI2CJobs();
             }
             else
             {
                 var light = rand.Next(0, 8);
-                _mcp20GPIOController.Write(Lights.Backlights[light], PinValue.High);
+
+                var job1 = new QueueModel();
+                job1.Pin = Lights.Backlights[light];
+                job1.PinValue = PinValue.High;
+                Program.queueList.Enqueue(job1);
+                Program.RunI2CJobs();
                 addUpSleepTime += duration;
                 Thread.Sleep(duration);
-                _mcp20GPIOController.Write(Lights.Backlights[light], PinValue.Low);
+
+                var job2 = new QueueModel();
+                job2.Pin = Lights.Backlights[light];
+                job2.PinValue = PinValue.Low;
+                Program.queueList.Enqueue(job2);
+                Program.RunI2CJobs();
             }
             //Console.WriteLine("Total Loop Duration = " + addUpSleepTime);
         }
@@ -179,20 +200,49 @@ public class LightCues
     public void Back_1Off(int speed, int repeat, bool bounce, bool split)
     {
         //Turn them all On
-        foreach (int la in Lights.Backlights)
+        foreach (int light in Lights.Backlights)
         {
-            _mcp20GPIOController.Write(la, PinValue.High);
+            var job0 = new QueueModel();
+            job0.Pin = light;
+            job0.PinValue = PinValue.High;
+            Program.queueList.Enqueue(job0);
+            Program.RunI2CJobs();
         }
 
         for (int n = 0; n < repeat; n++)
         {
             for (int i = 0; i < Lights.Backlights.Count() - 1; i++)
             {
-                _mcp20GPIOController.Write(Lights.Backlights[i], PinValue.Low);
-                if (split) _mcp20GPIOController.Write(Lights.Backlights[i + 4], PinValue.Low);
+                var job0 = new QueueModel();
+                job0.Pin = Lights.Backlights[i];
+                job0.PinValue = PinValue.Low;
+                Program.queueList.Enqueue(job0);
+                Program.RunI2CJobs();
+
+                if (split)
+                {
+                    var job1 = new QueueModel();
+                    job1.Pin = Lights.Backlights[i + 4];
+                    job1.PinValue = PinValue.Low;
+                    Program.queueList.Enqueue(job1);
+                    Program.RunI2CJobs();
+                }
                 Thread.Sleep(speed);
-                _mcp20GPIOController.Write(Lights.Backlights[i], PinValue.High);
-                if (split) _mcp20GPIOController.Write(Lights.Backlights[i + 4], PinValue.High);
+
+                var job2 = new QueueModel();
+                job2.Pin = Lights.Backlights[i];
+                job2.PinValue = PinValue.High;
+                Program.queueList.Enqueue(job2);
+                Program.RunI2CJobs();
+
+                if (split)
+                {
+                    var job3 = new QueueModel();
+                    job3.Pin = Lights.Backlights[i + 4];
+                    job3.PinValue = PinValue.High;
+                    Program.queueList.Enqueue(job3);
+                    Program.RunI2CJobs();
+                }
                 if (split && i == 3) break;
             }
             if (bounce)
@@ -200,11 +250,36 @@ public class LightCues
                 Array.Reverse(Lights.Backlights);
                 for (int i = 0; i < Lights.Backlights.Count() - 1; i++)
                 {
-                    _mcp20GPIOController.Write(Lights.Backlights[i], PinValue.Low);
-                    if (split) _mcp20GPIOController.Write(Lights.Backlights[i + 4], PinValue.Low);
+                    var job0 = new QueueModel();
+                    job0.Pin = Lights.Backlights[i];
+                    job0.PinValue = PinValue.Low;
+                    Program.queueList.Enqueue(job0);
+                    Program.RunI2CJobs();
+
+                    if (split)
+                    {
+                        var job1 = new QueueModel();
+                        job1.Pin = Lights.Backlights[i + 4];
+                        job1.PinValue = PinValue.Low;
+                        Program.queueList.Enqueue(job1);
+                        Program.RunI2CJobs();
+                    }
                     Thread.Sleep(speed);
-                    _mcp20GPIOController.Write(Lights.Backlights[i], PinValue.High);
-                    if (split) _mcp20GPIOController.Write(Lights.Backlights[i + 4], PinValue.High);
+
+                    var job2 = new QueueModel();
+                    job2.Pin = Lights.Backlights[i];
+                    job2.PinValue = PinValue.High;
+                    Program.queueList.Enqueue(job2);
+                    Program.RunI2CJobs();
+
+                    if (split)
+                    {
+                        var job3 = new QueueModel();
+                        job3.Pin = Lights.Backlights[i + 4];
+                        job3.PinValue = PinValue.High;
+                        Program.queueList.Enqueue(job3);
+                        Program.RunI2CJobs();
+                    };
                     if (split && i == 3) break;
                 }
                 Array.Reverse(Lights.Backlights);
@@ -212,9 +287,13 @@ public class LightCues
         }
 
         //Turn them all Off
-        foreach (int la in Lights.Backlights)
+        foreach (int light in Lights.Backlights)
         {
-            _mcp20GPIOController.Write(la, PinValue.Low);
+            var job3 = new QueueModel();
+            job3.Pin = light;
+            job3.PinValue = PinValue.Low;
+            Program.queueList.Enqueue(job3);
+            Program.RunI2CJobs();
         }
     }
 
@@ -484,21 +563,20 @@ public class LightCues
                 var job0 = new QueueModel();
                 job0.Pin = light;
                 job0.PinValue = PinValue.Low;
-                _queueList.Enqueue(job0);
-                RunJobs();
-
+                Program.queueList.Enqueue(job0);
+                Program.RunI2CJobs();
             }
         }
 
         Color randColor = Color.Black;
         if (color == Color.Random)
-        {        
+        {
             Array values = Enum.GetValues(typeof(Color));
             Random random = new Random();
             while (randColor == Color.Random || randColor == Color.Black)
             {
                 randColor = (Color)values.GetValue(random.Next(values.Length));
-            }  
+            }
         }
 
         int pin1 = 0;
@@ -508,44 +586,44 @@ public class LightCues
         {
             case Color.Red:
                 pin1 = 0;
-                pin2 = 4;        
+                pin2 = 4;
                 break;
             case Color.Green:
                 pin1 = 1;
-                pin2 = 5;               
+                pin2 = 5;
                 break;
             case Color.Blue:
                 pin1 = 2;
-                pin2 = 6;                
+                pin2 = 6;
                 break;
             case Color.Yellow:
                 pin1 = 3;
-                pin2 = 7;               
+                pin2 = 7;
                 break;
         }
         var job1 = new QueueModel();
         job1.Pin = pin1;
         job1.PinValue = PinValue.High;
-        _queueList.Enqueue(job1);
-        RunJobs();
+        Program.queueList.Enqueue(job1);
+        Program.RunI2CJobs();
         var job2 = new QueueModel();
         job2.Pin = pin2;
         job2.PinValue = PinValue.High;
-        _queueList.Enqueue(job2);
-        RunJobs();
+        Program.queueList.Enqueue(job2);
+        Program.RunI2CJobs();
         if (duration > 0)
         {
             Thread.Sleep(duration);
             var job3 = new QueueModel();
             job3.Pin = pin1;
             job3.PinValue = PinValue.High;
-            _queueList.Enqueue(job3);
-            RunJobs();
+            Program.queueList.Enqueue(job3);
+            Program.RunI2CJobs();
             var job4 = new QueueModel();
             job4.Pin = pin2;
             job4.PinValue = PinValue.High;
-            _queueList.Enqueue(job4);
-            RunJobs();
+            Program.queueList.Enqueue(job4);
+            Program.RunI2CJobs();
         }
     }
 

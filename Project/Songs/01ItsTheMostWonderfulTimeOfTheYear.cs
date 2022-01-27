@@ -36,8 +36,8 @@ namespace SantaPuppet.Songs
             song.SongPath = "01ItsTheMostWonderfulTimeOfTheYear.wav";
             song.Cues = new List<CueModel>();
 
-            LightCues lites = new LightCues(_piGPIOController, _mcp20GPIOController);
-            CurtinCues cur = new CurtinCues(_piGPIOController, _mcp20GPIOController);
+            LightCues lites = new LightCues(_piGPIOController);
+            CurtinCues cur = new CurtinCues(_piGPIOController);
             //AnimationCues ani = new AnimationCues(_piGPIOController);
 
             CueModel scene0 = new CueModel();

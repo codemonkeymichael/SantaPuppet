@@ -3,17 +3,15 @@
 public class CurtinCues
 {
     private static GpioController _piGPIOController;
-    public static GpioController _mcp20GPIOController;
     private static int[] _curtinMotor;
     private const int maxSteps = 1000;
     private static int maxStepCounter { get; set; }
 
-    public CurtinCues(GpioController piGPIOController, GpioController mcp20GPIOController)
+    public CurtinCues(GpioController piGPIOController)
     {
         //Console.WriteLine("Curtin Cues Constructors");
         _curtinMotor = Motors.curtinMotor;
         _piGPIOController = piGPIOController;
-        _mcp20GPIOController = mcp20GPIOController;
     }
 
     /// <summary>

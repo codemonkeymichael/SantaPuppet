@@ -9,14 +9,15 @@ class Program
     private static I2cConnectionSettings connectionSettings = new I2cConnectionSettings(1, 0x20);
     private static I2cDevice device = I2cDevice.Create(connectionSettings);
     private static Mcp23017 mcp23017 = new Mcp23017(device);
-    public static GpioController _mcp20GPIOController = new GpioController(PinNumberingScheme.Logical, mcp23017);
-
+    private static GpioController _mcp20GPIOController = new GpioController(PinNumberingScheme.Logical, mcp23017);
+    public static Queue<QueueModel> queueList;
 
 
 
     public Program()
     {
         Console.WriteLine("Program constructor.");
+        queueList = new Queue<QueueModel>();
     }
 
 
@@ -28,7 +29,7 @@ class Program
         Lights.OpenPins(_piGPIOController, _mcp20GPIOController);
         //Motors.OpenPins(_piGPIOController);
 
-        LightCues lites = new LightCues(_piGPIOController, _mcp20GPIOController);
+        LightCues lites = new LightCues(_piGPIOController);
         lites.Back_Color(LightCues.Color.Random, true, 0);
 
         //Songs.ItsTheMostWonderfulTimeOfTheYear song01 = new Songs.ItsTheMostWonderfulTimeOfTheYear(_piGPIOController, _mcp20GPIOController);
@@ -89,6 +90,16 @@ class Program
         //TODO: Make this work
         //Close a pins and stop playing music
         Console.WriteLine("I quit!");
+    }
+
+    public static void RunI2CJobs()
+    {
+        //Console.WriteLine(_queueList.Count);
+        while (queueList.Count > 0)
+        {        
+            var job = queueList.Dequeue();
+            _mcp20GPIOController.Write(job.Pin, job.PinValue);
+        }
     }
 
 
