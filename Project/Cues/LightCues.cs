@@ -423,7 +423,6 @@ public class LightCues
             }
             //Console.WriteLine("Total Sleep Per Repeat = " + addUpSleepTime);
         }
-
     }
 
 
