@@ -153,38 +153,38 @@ public class Motors
     public static int[] rightArmMotor { get; } = new int[4] { 23, 24, 25, 8 };
 
 
-    public static void OpenPins(GpioController piGPIOController)
+    public static void OpenPins()
     {
-        piGPIOController.OpenPin(SantaTalk, PinMode.Output, PinValue.Low);
+        Program.piGPIOController.OpenPin(SantaTalk, PinMode.Output, PinValue.Low);
 
         //CurtinCues cc = new CurtinCues(piGPIOController);
         foreach (int motor in curtinMotor)
         {
-            piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);            
+            Program.piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);            
         }
         //cc.OpenClose(false, 2);
 
         //AnimationCues ac = new AnimationCues(piGPIOController, mcp20GPIOController);
         foreach (int motor in shouldersMotor)
         {
-            piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
+            Program.piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
         }
         //ac.TwistCenter();
 
         foreach (int motor in feetMotor)
         {
-            piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
+            Program.piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
         }
         //TODO: Center the feet motor
 
         foreach (int motor in leftArmMotor)
         {
-            piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
+            Program.piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
         }
         //TODO: Center the left arm motor
         foreach (int motor in rightArmMotor)
         {
-            piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
+            Program.piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
         }
 
     }
