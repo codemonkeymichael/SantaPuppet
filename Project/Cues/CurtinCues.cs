@@ -40,11 +40,11 @@ public class CurtinCues
 
             if (maxStepCounter < maxSteps)
             {
-                if (open && _mcp20GPIOController.Read(Inputs.CurtinStageLeftStopOpen) == PinValue.Low
-                    ||
-                    !open && _mcp20GPIOController.Read(Inputs.CurtinStageRightStopClosed) == PinValue.Low)
+                //if (open && _mcp20GPIOController.Read(Inputs.CurtinStageLeftStopOpen) == PinValue.Low
+                //    ||
+                //    !open && _mcp20GPIOController.Read(Inputs.CurtinStageRightStopClosed) == PinValue.Low)
 
-                {
+                //{
                     //Console.WriteLine("Curtin Break maxStepCounter=" + maxStepCounter + " _curtinMotor[step]=" + _curtinMotor[step] + " speed=" + speed);
 
                     int motorSteps = step;
@@ -61,12 +61,12 @@ public class CurtinCues
                     step++;
                     if (step > 3) step = 0;
                     Thread.Sleep(speed);
-                }
-                else
-                {
-                    Console.WriteLine("Curtin hit the stop. Open = " + open);
-                    break;
-                }
+                //}
+                //else
+                //{
+                //    Console.WriteLine("Curtin hit the stop. Open = " + open);
+                //    break;
+                //}
             }
             else
             {

@@ -2,10 +2,8 @@
 
 public class Lights
 {
-
     /// MCP23017 Port Expander 0x20 
     /// https://raspi.tv/wp-content/uploads/2013/07/MCP23017.jpg 
-
 
     /// <summary>
     /// PI-GPIO-14. Play Btn Feedback LED Green
@@ -86,16 +84,16 @@ public class Lights
             BackStageLeftYellow
     };
 
-    public static void OpenPins(GpioController piGPIOController, GpioController mcp20GPIOController)
+    public static void OpenPins()
     {
         //Button Lights
-        mcp20GPIOController.OpenPin(PlayBtnRed, PinMode.Output, PinValue.Low);
-        piGPIOController.OpenPin(PlayBtnGreen, PinMode.Output, PinValue.Low);
+        Program.mcp20GPIOController.OpenPin(PlayBtnRed, PinMode.Output, PinValue.Low);
+        Program.piGPIOController.OpenPin(PlayBtnGreen, PinMode.Output, PinValue.Low);
 
         //Stage Back Lights
         foreach (var pin in Backlights)
         {
-            mcp20GPIOController.OpenPin(pin, PinMode.Output, PinValue.Low);
+            Program.mcp20GPIOController.OpenPin(pin, PinMode.Output, PinValue.Low);
         }  
     }
 }

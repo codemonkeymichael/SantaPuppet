@@ -41,16 +41,15 @@ public class Inputs
 
     /// <summary>
     /// Open all the input pins
-    /// </summary>
-    /// <param name="mcp20GPIOController"></param>
-    public static void OpenPins(GpioController mcp20GPIOController)
+    /// </summary>   
+    public static void OpenPins()
     {
-        mcp20GPIOController.OpenPin(SantaLeftArmStop, PinMode.Input);
-        mcp20GPIOController.OpenPin(SantaRightArmStop, PinMode.Input);
-        mcp20GPIOController.OpenPin(SantaFeetStop, PinMode.Input);
-        mcp20GPIOController.OpenPin(SantaTwistStop, PinMode.Input);
-        mcp20GPIOController.OpenPin(PlayButton, PinMode.Input);
-        mcp20GPIOController.OpenPin(CurtinStageLeftStopOpen, PinMode.Input);
-        mcp20GPIOController.OpenPin(CurtinStageRightStopClosed, PinMode.Input);
+        Program.mcp20GPIOController.OpenPin(SantaLeftArmStop, PinMode.Input);
+        Program.mcp20GPIOController.OpenPin(SantaRightArmStop, PinMode.Input);
+        Program.mcp20GPIOController.OpenPin(SantaFeetStop, PinMode.Input);
+        Program.mcp20GPIOController.OpenPin(SantaTwistStop, PinMode.Input);
+        Program.mcp20GPIOController.OpenPin(PlayButton, PinMode.Input);
+        Program.mcp20GPIOController.OpenPin(CurtinStageLeftStopOpen, PinMode.Input);
+        Program.mcp20GPIOController.OpenPin(CurtinStageRightStopClosed, PinMode.Input);
     }
 }

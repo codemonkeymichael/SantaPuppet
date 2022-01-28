@@ -5,19 +5,15 @@ namespace SantaPuppet;
 class Program
 {
     public static bool songPlaying = false;
-    public static GpioController _piGPIOController = new GpioController();
+    public static GpioController piGPIOController = new GpioController();
     private static I2cConnectionSettings connectionSettings = new I2cConnectionSettings(1, 0x20);
     private static I2cDevice device = I2cDevice.Create(connectionSettings);
     private static Mcp23017 mcp23017 = new Mcp23017(device);
-    private static GpioController _mcp20GPIOController = new GpioController(PinNumberingScheme.Logical, mcp23017);
-    public static Queue<QueueModel> queueList;
-
-
+    public static GpioController mcp20GPIOController = new GpioController(PinNumberingScheme.Logical, mcp23017); 
 
     public Program()
     {
-        Console.WriteLine("Program constructor.");
-        queueList = new Queue<QueueModel>();
+        Console.WriteLine("Program constructor.");      
     }
 
 
@@ -25,12 +21,12 @@ class Program
     {
         Console.WriteLine("Santa Puppet is Running");
 
-        //Inputs.OpenPins(_mcp20GPIOController);
-        Lights.OpenPins(_piGPIOController, _mcp20GPIOController);
+        Inputs.OpenPins();
+        Lights.OpenPins();
         //Motors.OpenPins(_piGPIOController);
 
-        LightCues lites = new LightCues(_piGPIOController);
-        lites.Back_Color(LightCues.Color.Random, true, 0);
+        LightCues lites = new LightCues();
+        lites.Back_Color(LightCues.Color.Random, true, 1250);
 
         //Songs.ItsTheMostWonderfulTimeOfTheYear song01 = new Songs.ItsTheMostWonderfulTimeOfTheYear(_piGPIOController, _mcp20GPIOController);
 
@@ -91,16 +87,4 @@ class Program
         //Close a pins and stop playing music
         Console.WriteLine("I quit!");
     }
-
-    public static void RunI2CJobs()
-    {
-        //Console.WriteLine(_queueList.Count);
-        while (queueList.Count > 0)
-        {        
-            var job = queueList.Dequeue();
-            _mcp20GPIOController.Write(job.Pin, job.PinValue);
-        }
-    }
-
-
 }
