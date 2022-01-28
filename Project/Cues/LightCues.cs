@@ -6,7 +6,7 @@ using System.Device.Pwm;
 namespace SantaPuppet.Cues;
 
 public class LightCues
-{  
+{
     public enum Color
     {
         Red,
@@ -27,25 +27,17 @@ public class LightCues
     }
     public void Back_StrobeAll(int duration)
     {
-        //foreach (int light in Lights.Backlights)
-        //{
-        //    var job = new QueueModel();
-        //    job.Pin = light;
-        //    job.PinValue = PinValue.High;
-        //    Program.queueList.Enqueue(job);
-        //    Program.RunI2CJobs();
-        //}
+        foreach (int light in Lights.Backlights)
+        {
+            I2CJobQueue.EnqueueLightJob(light, PinValue.High);
+        }
 
-        //Thread.Sleep(duration);
+        Thread.Sleep(duration);
 
-        //foreach (int light in Lights.Backlights)
-        //{
-        //    var job = new QueueModel();
-        //    job.Pin = light;
-        //    job.PinValue = PinValue.Low;
-        //    Program.queueList.Enqueue(job);
-        //    Program.RunI2CJobs();
-        //}
+        foreach (int light in Lights.Backlights)
+        {
+            I2CJobQueue.EnqueueLightJob(light, PinValue.Low);
+        }
     }
 
     public void Back_StrobeRandom_Fast_NoSplit(int repeat)
@@ -604,10 +596,6 @@ public class LightCues
         {
             foreach (var light in Lights.Backlights)
             {
-                //var job0 = new QueueModel();
-                //job0.Pin = light;
-                //job0.PinValue = PinValue.Low;
-                //Program.queueList.Enqueue(job0);
                 I2CJobQueue.EnqueueLightJob(light, PinValue.Low);
             }
         }
@@ -645,34 +633,14 @@ public class LightCues
                 pin2 = 7;
                 break;
         }
-        //var job1 = new QueueModel();
-        //job1.Pin = pin1;
-        //job1.PinValue = PinValue.High;
-        //Program.queueList.Enqueue(job1);
-        //Program.RunI2CJobs();
         I2CJobQueue.EnqueueLightJob(pin1, PinValue.High);
-
-        //var job2 = new QueueModel();
-        //job2.Pin = pin2;
-        //job2.PinValue = PinValue.High;
-        //Program.queueList.Enqueue(job2);
-        //Program.RunI2CJobs();
         I2CJobQueue.EnqueueLightJob(pin2, PinValue.High);
 
         if (duration > 0)
         {
             Thread.Sleep(duration);
-            //var job3 = new QueueModel();
-            //job3.Pin = pin1;
-            //job3.PinValue = PinValue.High;
-            //Program.queueList.Enqueue(job3);
-            //Program.RunI2CJobs();
+
             I2CJobQueue.EnqueueLightJob(pin1, PinValue.Low);
-            //var job4 = new QueueModel();
-            //job4.Pin = pin2;
-            //job4.PinValue = PinValue.High;
-            //Program.queueList.Enqueue(job4);
-            //Program.RunI2CJobs();
             I2CJobQueue.EnqueueLightJob(pin2, PinValue.Low);
         }
     }
@@ -729,33 +697,30 @@ public class LightCues
 
     public void PlayBtnBlink()
     {
-        //var onStatus = false;
-        //_mcp20GPIOController.Write(Lights.PlayBtnRed, PinValue.Low);
-        //_piGPIOController.Write(Lights.PlayBtnGreen, PinValue.Low);
-        //while (true)
-        //{
-        //    onStatus = !onStatus;
-        //    if (Program.songPlaying)
-        //    {
-        //        _mcp20GPIOController.Write(Lights.PlayBtnRed, PinValue.High);
-        //        break;
-        //    }
-        //    else
-        //    {
-        //        if (onStatus)
-        //        {
-        //            //Console.WriteLine("Play Btn blink green off");
-        //            _piGPIOController.Write(Lights.PlayBtnGreen, PinValue.Low);
-        //        }
-        //        else
-        //        {
-        //            //Console.WriteLine("Play Btn blink green on Is Pin Open ="  + _mcp20GPIOController.IsPinOpen(Lights.PlayBtnGreen));
-        //            _piGPIOController.Write(Lights.PlayBtnGreen, PinValue.High);
-        //        }
-        //    }
-        //    Thread.Sleep(500);
-        //}
+        var onStatus = false;
+        I2CJobQueue.EnqueueLightJob(Lights.PlayBtnRed, PinValue.Low); 
+        Program.piGPIOController.Write(Lights.PlayBtnGreen, PinValue.Low);
+        while (true)
+        {
+            onStatus = !onStatus;
+            if (Program.songPlaying)
+            {
+                I2CJobQueue.EnqueueLightJob(Lights.PlayBtnRed, PinValue.High);                
+                break;
+            }
+            else
+            {
+                if (onStatus)
+                {
+                    Program.piGPIOController.Write(Lights.PlayBtnGreen, PinValue.Low);
+                }
+                else
+                {
+                    Program.piGPIOController.Write(Lights.PlayBtnGreen, PinValue.High);
+                }
+            }
+            Thread.Sleep(500);
+        }
     }
-
 }
 
