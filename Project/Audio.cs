@@ -18,17 +18,14 @@ internal class Audio
     public static void CueSong(SongModel s)
     {
         _song = s;
+   
+        var cueListOrdered = from cl in _song.Cues
+                     orderby cl.CueTimeMin ascending, cl.CueTime ascending
+                     select cl;
 
-        //TODO: sort _song by time
-        var result = from sc in _song.Cues
-                     orderby sc.CueTimeMin ascending, sc.CueTime ascending
-                     select s;
-
-        //_song.Cues.Clear();
-        //_song.Cues = (List<CueModel>)result;
+        _song.Cues = cueListOrdered.ToList();
 
         var songPath = AppDomain.CurrentDomain.BaseDirectory + "audio/" + _song.SongPath;
-        //Console.WriteLine("songPath " + songPath);
 
         //VLC Player Init
         Core.Initialize();
@@ -46,6 +43,7 @@ internal class Audio
     public static void PlaySong()
     {
         _player.Play();
+        //_player.Position = 0.5F;
         //Console.WriteLine("PlaySong()");
     }
 
@@ -76,7 +74,7 @@ internal class Audio
 
     private static void OnPlaybackStart(object? sender, EventArgs e)
     {
-        //Console.WriteLine("OnPlaybackStart() Run Cue Timer");
+        //Console.WriteLine("OnPlaybackStart() Run Cue Timer the first time");
         _timer = new System.Timers.Timer(_song.Cues[_currentCue].CueTime);
         // Hook up the Elapsed event for the timer. 
         _timer.Elapsed += OnTimedEvent;

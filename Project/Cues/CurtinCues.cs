@@ -2,17 +2,11 @@
 
 public class CurtinCues
 {
-    private static GpioController _piGPIOController;
-    private static int[] _curtinMotor;
-    private const int maxSteps = 1000;
+    private static int[] _curtinMotor = Motors.curtinMotor;
+    //private const int maxSteps = 1000;
+    private const int maxSteps = 5;
     private static int maxStepCounter { get; set; }
 
-    public CurtinCues(GpioController piGPIOController)
-    {
-        //Console.WriteLine("Curtin Cues Constructors");
-        _curtinMotor = Motors.curtinMotor;
-        _piGPIOController = piGPIOController;
-    }
 
     /// <summary>
     /// Open and close the curtin.
@@ -45,22 +39,22 @@ public class CurtinCues
                 //    !open && _mcp20GPIOController.Read(Inputs.CurtinStageRightStopClosed) == PinValue.Low)
 
                 //{
-                    //Console.WriteLine("Curtin Break maxStepCounter=" + maxStepCounter + " _curtinMotor[step]=" + _curtinMotor[step] + " speed=" + speed);
+                //Console.WriteLine("Curtin Break maxStepCounter=" + maxStepCounter + " _curtinMotor[step]=" + _curtinMotor[step] + " speed=" + speed);
 
-                    int motorSteps = step;
-                    _piGPIOController.Write(_curtinMotor[motorSteps], PinValue.High);
-                    motorSteps++;
-                    if (motorSteps > 3) motorSteps = 0;
-                    _piGPIOController.Write(_curtinMotor[motorSteps], PinValue.High);
-                    motorSteps++;
-                    if (motorSteps > 3) motorSteps = 0;
-                    _piGPIOController.Write(_curtinMotor[motorSteps], PinValue.Low);
-                    motorSteps++;
-                    if (motorSteps > 3) motorSteps = 0;
-                    _piGPIOController.Write(_curtinMotor[motorSteps], PinValue.Low);
-                    step++;
-                    if (step > 3) step = 0;
-                    Thread.Sleep(speed);
+                int motorSteps = step;
+                Program.piGPIOController.Write(_curtinMotor[motorSteps], PinValue.High);
+                motorSteps++;
+                if (motorSteps > 3) motorSteps = 0;
+                Program.piGPIOController.Write(_curtinMotor[motorSteps], PinValue.High);
+                motorSteps++;
+                if (motorSteps > 3) motorSteps = 0;
+                Program.piGPIOController.Write(_curtinMotor[motorSteps], PinValue.Low);
+                motorSteps++;
+                if (motorSteps > 3) motorSteps = 0;
+                Program.piGPIOController.Write(_curtinMotor[motorSteps], PinValue.Low);
+                step++;
+                if (step > 3) step = 0;
+                Thread.Sleep(speed);
                 //}
                 //else
                 //{
@@ -80,7 +74,7 @@ public class CurtinCues
         foreach (int motor in _curtinMotor)
         {
             //Console.WriteLine("Turn off all curtin motors.");
-            _piGPIOController.Write(motor, PinValue.Low);
+            Program.piGPIOController.Write(motor, PinValue.Low);
         }
     }
 }

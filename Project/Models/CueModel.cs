@@ -6,5 +6,6 @@ public class CueModel
     public int CueTimeMin { get; set; }
     public Action CueAction { get; set; }
     public string CueName { get; set; }
+
 }
 
