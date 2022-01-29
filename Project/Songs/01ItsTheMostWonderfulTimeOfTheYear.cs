@@ -22,7 +22,8 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         SongModel song = new SongModel();
         song.Title = "Its The Most Wonderful Time Of The Year";
         song.SongPath = "01ItsTheMostWonderfulTimeOfTheYear.wav";
-        song.Cues = _Cues;
+        song.CuesLite = _CuesLite;
+        song.CuesCurtin = _CuesCurtin;
 
         return song;
     }
@@ -30,35 +31,22 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
     private List<CueModel> cueStackCurtin()
     {
         CurtinCues cur = new CurtinCues();
-        AddCue(5000, () => cur.OpenClose(true, 5), "Open Curtin");
-        //CueModel curtin10 = new CueModel();
-        //curtin10.CueTime = 5000;
-        //curtin10.CueTimeMin = 0;
-        //curtin10.CueName = "Curtin Open";
-        //curtin10.CueAction = () => cur.OpenClose(true, 2);
-        //Cues.Add(curtin10);
-        return _Cues;
+        AddCurtinCue(2000, () => cur.OpenClose(true, 5), "Open Curtin");
+        AddCurtinCue(25435, () => cur.OpenClose(false, 5), "Close Curtin",2);
+        return _CuesCurtin;
+
+        //curtin20.CueTime = 25435;
+        //curtin20.CueTimeMin = 2;
+        //curtin20.CueName = "Curtin Close";
+  
     }
 
     private List<CueModel> cueStackLights()
     {
-
         //Build the lighting cues
-
-
         LightCues lites = new LightCues();
-        
-        //AnimationCues ani = new AnimationCues(_piGPIOController);
 
-        AddCue(3000, () => lites.Back_Color_Green(), "Green Lights");
-
-        AddCue(1000, () => lites.Back_1LOn_Fast_Bounce_NoSplit(1), "Green Lights");
-
-
-
-
-
-
+        AddLiteCue(14, () => lites.DownStage(0, false, true, 0.0, 0.0, 0.0), "Fade down foot lights");
         //CueModel scene00 = new CueModel();
         //scene00.CueTime = 14;
         //scene00.CueTimeMin = 0;
@@ -66,6 +54,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene00.CueName = "Fade down foot lights";
         //Cues.Add(scene00);
 
+        AddLiteCue(16, () => lites.Back_Color_Green(), "Backlights Green Color");
         //CueModel scene1 = new CueModel();
         //scene1.CueTime = 16;
         //scene1.CueTimeMin = 0;
@@ -73,6 +62,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene1.CueName = "Backlights Green Color";
         //Cues.Add(scene1);
 
+        AddLiteCue(18, () => lites.Back_Color_Blue(), "Backlights Blue Color");
         //CueModel scene2 = new CueModel();
         //scene2.CueTime = 18;
         //scene2.CueTimeMin = 0;
@@ -80,6 +70,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene2.CueName = "Backlights Blue Color";
         //Cues.Add(scene2);
 
+        AddLiteCue(22, () => lites.DownStage(80, true, false, 1.00, 0.0, 0.0), "Fade up foot lights");
         //CueModel scene10 = new CueModel();
         //scene10.CueTime = 22;
         //scene10.CueTimeMin = 0;
@@ -87,70 +78,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene10.CueName = "Fade up foot lights";
         //Cues.Add(scene10);
 
-        ////CueModel anim10 = new CueModel();
-        ////anim10.CueTime = 25;
-        ////anim10.CueTimeMin = 0;
-        ////anim10.CueAction = () => ani.TwistBackForth(50, 150, 2);
-        ////anim10.CueName = "Twist Back and Forth";
-        ////Cues.Add(anim10);
-
-
-
-
-
-        ////CueModel feetTest = new CueModel();
-        ////feetTest.CueTime = 30;
-        ////feetTest.CueAction = () => ani.Feet(false, 250, 2);
-        ////feetTest.CueName = "Feet Forward";
-        ////Cues.Add(feetTest);
-
-        ////CueModel leftArmTest = new CueModel();
-        ////leftArmTest.CueTime = 550;
-        ////leftArmTest.CueAction = () => ani.LeftArm(false, 250, 2);
-        ////leftArmTest.CueName = "Left Arm";
-        ////Cues.Add(leftArmTest);
-
-        ////CueModel rightArmTest = new CueModel();
-        ////rightArmTest.CueTime = 1000;
-        ////rightArmTest.CueAction = () => ani.RightArm(false, 250, 2);
-        ////rightArmTest.CueName = "Right Arm";
-        ////Cues.Add(rightArmTest);
-
-        ////CueModel feetTest2 = new CueModel();
-        ////feetTest2.CueTime = 3050;
-        ////feetTest2.CueAction = () => ani.Feet(true, 500, 2);
-        ////feetTest2.CueName = "Feet Backward";
-        ////Cues.Add(feetTest2);
-
-        ////CueModel leftArmTest2 = new CueModel();
-        ////leftArmTest2.CueTime = 4400;
-        ////leftArmTest2.CueAction = () => ani.LeftArm(true, 500, 2);
-        ////leftArmTest2.CueName = "Left Arm Back";
-        ////Cues.Add(leftArmTest2);
-
-
-
-
-
-
-
-
-
-
-
-
-        ////CueModel rightArmTest2 = new CueModel();
-        ////rightArmTest2.CueTime = 5800;
-        ////rightArmTest2.CueAction = () => ani.RightArm(true, 500, 2);
-        ////rightArmTest2.CueName = "Right Arm";
-        ////Cues.Add(rightArmTest2);
-
-
-
-
-
-
-
+        AddLiteCue(6107, () => lites.DownStage(20, true, true, 1.00, 0.0, 0.00), "Fade up Key Lights");
         //CueModel scene11 = new CueModel();
         //scene11.CueTime = 6107;
         //scene11.CueTimeMin = 0;
@@ -158,71 +86,12 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene11.CueName = "Fade up Key Lights";
         //Cues.Add(scene11);
 
-
-
-
-
-
-        ////CueModel feetTest3 = new CueModel();
-        ////feetTest3.CueTime = 6800;
-        ////feetTest3.CueAction = () => ani.Feet(false, 250, 2);
-        ////feetTest3.CueName = "Feet Forward";
-        ////Cues.Add(feetTest3);
-
-        ////CueModel leftArmTest3 = new CueModel();
-        ////leftArmTest3.CueTime = 7550;
-        ////leftArmTest3.CueAction = () => ani.LeftArm(false, 250, 2);
-        ////leftArmTest3.CueName = "Left Arm";
-        ////Cues.Add(leftArmTest3);
-
-        ////CueModel rightArmTest3 = new CueModel();
-        ////rightArmTest3.CueTime = 8700;
-        ////rightArmTest3.CueAction = () => ani.RightArm(false, 250, 2);
-        ////rightArmTest3.CueName = "Right Arm";
-        ////Cues.Add(rightArmTest3);
-
-        ////CueModel feetTest4 = new CueModel();
-        ////feetTest4.CueTime = 9800;
-        ////feetTest4.CueAction = () => ani.Feet(true, 500, 2);
-        ////feetTest4.CueName = "Feet Backward";
-        ////Cues.Add(feetTest4);
-
-        ////CueModel leftArmTest4 = new CueModel();
-        ////leftArmTest4.CueTime = 10400;
-        ////leftArmTest4.CueAction = () => ani.LeftArm(true, 500, 2);
-        ////leftArmTest4.CueName = "Left Arm Back";
-        ////Cues.Add(leftArmTest4);
-
-        ////CueModel rightArmTest4 = new CueModel();
-        ////rightArmTest4.CueTime = 11800;
-        ////rightArmTest4.CueAction = () => ani.RightArm(true, 500, 2);
-        ////rightArmTest4.CueName = "Right Arm";
-        ////Cues.Add(rightArmTest4);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         ////CueModel scene15 = new CueModel();
         ////scene15.CueTime = 10866;
         ////scene15.CueTimeMin = 0;
         ////scene15.CueAction = () => lites.Back_Color_Red_Dur(350);
         ////scene15.CueName = "Ding";
         ////Cues.Add(scene15);
-
 
         ////CueModel scene16 = new CueModel();
         ////scene16.CueTime = 11646;
@@ -518,12 +387,6 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene55.CueName = "Sparkle Fast";
         //Cues.Add(scene55);
 
-        //CueModel curtin20 = new CueModel();
-        //curtin20.CueTime = 25435;
-        //curtin20.CueTimeMin = 2;
-        //curtin20.CueName = "Curtin Close";
-        //curtin20.CueAction = () => cur.OpenClose(false, 10);
-        //Cues.Add(curtin20);
 
         //CueModel scene56 = new CueModel();
         //scene56.CueTime = 26736;
@@ -587,6 +450,6 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         ////scene999.CueName = "Black Out";
         ////Cues.Add(scene999);
 
-        return _Cues;
+        return _CuesLite;
     }
 }

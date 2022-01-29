@@ -4,7 +4,7 @@ public class CurtinCues
 {
     private static int[] _curtinMotor = Motors.curtinMotor;
     //private const int maxSteps = 1000;
-    private const int maxSteps = 5;
+    private const int maxSteps = 100;
     private static int maxStepCounter { get; set; }
 
 
@@ -64,6 +64,7 @@ public class CurtinCues
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Curtin over ran the max number of steps. Something must be wrong with the stop input GPIO.");
                 break;
             }

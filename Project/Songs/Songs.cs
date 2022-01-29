@@ -12,16 +12,45 @@ namespace SantaPuppet.Songs;
 public class Songs
 {
 
-    public List<CueModel> _Cues = new List<CueModel>();
+    public List<CueModel> _CuesLite = new List<CueModel>();
+    public List<CueModel> _CuesAnim = new List<CueModel>();
+    public List<CueModel> _CuesCurtin = new List<CueModel>();
+    public List<CueModel> _CuesTalk = new List<CueModel>();
 
-
-    public void AddCue(int CueTime, Action CueAction, string CueName, int CueTimeMin = 0)
+    public void AddLiteCue(int CueTime, Action CueAction, string CueName, int CueTimeMin = 0)
     {
         CueModel c = new CueModel();
         c.CueTime = CueTime;
         c.CueTimeMin = CueTimeMin;
         c.CueAction = CueAction;
         c.CueName = CueName;
-        _Cues.Add(c);
+        _CuesLite.Add(c);
+    }
+    public void AddAnimCue(int CueTime, Action CueAction, string CueName, int CueTimeMin = 0)
+    {
+        CueModel c = new CueModel();
+        c.CueTime = CueTime;
+        c.CueTimeMin = CueTimeMin;
+        c.CueAction = CueAction;
+        c.CueName = CueName;
+        _CuesAnim.Add(c);
+    }
+    public void AddCurtinCue(int CueTime, Action CueAction, string CueName, int CueTimeMin = 0)
+    {
+        CueModel c = new CueModel();
+        c.CueTime = CueTime;
+        c.CueTimeMin = CueTimeMin;
+        c.CueAction = CueAction;
+        c.CueName = CueName;
+        _CuesCurtin.Add(c);
+    }
+    public void AddTalkCue(int CueTime, Action CueAction, string CueName, int CueTimeMin = 0)
+    {
+        CueModel c = new CueModel();
+        c.CueTime = CueTime;
+        c.CueTimeMin = CueTimeMin;
+        c.CueAction = CueAction;
+        c.CueName = CueName;
+        _CuesTalk.Add(c);
     }
 }
