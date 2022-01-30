@@ -88,12 +88,15 @@ public class Lights
     {
         //Button Lights
         Program.mcp20GPIOController.OpenPin(PlayBtnRed, PinMode.Output, PinValue.Low);
+        Thread.Sleep(5);
         Program.piGPIOController.OpenPin(PlayBtnGreen, PinMode.Output, PinValue.Low);
+        Thread.Sleep(5);
 
         //Stage Back Lights
         foreach (var pin in Backlights)
         {
             Program.mcp20GPIOController.OpenPin(pin, PinMode.Output, PinValue.Low);
+            Thread.Sleep(5);
         }  
     }
 }
@@ -156,11 +159,13 @@ public class Motors
     public static void OpenPins()
     {
         Program.piGPIOController.OpenPin(SantaTalk, PinMode.Output, PinValue.Low);
+        Thread.Sleep(5);
 
         //CurtinCues cc = new CurtinCues(piGPIOController);
         foreach (int motor in curtinMotor)
         {
-            Program.piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);            
+            Program.piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
+            Thread.Sleep(5);
         }
         //cc.OpenClose(false, 2);
 
@@ -168,23 +173,27 @@ public class Motors
         foreach (int motor in shouldersMotor)
         {
             Program.piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
+            Thread.Sleep(5);
         }
         //ac.TwistCenter();
 
         foreach (int motor in feetMotor)
         {
             Program.piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
+            Thread.Sleep(5);
         }
         //TODO: Center the feet motor
 
         foreach (int motor in leftArmMotor)
         {
             Program.piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
+            Thread.Sleep(5);
         }
         //TODO: Center the left arm motor
         foreach (int motor in rightArmMotor)
         {
             Program.piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
+            Thread.Sleep(5);
         }
 
     }

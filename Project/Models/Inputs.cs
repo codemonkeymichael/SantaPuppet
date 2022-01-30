@@ -45,11 +45,20 @@ public class Inputs
     public static void OpenPins()
     {
         Program.mcp20GPIOController.OpenPin(SantaLeftArmStop, PinMode.Input);
+        Thread.Sleep(5);
         Program.mcp20GPIOController.OpenPin(SantaRightArmStop, PinMode.Input);
+        Thread.Sleep(5);
         Program.mcp20GPIOController.OpenPin(SantaFeetStop, PinMode.Input);
+        Thread.Sleep(5);
         Program.mcp20GPIOController.OpenPin(SantaTwistStop, PinMode.Input);
+        Thread.Sleep(5);
         Program.mcp20GPIOController.OpenPin(PlayButton, PinMode.Input);
+        Thread.Sleep(5);
         Program.mcp20GPIOController.OpenPin(CurtinStageLeftStopOpen, PinMode.Input);
+        Thread.Sleep(5);
         Program.mcp20GPIOController.OpenPin(CurtinStageRightStopClosed, PinMode.Input);
+        Thread.Sleep(5);
+
+
     }
 }

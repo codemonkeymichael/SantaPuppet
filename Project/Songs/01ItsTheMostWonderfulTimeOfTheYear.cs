@@ -31,13 +31,10 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
     private List<CueModel> cueStackCurtin()
     {
         CurtinCues cur = new CurtinCues();
-        AddCurtinCue(2000, () => cur.OpenClose(true, 5), "Open Curtin");
+        AddCurtinCue(2000, () => cur.OpenClose(true, 5), "Open Curtin", 99);
         AddCurtinCue(25435, () => cur.OpenClose(false, 5), "Close Curtin",2);
         return _CuesCurtin;
 
-        //curtin20.CueTime = 25435;
-        //curtin20.CueTimeMin = 2;
-        //curtin20.CueName = "Curtin Close";
   
     }
 
@@ -47,44 +44,16 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         LightCues lites = new LightCues();
 
         AddLiteCue(14, () => lites.DownStage(0, false, true, 0.0, 0.0, 0.0), "Fade down foot lights");
-        //CueModel scene00 = new CueModel();
-        //scene00.CueTime = 14;
-        //scene00.CueTimeMin = 0;
-        //scene00.CueAction = () => lites.DownStage(0, false, true, 0.0, 0.0, 0.0);
-        //scene00.CueName = "Fade down foot lights";
-        //Cues.Add(scene00);
 
         AddLiteCue(16, () => lites.Back_Color_Green(), "Backlights Green Color");
-        //CueModel scene1 = new CueModel();
-        //scene1.CueTime = 16;
-        //scene1.CueTimeMin = 0;
-        //scene1.CueAction = () => lites.Back_Color_Green();
-        //scene1.CueName = "Backlights Green Color";
-        //Cues.Add(scene1);
 
         AddLiteCue(18, () => lites.Back_Color_Blue(), "Backlights Blue Color");
-        //CueModel scene2 = new CueModel();
-        //scene2.CueTime = 18;
-        //scene2.CueTimeMin = 0;
-        //scene2.CueAction = () => lites.Back_Color_Blue();
-        //scene2.CueName = "Backlights Blue Color";
-        //Cues.Add(scene2);
 
-        AddLiteCue(22, () => lites.DownStage(80, true, false, 1.00, 0.0, 0.0), "Fade up foot lights");
-        //CueModel scene10 = new CueModel();
-        //scene10.CueTime = 22;
-        //scene10.CueTimeMin = 0;
-        //scene10.CueAction = () => lites.DownStage(80, true, false, 1.00, 0.0, 0.0);
-        //scene10.CueName = "Fade up foot lights";
-        //Cues.Add(scene10);
+        AddLiteCue(22, () => lites.DownStage(20, true, false, 0.05, 0.0, 0.0), "Fade up foot lights");
 
-        AddLiteCue(6107, () => lites.DownStage(20, true, true, 1.00, 0.0, 0.00), "Fade up Key Lights");
-        //CueModel scene11 = new CueModel();
-        //scene11.CueTime = 6107;
-        //scene11.CueTimeMin = 0;
-        //scene11.CueAction = () => lites.DownStage(20, true, true, 1.00, 0.0, 0.00);
-        //scene11.CueName = "Fade up Key Lights";
-        //Cues.Add(scene11);
+        AddLiteCue(6107, () => lites.DownStage(20, true, true, 0.25, 0.0, 0.00), "Fade up Key Lights");
+
+
 
         ////CueModel scene15 = new CueModel();
         ////scene15.CueTime = 10866;

@@ -8,9 +8,11 @@ internal class Audio
     private static int _currentLiteCue = 0;
     private static System.Timers.Timer _timerCurtin;
     private static int _currentCurtinCue = 0;
+ 
 
     private static SongModel _song;
-    public static MediaPlayer _player;
+    public static MediaPlayer player;
+    public static bool songPlaying = false;
 
 
     /// <summary>
@@ -33,10 +35,10 @@ internal class Audio
         Core.Initialize();
         var libVLC = new LibVLC();
         var media = new Media(libVLC, songPath, FromType.FromPath);
-        _player = new MediaPlayer(media);
-        _player.Playing += OnPlaybackStart;
-        _player.EndReached += OnPlaybackFinished;
-        _player.TimeChanged += Player_TimeChanged; //Keep cues in sync with the audio    
+        player = new MediaPlayer(media);
+        player.Playing += OnPlaybackStart;
+        player.EndReached += OnPlaybackFinished;
+        player.TimeChanged += Player_TimeChanged; //Keep cues in sync with the audio    
         //Reset for a new song
         _currentLiteCue = 0;
         _currentCurtinCue = 0;
@@ -45,8 +47,8 @@ internal class Audio
 
     public static void PlaySong()
     {
-        _player.Position = 0.0F;
-        _player.Play();
+        player.Position = 0.0F;
+        player.Play();
         
         //Console.WriteLine("PlaySong()");
     }
@@ -54,31 +56,25 @@ internal class Audio
     private static void Player_TimeChanged(object? sender, MediaPlayerTimeChangedEventArgs e)
     {
         //This corrects the timer interval as the audio plays
+        //Lights
         if (_currentLiteCue < _song.CuesLite.Count)
         {
             int cueTime = _song.CuesLite[_currentLiteCue].CueTime + (_song.CuesLite[_currentLiteCue].CueTimeMin * 60000);
-            double newInterval = cueTime - e.Time; //Compair the cue time with where the song is  
-            //Console.WriteLine("Player_TimeChanged()" +
-            //" _currentCue=" + _currentCue +
-            //" _song.Cues.Count=" + _song.Cues.Count +
-            //" cue time=" + cueTime +
-            //" new timer interval=" + newInterval);
+            double newInterval = cueTime - e.Time; //Compair the cue time with where the song is   
             if (newInterval > 0) _timerLite.Interval = newInterval;
         }
-    
+        //Curtin
         if (_currentCurtinCue < _song.CuesCurtin.Count)
         {          
             int cueTime = _song.CuesCurtin[_currentCurtinCue].CueTime + (_song.CuesCurtin[_currentCurtinCue].CueTimeMin * 60000);      
-            double newInterval = cueTime - e.Time; //Compair the cue time with where the song is  
-            //Console.WriteLine("_currentCurtinCue " + _currentCurtinCue + "  _song.CuesCurtin.Count " + _song.CuesCurtin.Count + "  cueTime " + cueTime + "  newInterval " + newInterval) ;
+            double newInterval = cueTime - e.Time; //Compair the cue time with where the song is             
             if (newInterval > 0) _timerCurtin.Interval = newInterval;
         }
     }
 
     public static void StopSong()
     {
-        Program.songPlaying = false;
-        _player.Stop();
+        player.Stop(); 
         _timerLite.Stop();
         _timerLite.Dispose();
         _timerCurtin.Stop();
@@ -149,7 +145,6 @@ internal class Audio
     private static void OnPlaybackFinished(object? sender, EventArgs e)
     {
         Console.WriteLine("Playback Finished");
-        Program.songPlaying = false;
         _timerLite.Stop();
         _timerLite.Dispose();
         _timerCurtin.Stop();

@@ -521,21 +521,21 @@ public class LightCues
             }
         }
 
-        Color randColor = Color.Black;
+   
         if (color == Color.Random)
         {
             Array values = Enum.GetValues(typeof(Color));
             Random random = new Random();
-            while (randColor == Color.Random || randColor == Color.Black)
+            while (color == Color.Random || color == Color.Black)
             {
-                randColor = (Color)values.GetValue(random.Next(values.Length));
+                color = (Color)values.GetValue(random.Next(values.Length));
             }
         }
 
         int pin1 = 0;
         int pin2 = 0;
 
-        switch (randColor)
+        switch (color)
         {
             case Color.Red:
                 pin1 = 0;
@@ -624,7 +624,7 @@ public class LightCues
         while (true)
         {
             onStatus = !onStatus;
-            if (Program.songPlaying)
+            if (Audio.player.IsPlaying)
             {
                 I2CJobQueue.EnqueueLightJob(Lights.PlayBtnRed, PinValue.High);
                 break;
