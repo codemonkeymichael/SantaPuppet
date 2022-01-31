@@ -31,7 +31,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
     private List<CueModel> cueStackCurtin()
     {
         CurtinCues cur = new CurtinCues();
-        AddCurtinCue(2000, () => cur.OpenClose(true, 5), "Open Curtin", 99);
+        AddCurtinCue(6000, () => cur.OpenClose(true, 5), "Open Curtin", 0);
         AddCurtinCue(25435, () => cur.OpenClose(false, 5), "Close Curtin",2);
         return _CuesCurtin;
 
@@ -43,15 +43,13 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //Build the lighting cues
         LightCues lites = new LightCues();
 
-        AddLiteCue(14, () => lites.DownStage(0, false, true, 0.0, 0.0, 0.0), "Fade down foot lights");
+        //AddLiteCue(20, () => lites.Back_Color_Green(), "Backlights Green Color");
 
-        AddLiteCue(16, () => lites.Back_Color_Green(), "Backlights Green Color");
+        //AddLiteCue(30, () => lites.Back_Color_Blue(), "Backlights Blue Color");
 
-        AddLiteCue(18, () => lites.Back_Color_Blue(), "Backlights Blue Color");
+        AddLiteCue(1500, () => lites.DownStage(5, false, false, 0.01), "Fade down foot lights");
 
-        AddLiteCue(22, () => lites.DownStage(20, true, false, 0.05, 0.0, 0.0), "Fade up foot lights");
-
-        AddLiteCue(6107, () => lites.DownStage(20, true, true, 0.25, 0.0, 0.00), "Fade up Key Lights");
+        //AddLiteCue(6107, () => lites.DownStage(5, true, true, 0.00), "Fade up Key Lights");
 
 
 

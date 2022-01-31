@@ -1,4 +1,6 @@
-﻿namespace SantaPuppet.Models.Outputs;
+﻿using System.Device.Pwm;
+
+namespace SantaPuppet.Models.Outputs;
 
 public class Lights
 {
@@ -13,9 +15,8 @@ public class Lights
 
     /// <summary>
     /// PI-GPIO-18. Key Lights(PWM Dimmable Channel 0)
-    /// </summary>
-    private static int KeyLights { get; } = 18;
-
+    /// </summary> 
+    public static PwmChannel KeyLights = PwmChannel.Create(0, 0, 400, 0.0);
 
 
     /// <summary>
@@ -24,11 +25,10 @@ public class Lights
     public static int PlayBtnRed { get; } = 15;
 
 
-
     /// <summary>
     /// PI-GPIO-19. Foot Lights(PWM Dimmable Channel 1)
     /// </summary>
-    private static int FootLights { get; } = 19;
+    public static PwmChannel FootLights = PwmChannel.Create(0, 1, 400, 0.0);
 
 
     /// <summary>
@@ -97,7 +97,12 @@ public class Lights
         {
             Program.mcp20GPIOController.OpenPin(pin, PinMode.Output, PinValue.Low);
             Thread.Sleep(5);
-        }  
+        }
+        
+        KeyLights.Start();
+
+        FootLights.Start();
+
     }
 }
 
@@ -195,7 +200,6 @@ public class Motors
             Program.piGPIOController.OpenPin(motor, PinMode.Output, PinValue.Low);
             Thread.Sleep(5);
         }
-
     }
 }
 

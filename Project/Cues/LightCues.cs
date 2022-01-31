@@ -17,6 +17,19 @@ public class LightCues
         Random
     }
 
+    private double footLiteLevel = 1.0;
+    private double keyLiteLevel = 0.0;
+    private PwmChannel foot;
+    private PwmChannel key;
+
+    public LightCues()
+    {
+        foot = PwmChannel.Create(0, 1, 400, footLiteLevel);
+        foot.Start();
+        key = PwmChannel.Create(0, 0, 400, keyLiteLevel);
+        key.Start();
+    }
+
     public void Back_StrobeAll_Fast()
     {
         Back_StrobeAll(300);
@@ -447,8 +460,9 @@ public class LightCues
                 {
                     I2CJobQueue.EnqueueLightJob(Lights.Backlights[i], PinValue.Low);
 
-                    if (split) {
-                        I2CJobQueue.EnqueueLightJob(Lights.Backlights[i + 4], PinValue.Low);                 
+                    if (split)
+                    {
+                        I2CJobQueue.EnqueueLightJob(Lights.Backlights[i + 4], PinValue.Low);
                     }
                     addUpSleepTime += speed;
                     Thread.Sleep(speed);
@@ -521,7 +535,7 @@ public class LightCues
             }
         }
 
-   
+
         if (color == Color.Random)
         {
             Array values = Enum.GetValues(typeof(Color));
@@ -571,30 +585,27 @@ public class LightCues
     /// <summary>
     /// Down stage lights are controlled by PWM and as such can be dimmed.
     /// </summary>
-    /// <param name="speed">int 1 is fast, 15 is slow</param>
+    /// <param name="speed">int 1 is fast, 15 is slow. In micro seconds between steps.</param>
     /// <param name="up">bool true = fade up brighter, false = fade down dimmer</param>
     /// <param name="keyLights">bool true = lights at the top, false = foot lamps</param>
-    /// <param name="max">double 1.0 = full on when fading up, 0.5 is half </param>
-    /// <param name="min">double 0.0 = is off, 0.5 is half </param>
-    /// <param name="start">double 0.0 = is off, 0.5 is half </param>
-    public void DownStage(int speed, bool up, bool keyLights, double max, double min, double start)
+    /// <param name="level">double 1.0 = full on when fading up, 0.5 is half </param>
+    public void DownStage(int speed, bool up, bool keyLights, double level)
     {
-        //Console.WriteLine("DownStage()");
-        int keyLites = 1;
-        if (keyLights) keyLites = 0;
+       
+        double startLevel = footLiteLevel;       
+        if (keyLights) startLevel = keyLiteLevel;
+        //Console.WriteLine("DownStage() keyLights=" + keyLights + " startLevel=" + startLevel);
+
         //Console.WriteLine("DownStageLights speed=" + s.ToString() + 
         //    " up=" + u.ToString() + 
         //    " key=" + keyLites.ToString() +
         //    " mx=" + mx +
         //    " mn=" + mn + 
-        //    " st=" + st);
-
-        var pwm = PwmChannel.Create(0, keyLites, 400, start);
-        pwm.Start();
+        //    " st=" + st);  
 
         if (speed > 0)
         {
-            double fadeStatus = start;
+            double fadeStatus = startLevel;
             while (true)
             {
                 if (up)
@@ -607,20 +618,34 @@ public class LightCues
                     fadeStatus = fadeStatus - 0.001;
                     //Console.WriteLine("Down fadeStatus=" + fadeStatus);
                 }
-                if (fadeStatus > max && up) break;
-                if (fadeStatus < min && !up) break;
+                if (fadeStatus > level && up) break;
+                if (fadeStatus < level && !up) break;
 
-                pwm.DutyCycle = fadeStatus;
-                Thread.Sleep(speed);
+                if (keyLights)
+                {
+                    key.DutyCycle = fadeStatus;
+                }
+                else
+                {
+                    foot.DutyCycle = fadeStatus;
+                    //Console.WriteLine(fadeStatus);
+                }
             }
+            Thread.Sleep(speed);
         }
     }
+
 
     public void PlayBtnBlink()
     {
         var onStatus = false;
         I2CJobQueue.EnqueueLightJob(Lights.PlayBtnRed, PinValue.Low);
         Program.piGPIOController.Write(Lights.PlayBtnGreen, PinValue.Low);
+        //LightCues lc = new LightCues();
+        //lc.DownStage(2, true, false, 1.0);
+
+
+
         while (true)
         {
             onStatus = !onStatus;
@@ -644,4 +669,5 @@ public class LightCues
         }
     }
 }
+
 
