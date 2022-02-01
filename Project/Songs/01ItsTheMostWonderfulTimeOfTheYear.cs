@@ -43,16 +43,17 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //Build the lighting cues
         LightCues lites = new LightCues();
 
-        //AddLiteCue(20, () => lites.Back_Color_Green(), "Backlights Green Color");
+        AddLiteCue(20, () => lites.Back_Color_Green(), "Backlights Green Color");
 
-        //AddLiteCue(30, () => lites.Back_Color_Blue(), "Backlights Blue Color");
+        AddLiteCue(30, () => lites.Back_Color_Blue(), "Backlights Blue Color");
 
-        AddLiteCue(1500, () => lites.DownStage(5, false, false, 0.01), "Fade down foot lights");
+        AddLiteCue(40, () => lites.DownStage(200, false, false, 0.05), "Fade down foot lights");
 
-        //AddLiteCue(6107, () => lites.DownStage(5, true, true, 0.00), "Fade up Key Lights");
+        AddLiteCue(6107, () => lites.DownStage(50, true, true, 0.25), "Fade up Key Lights");
 
+        AddLiteCue(6127, () => lites.DownStage(60, true, false, 0.25), "Fade up foot lights");
 
-
+        AddLiteCue(10866, () => lites.Back_Color_Red_Dur(350), "Ding");
         ////CueModel scene15 = new CueModel();
         ////scene15.CueTime = 10866;
         ////scene15.CueTimeMin = 0;
@@ -60,6 +61,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         ////scene15.CueName = "Ding";
         ////Cues.Add(scene15);
 
+        AddLiteCue(11646, () => lites.Back_Color_Yellow_Dur(350), "Dong");
         ////CueModel scene16 = new CueModel();
         ////scene16.CueTime = 11646;
         ////scene16.CueTimeMin = 0;
@@ -67,6 +69,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         ////scene16.CueName = "Dong";
         ////Cues.Add(scene16);
 
+        AddLiteCue(12541, () => lites.Back_Color_Red_Dur(350), "Ding");
         //CueModel scene17 = new CueModel();
         //scene17.CueTime = 12541;
         //scene17.CueTimeMin = 0;
@@ -74,6 +77,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene17.CueName = "Ding";
         //Cues.Add(scene17);
 
+        AddLiteCue(13439, () => lites.Back_Color_Yellow_Dur(350), "Dong");
         //CueModel scene18 = new CueModel();
         //scene18.CueTime = 13439;
         //scene18.CueTimeMin = 0;
@@ -81,6 +85,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene18.CueName = "Dong";
         //Cues.Add(scene18);
 
+        AddLiteCue(19180, () => lites.Back_Color_Red(), "Ahhh");
         //CueModel scene19 = new CueModel();
         //scene19.CueTime = 19180;
         //scene19.CueTimeMin = 0;
@@ -88,6 +93,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene19.CueName = "Ahhh";
         //Cues.Add(scene19);
 
+        AddLiteCue(19184, () => lites.Back_Color_Yellow(), "Ahhh");
         //CueModel scene20 = new CueModel();
         //scene20.CueTime = 19184;
         //scene20.CueTimeMin = 0;

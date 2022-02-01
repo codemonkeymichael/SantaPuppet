@@ -11,7 +11,8 @@ public static class I2CJobQueue
     public static void RunJobs()
     {
         while (_queueList.Count > 0)
-        {          
+        {
+            //Console.WriteLine("RunJob Queue Count " + _queueList.Count );
             var job = _queueList.Dequeue();
     
             if (job.PinMo == PinMode.Output)
@@ -23,12 +24,13 @@ public static class I2CJobQueue
                 _inputVal = Program.mcp20GPIOController.Read(job.Pin); 
             }
             //Console.WriteLine("RunJob Queue Count " + _queueList.Count + "  Pin " + job.Pin + "  Mode " + job.PinMo);
-            Thread.Sleep(5);
+            Thread.Sleep(10);
         }     
     }
 
     public static void EnqueueLightJob(int PinNum, PinValue PinVal)
-    {    
+    {
+        //Console.WriteLine("EnqueueLightJob PinNum=" + PinNum + " PinVal=" + PinVal);
         var job = new QueueModel();
         job.Pin = PinNum;
         job.PinVal = PinVal;

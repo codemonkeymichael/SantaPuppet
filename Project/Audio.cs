@@ -63,13 +63,13 @@ internal class Audio
             double newInterval = cueTime - e.Time; //Compair the cue time with where the song is   
             if (newInterval > 0) _timerLite.Interval = newInterval;
         }
-        //Curtin
-        if (_currentCurtinCue < _song.CuesCurtin.Count)
-        {          
-            int cueTime = _song.CuesCurtin[_currentCurtinCue].CueTime + (_song.CuesCurtin[_currentCurtinCue].CueTimeMin * 60000);      
-            double newInterval = cueTime - e.Time; //Compair the cue time with where the song is             
-            if (newInterval > 0) _timerCurtin.Interval = newInterval;
-        }
+        ////Curtin
+        //if (_currentCurtinCue < _song.CuesCurtin.Count)
+        //{          
+        //    int cueTime = _song.CuesCurtin[_currentCurtinCue].CueTime + (_song.CuesCurtin[_currentCurtinCue].CueTimeMin * 60000);      
+        //    double newInterval = cueTime - e.Time; //Compair the cue time with where the song is             
+        //    if (newInterval > 0) _timerCurtin.Interval = newInterval;
+        //}
     }
 
     public static void StopSong()
@@ -89,12 +89,12 @@ internal class Audio
         _timerLite.AutoReset = false;
         _timerLite.Enabled = true;
         _timerLite.Start();
-        //Curtin 
-        _timerCurtin = new System.Timers.Timer(_song.CuesCurtin[_currentCurtinCue].CueTime);
-        _timerCurtin.Elapsed += OnTimedCurtinEvent;
-        _timerCurtin.AutoReset = false;
-        _timerCurtin.Enabled = true;
-        _timerCurtin.Start();
+        ////Curtin 
+        //_timerCurtin = new System.Timers.Timer(_song.CuesCurtin[_currentCurtinCue].CueTime);
+        //_timerCurtin.Elapsed += OnTimedCurtinEvent;
+        //_timerCurtin.AutoReset = false;
+        //_timerCurtin.Enabled = true;
+        //_timerCurtin.Start();
     }
     private static void OnTimedLiteEvent(Object source, ElapsedEventArgs e)
     {
@@ -112,10 +112,11 @@ internal class Audio
 
         _currentLiteCue++;
         if (_currentLiteCue < _song.CuesLite.Count)
-        {
+        {            
             int nextCueTime = _song.CuesLite[_currentLiteCue].CueTime + (_song.CuesLite[_currentLiteCue].CueTimeMin * 60000);
             int newInterval = nextCueTime - cueTime;
             _timerLite.Interval = newInterval;
+            Console.WriteLine("Set up the next cue " + _song.CuesLite[_currentLiteCue].CueName + ". newInterval=" + newInterval);
         }
     }
 

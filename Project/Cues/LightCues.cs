@@ -17,17 +17,13 @@ public class LightCues
         Random
     }
 
-    private double footLiteLevel = 1.0;
-    private double keyLiteLevel = 0.0;
-    private PwmChannel foot;
-    private PwmChannel key;
+    private double footLiteLevel = 0.001;
+    private double keyLiteLevel = 0.001;
+
 
     public LightCues()
     {
-        foot = PwmChannel.Create(0, 1, 400, footLiteLevel);
-        foot.Start();
-        key = PwmChannel.Create(0, 0, 400, keyLiteLevel);
-        key.Start();
+
     }
 
     public void Back_StrobeAll_Fast()
@@ -594,14 +590,8 @@ public class LightCues
        
         double startLevel = footLiteLevel;       
         if (keyLights) startLevel = keyLiteLevel;
+        
         //Console.WriteLine("DownStage() keyLights=" + keyLights + " startLevel=" + startLevel);
-
-        //Console.WriteLine("DownStageLights speed=" + s.ToString() + 
-        //    " up=" + u.ToString() + 
-        //    " key=" + keyLites.ToString() +
-        //    " mx=" + mx +
-        //    " mn=" + mn + 
-        //    " st=" + st);  
 
         if (speed > 0)
         {
@@ -610,28 +600,38 @@ public class LightCues
             {
                 if (up)
                 {
-                    fadeStatus = fadeStatus + 0.001;
-                    //Console.WriteLine("Up fadeStatus=" + fadeStatus);
+                    fadeStatus = fadeStatus + 0.02;         
                 }
                 else
                 {
-                    fadeStatus = fadeStatus - 0.001;
-                    //Console.WriteLine("Down fadeStatus=" + fadeStatus);
+                    fadeStatus = fadeStatus - 0.02;                   
                 }
-                if (fadeStatus > level && up) break;
-                if (fadeStatus < level && !up) break;
+                if (fadeStatus > level && up) fadeStatus = level;
+                if (fadeStatus < level && !up) fadeStatus = level;
+
+                //Console.WriteLine("FadeStatus=" + fadeStatus);
 
                 if (keyLights)
                 {
-                    key.DutyCycle = fadeStatus;
+                    Lights.KeyLights.DutyCycle = fadeStatus;
                 }
                 else
                 {
-                    foot.DutyCycle = fadeStatus;
-                    //Console.WriteLine(fadeStatus);
+                    Lights.FootLights.DutyCycle = fadeStatus;               
                 }
-            }
-            Thread.Sleep(speed);
+                if (fadeStatus == level) break;
+             
+                Thread.Sleep(speed);
+            }         
+        }
+
+        if (keyLights)
+        {
+            keyLiteLevel = level;
+        }
+        else
+        {
+            footLiteLevel = level;
         }
     }
 

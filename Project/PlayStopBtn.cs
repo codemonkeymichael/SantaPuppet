@@ -23,6 +23,9 @@ public static class PlayStopBtn
         Thread blinkPlayBtn = new Thread(() => lc.PlayBtnBlink());
         blinkPlayBtn.Start();
 
+        //Turn On Footlights
+        lc.DownStage(80, true, false, 1.0);
+
         //int workingPos = 0;
         //string[] working = { "|", "/", "-", @"\" };
         int loopDelay = 100;

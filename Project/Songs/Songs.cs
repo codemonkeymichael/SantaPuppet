@@ -19,6 +19,7 @@ public class Songs
 
     public void AddLiteCue(int CueTime, Action CueAction, string CueName, int CueTimeMin = 0)
     {
+        Console.WriteLine("AddLiteCue " + CueName);
         CueModel c = new CueModel();
         c.CueTime = CueTime;
         c.CueTimeMin = CueTimeMin;

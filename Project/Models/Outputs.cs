@@ -16,7 +16,7 @@ public class Lights
     /// <summary>
     /// PI-GPIO-18. Key Lights(PWM Dimmable Channel 0)
     /// </summary> 
-    public static PwmChannel KeyLights = PwmChannel.Create(0, 0, 400, 0.0);
+    public static PwmChannel KeyLights = PwmChannel.Create(0, 0, 400, 0.001);
 
 
     /// <summary>
@@ -28,7 +28,7 @@ public class Lights
     /// <summary>
     /// PI-GPIO-19. Foot Lights(PWM Dimmable Channel 1)
     /// </summary>
-    public static PwmChannel FootLights = PwmChannel.Create(0, 1, 400, 0.0);
+    public static PwmChannel FootLights = PwmChannel.Create(0, 1, 400, 0.001);
 
 
     /// <summary>

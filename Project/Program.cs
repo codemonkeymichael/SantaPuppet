@@ -20,6 +20,7 @@ public static class Program
         Lights.OpenPins();
         Motors.OpenPins();
 
+        //Ready to GO!
 
         Thread PSBtn = new Thread(() => PlayStopBtn.PlayStop());
         PSBtn.Start();  
