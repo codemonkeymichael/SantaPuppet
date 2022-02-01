@@ -521,7 +521,7 @@ public class LightCues
     /// <param name="duration">0 = leave them on </param>
     public void Back_Color(Color color, bool clear, int duration)
     {
-        Console.WriteLine("Back_Color - Color = " + color);
+        //Console.WriteLine("Back_Color - Color = " + color);
 
         if (color == Color.Black || clear)
         {
