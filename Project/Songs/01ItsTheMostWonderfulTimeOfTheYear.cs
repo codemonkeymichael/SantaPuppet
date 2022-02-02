@@ -365,7 +365,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene51.CueName = "Back to just him";
         //Cues.Add(scene51);
 
-        AddLiteCue(11065, () => lites.Back_StrobeRandom_Slow_NoSplit(12), "Strobe Random No Split Slow   Song End 26613   Slow 350 x 12 = 4200", 2);
+        AddLiteCue(11065, () => lites.Back_StrobeRandom_Slow_NoSplit(12), "Chaser Random No Split Slow", 2);
         //CueModel scene52 = new CueModel();
         //scene52.CueTime = 11055;
         //scene52.CueTimeMin = 2;
@@ -373,7 +373,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene52.CueName = "Sparkle Slow";
         //Cues.Add(scene52);
 
-        AddLiteCue(15260, () => lites.Back_StrobeRandom_Slow_Split(12), "Strobe Random Split Slow   Song End 26613   Slow 400 x 12 = 4800", 2);
+        AddLiteCue(15260, () => lites.Back_StrobeRandom_Slow_Split(12), "Chaser Random Split Slow", 2);
         //CueModel scene53 = new CueModel();
         //scene53.CueTime = 15260;
         //scene53.CueTimeMin = 2;
@@ -381,7 +381,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene53.CueName = "Sparkle Slow";
         //Cues.Add(scene53);
 
-        AddLiteCue(20065, () => lites.Back_StrobeRandom_Fast_NoSplit(22), "Strobe Random No Split Fast   Song End 26613   Fast 125 x 22 = 2750", 2);
+        AddLiteCue(20065, () => lites.Back_StrobeRandom_Fast_NoSplit(21), "Chaser Random No Split Fast", 2);
         //CueModel scene54 = new CueModel();
         //scene54.CueTime = 20065;
         //scene54.CueTimeMin = 2;
@@ -389,7 +389,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene54.CueName = "Sparkle Fast";
         //Cues.Add(scene54);
 
-        AddLiteCue(23070, () => lites.Back_StrobeRandom_Fast_Split(20), "Strobe Random Split Fast   Song End 26613   Fast 150 x 20 = 3000", 2);
+        AddLiteCue(23070, () => lites.Back_StrobeRandom_Fast_Split(12), "Chaser Random Split Fast", 2);
         //CueModel scene55 = new CueModel();
         //scene55.CueTime = 23070;
         //scene55.CueTimeMin = 2;
@@ -413,7 +413,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene57.CueName = "Strobe 2";
         //Cues.Add(scene57);
 
-        AddLiteCue(27410, () => lites.DownStage(0, true, true, 1.0), "Strobe 3 Down Stage Key", 2);
+        AddLiteCue(27200, () => lites.DownStage(0, true, true, 1.0), "Strobe 3 Down Stage Key", 2);
         //CueModel scene58 = new CueModel();
         //scene58.CueTime = 27410;
         //scene58.CueTimeMin = 2;
@@ -421,7 +421,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene58.CueName = "Strobe 3 Down Stage Key";
         //Cues.Add(scene58);
 
-        AddLiteCue(27425, () => lites.DownStage(0, true, false, 1.0), "Strobe 3 Down Stage Foot", 2);
+        AddLiteCue(27215, () => lites.DownStage(0, true, false, 1.0), "Strobe 3 Down Stage Foot", 2);
         //CueModel scene59 = new CueModel();
         //scene59.CueTime = 27415;
         //scene59.CueTimeMin = 2;
@@ -429,7 +429,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene59.CueName = "Strobe 3 Down Stage Key";
         //Cues.Add(scene59);
 
-        AddLiteCue(27440, () => lites.Back_StrobeAll_Fast(), "Strobe 3 Back All", 2);
+        AddLiteCue(27550, () => lites.Back_StrobeAll_Fast(), "Strobe 3 Back All", 2);
         //CueModel scene60 = new CueModel();
         //scene60.CueTime = 27420;
         //scene60.CueTimeMin = 2;
@@ -437,7 +437,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene60.CueName = "Strobe 3";
         //Cues.Add(scene60);
 
-        AddLiteCue(27455, () => lites.DownStage(2, false, true, 0.001), "Strobe 3 Down Stage Key Out", 2);
+        AddLiteCue(27700, () => lites.DownStage(10, false, true, 0.001), "Strobe 3 Down Stage Key Out", 2);
         //CueModel scene61 = new CueModel();
         //scene61.CueTime = 27425;
         //scene61.CueTimeMin = 2;
@@ -445,7 +445,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //scene61.CueName = "Strobe 3 Down Stage Key Out";
         //Cues.Add(scene61);
 
-        AddLiteCue(27470, () => lites.DownStage(2, false, false, 0.001), "Strobe 3 Down Stage Foot Out", 2);
+        AddLiteCue(27715, () => lites.DownStage(10, false, false, 0.001), "Strobe 3 Down Stage Foot Out", 2);
         //CueModel scene62 = new CueModel();
         //scene62.CueTime = 27430;
         //scene62.CueTimeMin = 2;

@@ -24,11 +24,11 @@ public static class PlayStopBtn
         blinkPlayBtn.Start();
 
         //Turn On Footlights
-        lc.DownStage(100, true, false, 1.0);
+        lc.DownStage(200, true, false, 1.0);
 
         //int workingPos = 0;
         //string[] working = { "|", "/", "-", @"\" };
-        int loopDelay = 100;
+        int loopDelay = 15;
 
         while (true)
         {

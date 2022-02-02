@@ -28,7 +28,7 @@ public class LightCues
 
     public void Back_StrobeAll_Fast()
     {
-        Back_StrobeAll(300);
+        Back_StrobeAll(400);
     }
     public void Back_StrobeAll_Slow()
     {
