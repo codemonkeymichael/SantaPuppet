@@ -8,7 +8,7 @@ internal class Audio
     private static int _currentLiteCue = 0;
     private static System.Timers.Timer _timerCurtin;
     private static int _currentCurtinCue = 0;
- 
+
 
     private static SongModel _song;
     public static MediaPlayer player;
@@ -24,8 +24,8 @@ internal class Audio
         _song = s;
         //order lite cues
         var liteCueListOrdered = from cl in _song.CuesLite
-                     orderby cl.CueTimeMin ascending, cl.CueTime ascending
-                     select cl;
+                                 orderby cl.CueTimeMin ascending, cl.CueTime ascending
+                                 select cl;
         _song.CuesLite = liteCueListOrdered.ToList();
 
 
@@ -42,26 +42,52 @@ internal class Audio
         //Reset for a new song
         _currentLiteCue = 0;
         _currentCurtinCue = 0;
-   
+
     }
 
     public static void PlaySong()
     {
-        player.Position = 0.0F;
         player.Play();
-        
+        var startTime = 11049 + (2 * 60000); // ms min
+        var len = player.Length;
+        float pos = startTime / len;
+        player.Position = pos;
         //Console.WriteLine("PlaySong()");
     }
 
     private static void Player_TimeChanged(object? sender, MediaPlayerTimeChangedEventArgs e)
     {
+        Console.WriteLine("Player Time " + e.Time);
         //This corrects the timer interval as the audio plays
         //Lights
         if (_currentLiteCue < _song.CuesLite.Count)
         {
+
             int cueTime = _song.CuesLite[_currentLiteCue].CueTime + (_song.CuesLite[_currentLiteCue].CueTimeMin * 60000);
-            double newInterval = cueTime - e.Time; //Compair the cue time with where the song is   
-            if (newInterval > 0) _timerLite.Interval = newInterval;
+            double newInterval = cueTime - e.Time; //Compair the cue time with where the song is
+            if (newInterval < 3)
+            {   //Find the cue by the audio time cause we past the current cue and set the _currentLiteCue
+                Console.WriteLine("The Time for the cue has past. newInterval = " + newInterval);
+                foreach (var cue in _song.CuesLite)
+                {
+                    int ct = cue.CueTime + (cue.CueTimeMin * 60000);
+                    if (ct > e.Time)
+                    {
+                        Console.WriteLine("Got It Cue Time=" + ct + " Audio Time " + e.Time); 
+                        _timerLite.Interval = ct - e.Time;
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nope Cue Time=" + ct + " Audio Time " + e.Time);
+                        _currentLiteCue++;
+                    }
+                }
+            }
+            else
+            {
+                if (newInterval > 0) _timerLite.Interval = newInterval;
+            }
         }
         ////Curtin
         //if (_currentCurtinCue < _song.CuesCurtin.Count)
@@ -74,7 +100,7 @@ internal class Audio
 
     public static void StopSong()
     {
-        player.Stop(); 
+        player.Stop();
         _timerLite.Stop();
         _timerLite.Dispose();
         _timerCurtin.Stop();
@@ -84,7 +110,7 @@ internal class Audio
     private static void OnPlaybackStart(object? sender, EventArgs e)
     {
         //Lights
-        _timerLite = new System.Timers.Timer(_song.CuesLite[_currentLiteCue].CueTime); 
+        _timerLite = new System.Timers.Timer(_song.CuesLite[_currentLiteCue].CueTime);
         _timerLite.Elapsed += OnTimedLiteEvent;
         _timerLite.AutoReset = false;
         _timerLite.Enabled = true;
@@ -104,7 +130,7 @@ internal class Audio
             " of " + _song.CuesLite.Count +
             "  Time " + cueTime +
             "  CueName Light-" + _song.CuesLite[_currentLiteCue].CueName);
-   
+
         int num = _currentLiteCue; //I don't know why I have to do this???? It works.
         Thread t = new Thread(() => _song.CuesLite[num].CueAction.Invoke());
         t.Name = _song.CuesLite[_currentLiteCue].CueName;
@@ -112,11 +138,11 @@ internal class Audio
 
         _currentLiteCue++;
         if (_currentLiteCue < _song.CuesLite.Count)
-        {            
+        {
             int nextCueTime = _song.CuesLite[_currentLiteCue].CueTime + (_song.CuesLite[_currentLiteCue].CueTimeMin * 60000);
             int newInterval = nextCueTime - cueTime;
             _timerLite.Interval = newInterval;
-            Console.WriteLine("Set up the next cue " + _song.CuesLite[_currentLiteCue].CueName + ". newInterval=" + newInterval);
+            //Console.WriteLine("Set up the next cue " + _song.CuesLite[_currentLiteCue].CueName + ". newInterval=" + newInterval);
         }
     }
 
@@ -148,8 +174,8 @@ internal class Audio
         Console.WriteLine("Playback Finished");
         _timerLite.Stop();
         _timerLite.Dispose();
-        _timerCurtin.Stop();
-        _timerCurtin.Dispose();
+        //_timerCurtin.Stop();
+        //_timerCurtin.Dispose();
     }
 }
 

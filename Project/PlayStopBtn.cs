@@ -24,7 +24,7 @@ public static class PlayStopBtn
         blinkPlayBtn.Start();
 
         //Turn On Footlights
-        lc.DownStage(80, true, false, 1.0);
+        lc.DownStage(100, true, false, 1.0);
 
         //int workingPos = 0;
         //string[] working = { "|", "/", "-", @"\" };
