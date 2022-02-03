@@ -4,7 +4,7 @@ public class CurtinCues
 {
     private static int[] _curtinMotor = Motors.curtinMotor;
     //private const int maxSteps = 1000;
-    private const int maxSteps = 100;
+    private const int maxSteps = 99999999;
     private static int maxStepCounter { get; set; }
 
 
@@ -19,11 +19,6 @@ public class CurtinCues
 
         if (open) Array.Reverse(_curtinMotor);
 
-        //foreach (var c in _curtinMotor)
-        //{
-        //    Console.WriteLine(c);
-        //}
-
         maxStepCounter = 0;
         int step = 0; //Four steps 0 1 2 3
 
@@ -34,33 +29,48 @@ public class CurtinCues
 
             if (maxStepCounter < maxSteps)
             {
-                //if (open && _mcp20GPIOController.Read(Inputs.CurtinStageLeftStopOpen) == PinValue.Low
-                //    ||
-                //    !open && _mcp20GPIOController.Read(Inputs.CurtinStageRightStopClosed) == PinValue.Low)
+                if ((open && !Inputs.CurtinStageLeftStopOpenTrigger)
+                    ||
+                    (!open && !Inputs.CurtinStageRightStopClosedTrigger))
+                {
+                    //Console.WriteLine("Curtin Break maxStepCounter=" + maxStepCounter + " _curtinMotor[step]=" + _curtinMotor[step] + " speed=" + speed);
 
-                //{
-                //Console.WriteLine("Curtin Break maxStepCounter=" + maxStepCounter + " _curtinMotor[step]=" + _curtinMotor[step] + " speed=" + speed);
-
-                int motorSteps = step;
-                Program.piGPIOController.Write(_curtinMotor[motorSteps], PinValue.High);
-                motorSteps++;
-                if (motorSteps > 3) motorSteps = 0;
-                Program.piGPIOController.Write(_curtinMotor[motorSteps], PinValue.High);
-                motorSteps++;
-                if (motorSteps > 3) motorSteps = 0;
-                Program.piGPIOController.Write(_curtinMotor[motorSteps], PinValue.Low);
-                motorSteps++;
-                if (motorSteps > 3) motorSteps = 0;
-                Program.piGPIOController.Write(_curtinMotor[motorSteps], PinValue.Low);
-                step++;
-                if (step > 3) step = 0;
-                Thread.Sleep(speed);
-                //}
-                //else
-                //{
-                //    Console.WriteLine("Curtin hit the stop. Open = " + open);
-                //    break;
-                //}
+                    int motorSteps = step;
+                    Program.piGPIOController.Write(_curtinMotor[motorSteps], PinValue.High);
+                    motorSteps++;
+                    if (motorSteps > 3) motorSteps = 0;
+                    Program.piGPIOController.Write(_curtinMotor[motorSteps], PinValue.High);
+                    motorSteps++;
+                    if (motorSteps > 3) motorSteps = 0;
+                    Program.piGPIOController.Write(_curtinMotor[motorSteps], PinValue.Low);
+                    motorSteps++;
+                    if (motorSteps > 3) motorSteps = 0;
+                    Program.piGPIOController.Write(_curtinMotor[motorSteps], PinValue.Low);
+                    step++;
+                    if (step > 3)
+                    {
+                        step = 0;
+                        //Check the stop every 4 steps
+                        if (open)
+                        {
+                            Thread stopCheck = new Thread(() => I2CJobQueue.CurtinOpenCheck());
+                            stopCheck.Start();
+                        }
+                        else
+                        {
+                            Thread stopCheck = new Thread(() => I2CJobQueue.CurtinCloseCheck());
+                            stopCheck.Start();
+                        }
+                    }
+                    Thread.Sleep(speed);
+                }
+                else
+                {
+                    Console.WriteLine("Curtin hit the stop. Open = " + open);
+                    Inputs.CurtinStageRightStopClosedTrigger = false;
+                    Inputs.CurtinStageLeftStopOpenTrigger = false;
+                    break;
+                }
             }
             else
             {

@@ -27,17 +27,30 @@ public class Inputs
     /// MCP-GPIO-B4. Curtin Stage Left Stop (Open) (yellow wire)
     /// </summary>
     public static int CurtinStageLeftStopOpen { get; } = 12;
+    /// <summary>
+    /// Set this true when the input goes high and then stop polling it 
+    /// </summary>
+    public static bool CurtinStageLeftStopOpenTrigger { get; set; } = false;
+
 
     /// <summary>
     /// MCP-GPIO-B5-14. Curtin Stage Right Stop (Close) (green wire) 
     /// </summary>
     public static int CurtinStageRightStopClosed { get; } = 13;
+    /// <summary>
+    /// Set this true when the input goes high and then stop polling it 
+    /// </summary>
+    public static bool CurtinStageRightStopClosedTrigger { get; set; } = false;
 
 
     /// <summary>
     /// MCP-GPIO-B6. Play button (blue wire)
     /// </summary>
     public static int PlayButton { get; } = 14;
+    /// <summary>
+    /// et this true when the input goes high and then stop polling it 
+    /// </summary>
+    public static bool PlayButtonTrigger { get; set; } = false;
 
     /// <summary>
     /// Open all the input pins

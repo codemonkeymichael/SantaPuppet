@@ -600,11 +600,11 @@ public class LightCues
             {
                 if (up)
                 {
-                    fadeStatus = fadeStatus + 0.02;         
+                    fadeStatus = fadeStatus + 0.01;         
                 }
                 else
                 {
-                    fadeStatus = fadeStatus - 0.02;                   
+                    fadeStatus = fadeStatus - 0.01;                   
                 }
                 if (fadeStatus > level && up) fadeStatus = level;
                 if (fadeStatus < level && !up) fadeStatus = level;
@@ -641,10 +641,6 @@ public class LightCues
         var onStatus = false;
         I2CJobQueue.EnqueueLightJob(Lights.PlayBtnRed, PinValue.Low);
         Program.piGPIOController.Write(Lights.PlayBtnGreen, PinValue.Low);
-        //LightCues lc = new LightCues();
-        //lc.DownStage(2, true, false, 1.0);
-
-
 
         while (true)
         {
@@ -652,6 +648,11 @@ public class LightCues
             if (Audio.player.IsPlaying)
             {
                 I2CJobQueue.EnqueueLightJob(Lights.PlayBtnRed, PinValue.High);
+                if (onStatus)
+                {
+                    //Make sure the green light goes off
+                    Program.piGPIOController.Write(Lights.PlayBtnGreen, PinValue.Low);
+                }
                 break;
             }
             else

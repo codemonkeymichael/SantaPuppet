@@ -15,6 +15,7 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
     {
         cueStackLights();
         cueStackCurtin();
+        cueStackAnimation();
     }
     public SongModel cueStack()
     {
@@ -24,17 +25,26 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         song.SongPath = "01ItsTheMostWonderfulTimeOfTheYear.wav";
         song.CuesLite = _CuesLite;
         song.CuesCurtin = _CuesCurtin;
+        song.CuesAnim = _CuesAnim;
 
         return song;
+    }
+
+    private List<CueModel> cueStackAnimation()
+    {
+        AnimationCues ac = new AnimationCues();
+        AddAnimCue(2000, () => ac.Twist(true,100,200), "Twist");
+ 
+        return _CuesAnim;
+
     }
 
     private List<CueModel> cueStackCurtin()
     {
         CurtinCues cur = new CurtinCues();
-        AddCurtinCue(6000, () => cur.OpenClose(true, 5), "Open Curtin", 0);
+        AddCurtinCue(4000, () => cur.OpenClose(true, 5), "Open Curtin", 0);
         AddCurtinCue(25435, () => cur.OpenClose(false, 5), "Close Curtin",2);
         return _CuesCurtin;
-
   
     }
 
@@ -43,9 +53,9 @@ public class ItsTheMostWonderfulTimeOfTheYear : Songs
         //Build the lighting cues
         LightCues lites = new LightCues(); 
 
-        AddLiteCue(50, () => lites.DownStage(200, false, false, 0.05), "Fade down foot lights");
+        AddLiteCue(50, () => lites.DownStage(30, false, false, 0.02), "Fade down foot lights");
         AddLiteCue(1000, () => lites.Back_Color_Green(), "Backlights Green Color");
-        AddLiteCue(2000, () => lites.Back_Color_Blue(), "Backlights Blue Color");
+        AddLiteCue(1002, () => lites.Back_Color_Blue(), "Backlights Blue Color");
         AddLiteCue(6107, () => lites.DownStage(75, true, true, 0.25), "Fade up Key Lights");
         AddLiteCue(6127, () => lites.DownStage(85, true, false, 0.25), "Fade up foot lights");
         AddLiteCue(10866, () => lites.Back_Color_Red_Dur(350), "Ding 1");

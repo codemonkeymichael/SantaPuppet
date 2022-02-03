@@ -18,22 +18,27 @@ public static class PlayStopBtn
         Audio.CueSong(song01.cueStack());
 
 
-        //Blink the play btn
+        
         LightCues lc = new LightCues();
+        //Turn On Footlights
+        lc.DownStage(25, true, false, 1.0);
+        //Blink the play btn we are ready to play
         Thread blinkPlayBtn = new Thread(() => lc.PlayBtnBlink());
         blinkPlayBtn.Start();
 
-        //Turn On Footlights
-        lc.DownStage(200, true, false, 1.0);
+        Thread playBtnCheck = new Thread(() => I2CJobQueue.PlayButtonCheck());
+        playBtnCheck.Start();
 
         //int workingPos = 0;
         //string[] working = { "|", "/", "-", @"\" };
-        int loopDelay = 15;
+        int loopDelay = 10;
+
+    
 
         while (true)
         {
 
-            if (I2CJobQueue.EnqueueInputCheck(Inputs.PlayButton) == PinValue.High)
+            if (Inputs.PlayButtonTrigger)
             {
                 if (Audio.player.IsPlaying)
                 {
@@ -72,7 +77,7 @@ public static class PlayStopBtn
                     ////Console.SetCursorPosition(2, 4);
                     ////Console.ForegroundColor = ConsoleColor.Green;
                     ////Console.Write(new string(' ', Console.WindowWidth));
-
+                    Inputs.PlayButtonTrigger = false;
                     break;
 
                 }

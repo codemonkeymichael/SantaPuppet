@@ -19,7 +19,7 @@ public class Songs
 
     public void AddLiteCue(int CueTime, Action CueAction, string CueName, int CueTimeMin = 0)
     {
-        //Console.WriteLine("AddLiteCue " + CueName);
+        Console.WriteLine("Add Lite Cue " + CueName);
         CueModel c = new CueModel();
         c.CueTime = CueTime;
         c.CueTimeMin = CueTimeMin;
@@ -29,6 +29,7 @@ public class Songs
     }
     public void AddAnimCue(int CueTime, Action CueAction, string CueName, int CueTimeMin = 0)
     {
+        Console.WriteLine("Add Anim Cue " + CueName);
         CueModel c = new CueModel();
         c.CueTime = CueTime;
         c.CueTimeMin = CueTimeMin;
@@ -38,6 +39,7 @@ public class Songs
     }
     public void AddCurtinCue(int CueTime, Action CueAction, string CueName, int CueTimeMin = 0)
     {
+        Console.WriteLine("Add Curtin Cue " + CueName);
         CueModel c = new CueModel();
         c.CueTime = CueTime;
         c.CueTimeMin = CueTimeMin;
@@ -47,6 +49,7 @@ public class Songs
     }
     public void AddTalkCue(int CueTime, Action CueAction, string CueName, int CueTimeMin = 0)
     {
+        Console.WriteLine("Add Talk Cue " + CueName);
         CueModel c = new CueModel();
         c.CueTime = CueTime;
         c.CueTimeMin = CueTimeMin;

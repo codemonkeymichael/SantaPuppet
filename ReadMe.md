@@ -5,7 +5,7 @@ https://cdn.sparkfun.com/assets/learn_tutorials/4/2/4/header_pinout.jpg
 
 GPIO-14. Play Btn Feedback LED Green     
      
-GPIO-15. Talking (black wire) 
+GPIO-15. Talking (black wire) ???????
 
 GPIO-18. LED1 Key Lights (PWM Dimmable Channel 0) (blue wire)  
 
@@ -36,6 +36,9 @@ GPIO-22. Motor2 Left Arm (red wire)
 GPIO-27. Motor2 Left Arm (green wire)    
 GPIO-17. Motor2 Left Arm (blue wire)      
 GPIO-4. Motor2 Left Arm (yellow wire)   
+
+GPIO-1. -----
+GPIO-0. -----
      
    
 MCP23017 Port Expander 0x20    
