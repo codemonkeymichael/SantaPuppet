@@ -1,4 +1,17 @@
- 
+This project is a Christmas gift for my brother in law Tim. He is a super cool guy. Also I'm having a lot of fun working on this.     
+      
+It’s my first real raspberry pi project. I started it in October 2021 and clearly the scope was too large to finish by that December so it will now be his 2022 gift.    
+     
+The project will be a Santa Clause marionet that will sing and dance to classic Christmas songs. It will also include a light show. I’m hand building every part of it.    
+    
+(The plan is… not all the code has been written yet 2/3/2022)    
+The following code controls 6 stepper motors and 16 channels of lights. It will host a blazor web site to control some of the feature. Features like a Santa Cuckoo Clock that will go off every hour counting down the days until Christmas and playing a song. I’m starting with 10 songs and will add more as time permits. 
+    
+  
+    
+
+Notes:  
+
 GPIOs   
 https://cdn.sparkfun.com/assets/learn_tutorials/4/2/4/header_pinout.jpg    
    
