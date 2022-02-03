@@ -7,7 +7,7 @@ The project will be a Santa Clause marionet that will sing and dance to classic 
 (The plan is… not all the code has been written yet 2/3/2022)    
 The following code controls 6 stepper motors and 16 channels of lights. It will host a blazor web site to control some of the feature. Features like a Santa Cuckoo Clock that will go off every hour counting down the days until Christmas and playing a song. I’m starting with 10 songs and will add more as time permits. 
     
-  
+The code is C# .NET6.  
     
 
 Notes:  
