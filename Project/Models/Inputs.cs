@@ -6,21 +6,37 @@ public class Inputs
     /// MCP-GPIO-B0. Left Arm Stops (red wire)
     /// </summary>
     public static int SantaLeftArmStop { get; } = 8;
+    /// <summary>
+    /// Set this true when the input goes high and then stop polling it 
+    /// </summary>
+    public static bool SantaRightArmStopTrigger { get; set; } = false;
 
     /// <summary>
     /// MCP-GPIO-B1. Right Arm Stops (green wire)
     /// </summary>
     public static int SantaRightArmStop { get; } = 9;
+    /// <summary>
+    /// Set this true when the input goes high and then stop polling it 
+    /// </summary>
+    public static bool SantaLeftArmStopTrigger { get; set;} = false;
 
     /// <summary>
     /// MCP-GPIO-B2. Feet Stops (blue wire)
     /// </summary>
     public static int SantaFeetStop { get; } = 10;
+    /// <summary>
+    /// Set this true when the input goes high and then stop polling it 
+    /// </summary>
+    public static bool SantaFeetStopTrigger { get; set;} = false;
 
     /// <summary>
     /// MCP-GPIO-B3. Twist Stops (black wire)
     /// </summary>
     public static int SantaTwistStop { get; } = 11;
+    /// <summary>
+    /// Set this true when the input goes high and then stop polling it 
+    /// </summary>
+    public static bool SantaTwistStopTrigger { get; set; } = false; 
 
 
     /// <summary>
