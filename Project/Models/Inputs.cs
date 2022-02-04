@@ -87,7 +87,5 @@ public class Inputs
         Thread.Sleep(5);
         Program.mcp20GPIOController.OpenPin(CurtinStageRightStopClosed, PinMode.Input);
         Thread.Sleep(5);
-
-
     }
 }
